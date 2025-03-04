@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb://localhost:27017/e_commerce_db"
+    "mongoURI": "mongodb://localhost:27017/e_commerce_db",
+    "jwtSecret": "x5)BS13^9f^)Yous6A<N~VKPI'zb]-2ussH~#0?1tnm-uOM{I[)#hr*0cLuq$-?Z~aPNK)-DE|8?;ECfbPO"
 }

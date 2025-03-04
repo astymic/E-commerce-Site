@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User' }, // Optional: null for guest checkout
-    priducts: [{
+    products: [{
         product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
         quantity: { type: Number, required: true, min: 1 },
         priceAtPurchase: { type: Number, required: true } // Price at the time of order
@@ -21,7 +21,7 @@ const orderSchema = new Schema({
         recipientLastName: String,  // Optional
         notes: String // Customer notes
     },
-    payMethod: {
+    paymentMethod: {
         type: String,
         enum: ['cash_on_delivery', 'prepaid', 'installment'],
         required: true
@@ -29,7 +29,7 @@ const orderSchema = new Schema({
     paymentStatus: {
         type: String,
         enum: ['pending', 'paid', 'failed'],
-        default: 'processing'
+        default: 'pending'
     },
     status: {
         type: String,

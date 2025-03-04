@@ -20,6 +20,10 @@ const userSchema = new Schema({
         savedCards: [{ type: String }]  // Store only last 4 digits and card type for display
     },
     wishlist: [{ type: Schema.Types.ObjectId, ref: 'Product' }], // Array of product IDs in wishlist
+    cart: [{
+        product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+        quantity: { type: Number, required: true, default: 1 } // Default 1
+    }],
     createdAt: { type: Date, default: Date.now },
     updateAt: { type: Date, default: Date.now }
 });
