@@ -18,6 +18,7 @@ app.use('/api/products', require('./routes/api/products'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/cart', require('./routes/api/cart'));
 app.use('/api/orders', require('./routes/api/orders'));
+app.use('/api/admin', require('./routes/api/admin'));
 
 
 app.get('/', (req, res) => {res.send('Backend server is running!');});
