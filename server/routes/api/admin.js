@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
+
 const adminController = require('../../controllers/adminController');
+const productController = require('../../controllers/productController');
+
 const adminAuth = require('../../middleware/adminAuth');
+const upload = require('../../middleware/upload');
 
 const { validateCategory } = require('../../validation/categoryValidation'); 
 const { validateProduct } = require('../../validation/productValidation');
@@ -74,7 +78,25 @@ router.delete('/products/:id', adminAuth, adminController.adminDeleteProduct);
 
 
 
+// --- Admin Image Upload Routes ---
+
+// @route   POST api/admin/upload/product-image
+// @desc    Upload a product image (Admin)
+// @access  Privat - Admin only
+// 'productImage' is field name for the file input in the fronted from
+router.post('/upload/product-image', adminAuth, upload.single('productImage'), productController.uploadImage);
+
+
+// @route   POST api/admin/upload/category-image
+// @desc    Upload a category image (Admin)
+// @access  Privat - Admin only
+// 'categoryImage' is field name for the file input in the fronted from
+router.post('/upload/category-image', adminAuth, upload.single('categoryImage'), productController.uploadImage);
+
+
+
 // --- Admin Order Routes ---
+
 // @route   GET api/admin/orders
 // @desc    Get all orders (Admin)
 // @access  Private - Admin only

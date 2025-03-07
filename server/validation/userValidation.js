@@ -10,7 +10,7 @@ exports.validateRegistration = (req, res, next) => {
 
     const { error } = schema.validate(req.body);
     if (error) {
-        return res.status(400).json({ msg: error.details[0].message });
+        return next({ error: error });
     }
     next();
 };
@@ -24,7 +24,7 @@ exports.validateLogin = (req, res, next) => {
 
     const { error } = schema.validate(req.body);
     if (error) {
-        return res.status(400).json({ msg: error.details[0].message });
+        return next({ error: error });
     }
     next();
 };

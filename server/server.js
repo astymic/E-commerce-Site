@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const app = express();
 const port = process.env.PORT || 5000; // Default 5000
+const errorHandler = require('./middleware/error');
 
 
 // Connect Database
@@ -22,6 +23,9 @@ app.use('/api/admin', require('./routes/api/admin'));
 
 
 app.get('/', (req, res) => {res.send('Backend server is running!');});
+
+
+app.use(errorHandler);
 
 
 app.listen(port, () => {console.log(`Server is running on port ${port}`);});

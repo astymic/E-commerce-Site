@@ -202,3 +202,26 @@ exports.deleteProduct = async (req, res) => {
     }
 };
 
+
+
+// --- Upload Product Image ---
+
+// @route   POST api/upload/product-image   \   POST api/admin/upload/category-image
+// @desc    Upload a product image          \   Upload a category image (Admin)
+// @access  Public
+exports.uploadImage = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ msg: 'No file uploaded' });
+        }
+
+        // File path wil be available in req.file.path (e.g., 'uploads/productImage-timestamp-random.jpg')
+        const filePath = req.file.path;
+
+        res.json({ filePath: filePath.replace(/\\/g,'/') }); // Respond with the file path
+
+    }   catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
