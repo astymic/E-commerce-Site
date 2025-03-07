@@ -3,6 +3,9 @@ const router = express.Router();
 const adminController = require('../../controllers/adminController');
 const adminAuth = require('../../middleware/adminAuth');
 
+const { validateCategory } = require('../../validation/categoryValidation'); 
+const { validateProduct } = require('../../validation/productValidation');
+
 
 
 // --- Admin Category Routes ---
@@ -10,7 +13,7 @@ const adminAuth = require('../../middleware/adminAuth');
 // @route   POST api/admin/categories
 // @desc    Create a new category (Admin)
 // @access  Private - Admin only
-router.post('/categories', adminAuth, adminController.adminCreateCategory);
+router.post('/categories', adminAuth, validateCategory, adminController.adminCreateCategory);
 
 
 // @route   GET api/admin/categories
@@ -28,7 +31,7 @@ router.get('/categories/:id', adminAuth, adminController.adminGetCategoryById);
 // @route   PUT api/admin/categories/:id
 // @desc    Update category (Admin)
 // @access  Private - Admin only
-router.put('/categories/:id', adminAuth, adminController.adminUpdateCategory);
+router.put('/categories/:id', validateCategory, adminAuth, adminController.adminUpdateCategory);
 
 
 // @route   DELETE api/admin/categories/:id
@@ -43,7 +46,7 @@ router.delete('/categories/:id', adminAuth, adminController.adminDeleteCategory)
 // @route   POST api/admin/products
 // @desc    Create a new product (Admin)
 // @access  Private - Admin only
-router.post('/products', adminAuth, adminController.adminCreateProduct);
+router.post('/products', adminAuth, validateProduct, adminController.adminCreateProduct);
 
 
 // @route   GET api/admin/products
@@ -61,7 +64,7 @@ router.get('/products/:id', adminAuth, adminController.adminGetProductById);
 // @route   PUT api/admin/products/:id
 // @desc    Update product (Admin)
 // @access  Privat - Admin only
-router.put('/products/:id', adminAuth, adminController.adminUpdateProduct);
+router.put('/products/:id', adminAuth, validateProduct, adminController.adminUpdateProduct);
 
 
 // @route   DELETE api/admin/products/:id

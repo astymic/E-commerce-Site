@@ -1,10 +1,10 @@
-const Joi = requiest('joi');
+const Joi = require('joi');
 
-exports.validationCategory = (req, res, next) => {
+exports.validateCategory = (req, res, next) => {
     const schema = Joi.object({
-        name: Joi.string().required().min(2).max(50).label('Category Name'),
+        name: Joi.string().required().min(2).max(50).label('Category Name'), 
         description: Joi.string().max(500).label('Description'),
-        parentCategory: Joi.string().hex().legth(24).allow(null, '').label('Parent CAtegory ID'), // Assuming MongoDB ObjectId for parent
+        parentCategory: Joi.string().hex().length(24).allow(null, '').label('Parent Category ID'), // Assuming MongoDB ObjectId for parent
     });
 
     const { error } = schema.validate(req.body);

@@ -3,7 +3,7 @@ const Joi = require('joi');
 exports.validateProduct = (req, res, next) => {
     const schema = Joi.object({
         name: Joi.string().required().min(2).max(100).label('product Name'),
-        descriprion: Joi.string().required().min(10).label('Description'),
+        description: Joi.string().required().min(10).label('Description'),
         shortDescription: Joi.string().max(255).label('Short Description'),
         price: Joi.number().min(0).label('Price'),
         discountPrice: Joi.number().min(0).label('Descount Price'),
@@ -22,7 +22,7 @@ exports.validateProduct = (req, res, next) => {
 
     const { error } = schema.validate(req.body);
     if (error) {
-        return res.status(400).json({ msg: error.datails[0].message });
+        return res.status(400).json({ msg: error.details[0].message });
     }
     next();
 };

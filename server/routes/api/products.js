@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../../controllers/productController');
+const { validateProduct } = require('../../validation/productValidation'); // Hide all lines with this check - if you want to make "solo" store (only official store products)
 
 
 // @route   POST api/products
 // @desc    Create a new product
 // @access  Public
-router.post('/', productController.createProduct);
+router.post('/', validateProduct, productController.createProduct);
 
 
 // @route   GET api/products
@@ -24,7 +25,7 @@ router.get('/:id', productController.getProductById);
 // @route   PUT api/products/:id
 // @desc    Update product
 // @access  Public
-router.put('/:id', productController.updateProduct);
+router.put('/:id', validateProduct, productController.updateProduct);
 
 
 // @route   DELETE api/products/:id
