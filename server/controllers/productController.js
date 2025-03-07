@@ -66,14 +66,44 @@ exports.createProduct = async (req, res) => {
 // @access  Public
 exports.getProducts = async (req, res) => {
     try {
-        const { page = 1, limit = 10, category } = req.query;
+        const { page = 1, limit = 10, category, priceMin, priceMax } = req.query;
+
         const pageNumber = parseInt(page);
         const limitNumber = parseInt(limit);
 
         if (isNaN(pageNumber) || pageNumber < 1) pageNumber = 1;
         if (isNaN(limitNumber) || limitNumber < 1 || limitNumber > 100) limitNumber = 10;
 
-        const query = category ? { category } : {};
+        let query = {};
+
+        // Category Filter
+        if (category) {
+            query.category = category;
+        }
+
+        // Price Range Filter
+        if (priceMin !== undefined && priceMax !== undefined) {
+            const minPrice = parseFloat(priceMin);
+            const maxPrice = parseFloat(priceMax);
+
+            if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+                query.price = { $gte: minPrice, $lte: maxPrice }; // Price greater than or equal to min and less than oq equal to max
+            } else if (!isNaN(minPrice)) {
+                query.price = { $gte: minPrice }; // Price greater than or equal to min
+            } else if (!isNaN(maxPrice)) {
+                query.price = { $lte: maxPrice }; // Price less than or equal to max
+            }
+        } else if (priceMin !== undefined) { // Only minPrice provided
+            const minPrice = parseFloat(priceMin);
+            if (!isNaN(minPrice)) {
+                query.price = { $gte: minPrice };
+            } 
+        } else if (priceMax !== undefined) { // Only maxPrice provided
+            const maxPrice = parseFloat(priceMax);
+            if (!isNaN(maxPrice)) {
+                query.price = { $lte: maxPrice };
+            }
+        }
 
         const products = await Product.find(query)
             .populate('category', 'name')
