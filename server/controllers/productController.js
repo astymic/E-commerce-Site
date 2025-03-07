@@ -66,16 +66,31 @@ exports.createProduct = async (req, res) => {
 // @access  Public
 exports.getProducts = async (req, res) => {
     try {
-        const categoryFilter = req.query.category;  // Get category filter from query params
-        let query = {};
-        if (categoryFilter) {
-            query = { category: categoryFilter };   // Filter be category if provided
-        }
+        const { page = 1, limit = 10, category } = req.query;
+        const pageNumber = parseInt(page);
+        const limitNumber = parseInt(limit);
+
+        if (isNaN(pageNumber) || pageNumber < 1) pageNumber = 1;
+        if (isNaN(limitNumber) || limitNumber < 1 || limitNumber > 100) limitNumber = 10;
+
+        const query = category ? { category } : {};
 
         const products = await Product.find(query)
-                                        .populate('category', 'name')   // Populate category name
-                                        .populate('subcategory', 'name');   // Populate subcategory name
-        res.json(products);
+            .populate('category', 'name')
+            .populate('subcategory', 'name')
+            .skip((pageNumber - 1) * limitNumber)
+            .limit(limitNumber);
+
+        const totalProducts = await Product.countDocuments(query);
+        const totalPages = Math.ceil(totalProducts / limitNumber);
+
+        res.json({
+            products,
+            page: pageNumber,
+            limit: limitNumber,
+            totalPages,
+            totalProducts,
+        });
     }   catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');

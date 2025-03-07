@@ -217,10 +217,29 @@ exports.adminCreateProduct = async (req, res) => {
 // @access  Private - Admin only
 exports.adminGetProducts = async (req, res) => {
     try {
+        const { page = 1, limit = 20 } = req.query;
+        const pageNumber = parseInt(page);
+        const limitNumber = parseInt(limit);
+        
+        if (isNaN(pageNumber) || pageNumber < 1) pageNumber = 1;
+        if (isNaN(limitNumber) || limitNumber < 1 || limitNumber > 500) limitNumber = 20;
+
         const products = await Product.find()
-            .populate('category', 'name')   
-            .populate('subcategory', 'name');   
-        res.json(products);
+            .populate('category', 'name')
+            .populate('subcategory', 'name')
+            .skip((pageNumber - 1) * limitNumber)
+            .limit(limitNumber);
+
+        const totalProducts = await Product.countDocuments();
+        const totalPages = Math.ceil(totalProducts / limitNumber);
+
+        res.json({
+            products,
+            page: pageNumber,
+            limit: limitNumber,
+            totalPages,
+            totalProducts,
+        });
     }   catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
