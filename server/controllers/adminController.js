@@ -217,7 +217,7 @@ exports.adminCreateProduct = async (req, res) => {
 // @access  Private - Admin only
 exports.adminGetProducts = async (req, res) => {
     try {
-        const { page = 1, limit = 10, category, priceMin, priceMax } = req.query;
+        const { page = 1, limit = 10, category, priceMin, priceMax, search } = req.query;
         
         const pageNumber = parseInt(page);
         const limitNumber = parseInt(limit);
@@ -256,11 +256,24 @@ exports.adminGetProducts = async (req, res) => {
             }
         }
 
-        const products = await Product.find(query)
+        let productQuery = Product.find(query);
+
+        // Seacrh Filte and Score Metadata/Sorting
+        if (search) {
+            query.$text = { $search: search };
+            productQuery = Product.find(query, { score: { $meta: "textScore" } })
+                                    .sort({ score: { $meta: "textScore" } });
+        } else {
+            productQuery = Product.find(query); 
+        }
+
+
+        const products = await productQuery
             .populate('category', 'name')
             .populate('subcategory', 'name')
             .skip((pageNumber - 1) * limitNumber)
             .limit(limitNumber);
+
 
         const totalProducts = await Product.countDocuments(query);
         const totalPages = Math.ceil(totalProducts / limitNumber);
