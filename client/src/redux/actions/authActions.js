@@ -3,7 +3,7 @@ import {
     REGISTER_FAIL,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    USER_LOADER,
+    USER_LOADED,
     AUTH_ERROR,
     LOGOUT
 } from '../types';
@@ -21,7 +21,7 @@ export const loadUser = () => async dispatch => {
         const res = await axios.get('/api/users/me');
 
         dispatch({
-            type: USER_LOADER,
+            type: USER_LOADED,
             payload: res.data
         });
     } catch (err) {
@@ -49,6 +49,8 @@ export const register = ({ firstName, lastName, email, password }) => async disp
             type: REGISTER_SUCCESS,
             payload: res.data
         });
+
+        dispatch(loadUser());
     } catch (err) {
         dispatch({
             type: REGISTER_FAIL,
