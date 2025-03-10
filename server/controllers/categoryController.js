@@ -1,4 +1,5 @@
 const Category = require('../models/Category');
+const Product = require('../models/Product');
 
 
 // @route   POST api/categories
@@ -38,8 +39,8 @@ exports.createCategory = async (req, res) => {
 };
 
 
-// @route   GET api/categories/:id
-// @desc    Get category by ID
+// @route   GET api/categories
+// @desc    Get categories
 // @access  Public
 exports.getCategories = async (req, res) => {
     try {
@@ -108,6 +109,33 @@ exports.updateCategory = async (req, res) => {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Category not found' });
+        }
+        res.status(500).send('Server Error');
+    }
+};
+
+
+// @route   GET api/categories/:categoryId/products
+// @desc    Get products in a specific category
+// @access  Public
+exports.getCategoryProducts = async (req, res) => {
+    try {
+        const categoryId = req.params.categoryId;
+
+        const category = await Category.findById(categoryId);
+        if (!category) {
+            return res.status(404).json({ msg: 'Category not found' });
+        }
+
+        const products = await Product.find({ category: categoryId })
+            .populate('category', 'name')
+            .populate('subcategory', 'name');
+
+        res.json(products);
+    } catch (err) {
+        console.error(err.message);
+        if (err.kind === 'ObjectId') {
+            return res.status(400).json({ msg: 'Invalid Category ID' });
         }
         res.status(500).send('Server Error');
     }

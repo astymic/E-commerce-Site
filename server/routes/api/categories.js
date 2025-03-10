@@ -22,6 +22,12 @@ router.get('/', categoryController.getCategories);
 router.get('/:id', categoryController.getCategoryById);
 
 
+// @route   GET api/categories/:categoryId/products
+// @desc    Get products in a specific category
+// @access  Public
+router.get('/:categoryId/products', categoryController.getCategoryProducts);
+
+
 // @route   PUT api/categories/:id
 // @desc    Update category 
 // @access  Public

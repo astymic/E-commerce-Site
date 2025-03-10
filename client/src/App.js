@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import HomePage from './pages/HomePage/HomePage';
-import CategoryPage from './pages/CategoryPage';
+import CategoryPage from './pages/CategoryPage/CategoryPage';
 import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/AuthPage/LoginPage';
 import RegisterPage from './pages/AuthPage/RegisterPage';

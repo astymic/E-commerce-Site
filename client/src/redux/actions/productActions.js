@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, GET_PRODUCT, PRODUCTS_ERROR, GET_TOP_SELLING_PRODUCTS, GET_NEW_ARRIVALS_PRODUCTS } from '../types';
+import { GET_PRODUCTS, GET_PRODUCT, PRODUCTS_ERROR, GET_TOP_SELLING_PRODUCTS, GET_NEW_ARRIVALS_PRODUCTS, GET_PROMOTIONAL_PRODUCTS, GET_CATEGORY_PRODUCTS } from '../types';
 import axios from 'axios';
 
 // Get all products
@@ -67,6 +67,41 @@ export const getNewArrivalsProducts = () => async dispatch => {
         dispatch({
             type: PRODUCTS_ERROR,
             payload: err.response ? err.response.data : { msg: 'Network Error' }
+        });
+    }
+};
+
+
+// Get promotional products
+export const getPromotionalProducts = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/products/promotions');
+
+        dispatch({
+            type: GET_PROMOTIONAL_PRODUCTS,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: PRODUCTS_ERROR,
+            payload: err.response ? err.response.data : { msg: 'Network Error' }
+        });
+    }
+};
+
+
+export const getCategoryProducts = (categoryId) => async dispatch => {
+    try {
+        const res = await axios.get(`/api/categories/${categoryId}/products`);
+
+        dispatch({
+            type: GET_CATEGORY_PRODUCTS,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: PRODUCTS_ERROR,
+            payload: err.response ? err.responce.data : { msg: 'Network Error' }
         });
     }
 };

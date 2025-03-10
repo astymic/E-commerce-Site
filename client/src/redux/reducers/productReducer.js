@@ -1,10 +1,12 @@
-import { GET_PRODUCTS, GET_PRODUCT, PRODUCTS_ERROR, GET_TOP_SELLING_PRODUCTS, GET_NEW_ARRIVALS_PRODUCTS } from '../types';
+import { GET_PRODUCTS, GET_PRODUCT, PRODUCTS_ERROR, GET_TOP_SELLING_PRODUCTS, GET_NEW_ARRIVALS_PRODUCTS, GET_PROMOTIONAL_PRODUCTS, GET_CATEGORY_PRODUCTS } from '../types';
 
 const initialState = {
     products: [],
     product: null,
     topSellingProducts: [],
     newArrivalsProducts: [],
+    promotionalProducts: [],
+    categoryProducts: [],
     loading: true,
     error: {}
 };
@@ -35,6 +37,18 @@ export default function productReducer(state = initialState, action) {
             return {
                 ...state,
                 newArrivalsProducts: payload,
+                loading: false
+            };
+        case GET_PROMOTIONAL_PRODUCTS:
+            return {
+                ...state,
+                promotionalProducts: payload,
+                loading: false
+            };
+        case GET_CATEGORY_PRODUCTS:
+            return {
+                ...state,
+                categoryProducts: payload,
                 loading: false
             };
         case PRODUCTS_ERROR:

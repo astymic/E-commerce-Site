@@ -6,8 +6,9 @@ const categorySchema = new Schema({
     name: { type: String, required: true, unique: true },
     slug: { type: String, required: true, unique: true, lowrcase: true },   // URL-friendly name
     parent: { type: Schema.Types.ObjectId, ref: 'Category', default: null },    // For hierarchical categories  
-    descripton: String,
+    description: String,
     image: String,  // Category image URL or path
+    bannerImage: String,
     filtres: [{
         name: String,
         type: { type: String, enum: ['checkbox', 'range', 'radio'], default: 'checkbox' },
