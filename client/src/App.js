@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 import CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/AuthPage/LoginPage';
 import RegisterPage from './pages/AuthPage/RegisterPage';
 // import UserProfilePage from './pages/UserProfilePage';
 
-import PrivatRoute from './components/routing/PrivatRoute';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';

@@ -18,6 +18,18 @@ router.post('/', validateProduct, productController.createProduct);
 router.get('/', productController.getProducts);
 
 
+// @route   GET api/products/top-selling
+// @desc    Get top-selling products 
+// @access  Public
+router.get('/top-selling', productController.getTopSellingProducts);
+
+
+// @route   GET api/products/new-arrivals
+// @desc    Get top-selling products 
+// @access  Public
+router.get('/new-arrivals', productController.getNewArrivalsProducts);
+
+
 // @route   GET api/products
 // @desc    Get product by ID
 // @access  Public

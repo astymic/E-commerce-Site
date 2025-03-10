@@ -140,6 +140,42 @@ exports.getProducts = async (req, res) => {
 };
 
 
+// @route   GET api/products/top-selling
+// @desc    Get top-selling products 
+// @access  Public
+exports.getTopSellingProducts = async (req, res) => {
+    try {
+        // Needed implement more sophisticated logic later
+        const products = await Product.find({ isTopSelling: true })
+            .populate('category', 'name')
+            .populate('subcategory', 'name')
+            .limit(10);
+        res.json(products);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+
+// @route   GET api/products/new-arrivals
+// @desc    Get top-selling products 
+// @access  Public
+exports.getNewArrivalsProducts = async (req, res) => {
+    try {
+        const products = await Product.find({ isNew: true })
+            .populate('category', 'name')
+            .populate('subcategory', 'name')
+            .sort({ createdAt: 'desc' })
+            .limit(8);
+        res.json(products);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+
 // @route   GET api/products/:id
 // @desc    Get product by ID
 // @access  Public
