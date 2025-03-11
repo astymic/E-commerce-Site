@@ -9,7 +9,7 @@ const categorySchema = new Schema({
     description: String,
     image: String,  // Category image URL or path
     bannerImage: String,
-    filtres: [{
+    filters: [{
         name: String,
         type: { type: String, enum: ['checkbox', 'range', 'radio'], default: 'checkbox' },
         options: [String]   // Possible filter options for checkbox and radio types

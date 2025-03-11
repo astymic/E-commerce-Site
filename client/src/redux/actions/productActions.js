@@ -90,6 +90,7 @@ export const getPromotionalProducts = () => async dispatch => {
 };
 
 
+// Get category products
 export const getCategoryProducts = (categoryId) => async dispatch => {
     try {
         const res = await axios.get(`/api/categories/${categoryId}/products`);

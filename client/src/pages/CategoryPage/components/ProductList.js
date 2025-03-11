@@ -24,7 +24,7 @@ function ProductList() {
             ) : (
                 <ul className='product-grid'>
                     {categoryProducts.map(product => (
-                        <li kay={product._id} className='product-grid-item'>
+                        <li key={product._id} className='product-grid-item'>
                             <h3>{product.name}</h3>
                             <p>Price: ${product.price}</p>
                         </li>

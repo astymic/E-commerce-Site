@@ -80,38 +80,38 @@ exports.updateCategory = async (req, res) => {
     try {
         const { name, description, parentCategory } = req.body;
     
-    // Simple validation (add more robus validation later)
-    if (!name) {
-        return res.status(400).json({ msg: 'Name is required' });
-    }
-
-    // Create slug from name
-    const slug = name.toLowerCase().replace(/\s+/g, '-');
-
-    const categoryFields = {};
-    categoryFields.name = name;
-    categoryFields.slug = slug;
-    categoryFields.description = description;
-    if (parentCategory) categoryFields.parent = parentCategory;
-
-    let category = await Category.findById(req.params.id);
-
-    if (!category) return res.status(404).json({ msg: 'Category not found' });
-
-    category = await Category.findByIdAndUpdate(
-        req.params.id,
-        { $set: categoryFields },
-        { new: true } // Return the modified document
-    );
-
-    res.json(category); // Send bakc the update category
-    }   catch (err) {
-        console.error(err.message);
-        if (err.kind === 'ObjectId') {
-            return res.status(404).json({ msg: 'Category not found' });
+        // Simple validation (add more robus validation later)
+        if (!name) {
+            return res.status(400).json({ msg: 'Name is required' });
         }
-        res.status(500).send('Server Error');
-    }
+
+        // Create slug from name
+        const slug = name.toLowerCase().replace(/\s+/g, '-');
+
+        const categoryFields = {};
+        categoryFields.name = name;
+        categoryFields.slug = slug;
+        categoryFields.description = description;
+        if (parentCategory) categoryFields.parent = parentCategory;
+
+        let category = await Category.findById(req.params.id);
+
+        if (!category) return res.status(404).json({ msg: 'Category not found' });
+
+        category = await Category.findByIdAndUpdate(
+            req.params.id,
+            { $set: categoryFields },
+            { new: true } // Return the modified document
+        );
+
+        res.json(category); // Send bakc the update category
+        }   catch (err) {
+            console.error(err.message);
+            if (err.kind === 'ObjectId') {
+                return res.status(404).json({ msg: 'Category not found' });
+            }
+            res.status(500).send('Server Error');
+        }
 };
 
 
