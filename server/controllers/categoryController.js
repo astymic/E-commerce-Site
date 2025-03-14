@@ -121,15 +121,56 @@ exports.updateCategory = async (req, res) => {
 exports.getCategoryProducts = async (req, res) => {
     try {
         const categoryId = req.params.categoryId;
+        const sortBy = req.query.sortBy;
+        const filters = req.query.filters;
 
         const category = await Category.findById(categoryId);
         if (!category) {
             return res.status(404).json({ msg: 'Category not found' });
         }
 
-        const products = await Product.find({ category: categoryId })
+        let query = { category: categoryId };
+        let sortOptions = {};
+
+        // --- Apply Filters ---
+        if (filters) {                                               // ---- Make a function to prevent code repetition ----
+            if (Array.isArray(filters)) {
+                // Handle case when filters is an array
+                filters.forEach((filterParam) => {
+                    const [filterName, filterValue] = filterParam.split(':');
+                    if (filterName && filterValue) {
+                        if (!query[filterName]) {
+                            query[filterName] = { $in: [] };
+                        }
+                        query[filterName].$in.push(filterValue);
+                    }
+                });
+            } else if (typeof filters === 'string') {
+                // Handle case when filters is a single string
+                const [filterName, filterValue] = filters.split(':');
+                if (filterName && filterValue) {
+                    if (!query[filterName]) {
+                        query[filterName] = { $in: [] };
+                    }
+                    query[filterName].$in.push(filterName);
+                }
+            }                                                          // ---- Make a function to prevent code repetition ----
+        }
+
+        // --- Apply Sorting ---
+        if (sortBy === 'price-low-to-high') {
+            sortOptions = { price: 1 };
+        } else if (sortBy === 'price-high-to-low') {
+            sortOptions = { price: -1 };
+        } else if (sortBy === 'newest') {
+            sortOptions = { createdAt: -1 };
+        }
+
+
+        const products = await Product.find(query)
             .populate('category', 'name')
-            .populate('subcategory', 'name');
+            .populate('subcategory', 'name')
+            .sort(sortOptions);
 
         res.json(products);
     } catch (err) {

@@ -4,15 +4,15 @@ import { useParams } from 'react-router-dom';
 import { getCategoryProducts } from '../../../redux/actions/productActions';
 
 
-function ProductList() {
+function ProductList({ sortBy, filters }) {
     const { categoryId } = useParams();
     const dispatch = useDispatch();
     const productState = useSelector(state => state.product);
     const { categoryProducts, loading, error } = productState;
 
     useEffect(() => {
-        dispatch(getCategoryProducts(categoryId));
-    }, [dispatch, categoryId]);
+        dispatch(getCategoryProducts(categoryId, sortBy, filters));
+    }, [dispatch, categoryId, sortBy, filters]);
 
     return (
         <section className='product-list-section'>

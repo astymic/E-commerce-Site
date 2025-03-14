@@ -1,5 +1,6 @@
 import { GET_PRODUCTS, GET_PRODUCT, PRODUCTS_ERROR, GET_TOP_SELLING_PRODUCTS, GET_NEW_ARRIVALS_PRODUCTS, GET_PROMOTIONAL_PRODUCTS, GET_CATEGORY_PRODUCTS } from '../types';
 import axios from 'axios';
+import { stringify } from 'qs';
 
 // Get all products
 export const getProducts = () => async dispatch => {
@@ -91,9 +92,10 @@ export const getPromotionalProducts = () => async dispatch => {
 
 
 // Get category products
-export const getCategoryProducts = (categoryId) => async dispatch => {
+export const getCategoryProducts = (categoryId, sortBy, filters) => async dispatch => {
     try {
-        const res = await axios.get(`/api/categories/${categoryId}/products`);
+        const queryString = stringify({ sortBy, filters }, { arrayFormat: 'repeat' });
+        const res = await axios.get(`/api/categories/${categoryId}/products?${queryString}`);
 
         dispatch({
             type: GET_CATEGORY_PRODUCTS,

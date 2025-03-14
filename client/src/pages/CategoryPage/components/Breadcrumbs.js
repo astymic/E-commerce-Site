@@ -1,13 +1,55 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { getCategory } from '../../../redux/actions/categoryActions';
 
 
-function Breadcrumbs() {
+function FilterSidebar() {
+    const { categoryId } = useParams();
+    const dispatch = useDispatch();
+    const categoryState = useSelector(state => state.category);
+    const { category, loading, error } = categoryState;
+
+    useEffect(() => {
+        dispatch(getCategory(categoryId));
+    }, [dispatch, categoryId]);
+
+    const generateBreadcrumbs = (currentCategory, path = []) => {
+        if (!currentCategory) return path;
+
+        const updatedPath = [{
+            name: currentCategory.name,
+            link: `/category/${currentCategory.slug || currentCategory._id}`
+        }, ...path];
+
+        if (currentCategory.parent) {
+            return generateBreadcrumbs(currentCategory.parent, updatedPath);
+        } else {
+            return updatedPath;
+        }
+    };
+
+    const breadcrumbPath = category ? generateBreadcrumbs(category) : [];
+
     return (
         <nav className='breadcrumbs'>
-            <span>Home</span> &gt; <span> Catalog</span> &gt; <span>Category Name</span>
+            <span><Link to="/">Home</Link></span> &gt;
+            <span><Link to="/catalog">Catalog</Link></span> &gt;
+            {loading || !breadcrumbPath ? (
+                <span>Loading breadcrumbs...</span>
+            ) : error.msg ? (
+                <span style={{ color: 'red' }}>Error loading breadcrumbs</span>
+            ) : (
+                breadcrumbPath.map((crumb, index) => (
+                    <span key={index}>
+                        <Link to={crumb.link}>{crumb.name}</Link>
+                        {index < breadcrumbPath.length - 1 && ' > '}
+                    </span>
+                ))
+            )}
         </nav>
     );
 }
 
 
-export default Breadcrumbs;
+export default FilterSidebar;

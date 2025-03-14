@@ -207,6 +207,7 @@ exports.updateProduct = async (req, res) => {
         if (discountPrice) productFileds.discountPrice = discountPrice;
         if (category) productFileds.category = category;
         if (subcategory) productFileds.subcategory = subcategory;
+        if (specifications) productFileds.specifications =  specifications;
         if (images) productFileds.images = images;
         if (stock) productFileds.stock = stock;
         if (isPromotion) productFileds.isPromotion = isPromotion;

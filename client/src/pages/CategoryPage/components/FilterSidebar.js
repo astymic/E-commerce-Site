@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getCategory } from '../../../redux/actions/categoryActions';
@@ -10,9 +10,38 @@ function FilterSidebar() {
     const categoryState = useSelector(state => state.category);
     const { category, loading, error } = categoryState;
 
+    const [filtersSelection, setFiltersSelection] = useState({});
+
+
     useEffect(() => {
         dispatch(getCategory(categoryId));
     }, [dispatch, categoryId]);
+
+    const handleCheckboxChange = (filterName, optionValue, isChecked) => {
+        setFiltersSelection(prevFilters => {
+            const updatedFilters = { ...prevFilters };
+            if (isChecked) {
+                if(!updatedFilters[filterName]) {
+                    updatedFilters[filterName] = [];
+                }
+                updatedFilters[filterName].push(optionValue);
+            } else {
+                if (updatedFilters[filterName]) {
+                    updatedFilters[filterName] = updatedFilters[filterName].filter(opt => opt !== optionValue);
+                    if (updatedFilters[filterName].length === 0) {
+                        delete updatedFilters[filterName];
+                    }
+                }
+            }
+            return updatedFilters;
+        });
+    };
+
+
+    useEffect(() => {
+        console.log('Current Filter Selections:', filtersSelection);
+    }, [filtersSelection]);
+    
 
     return (
         <aside className='filter-sidebar'>
@@ -31,7 +60,13 @@ function FilterSidebar() {
                                     {filter.options.map(option => (
                                         <li key={option}>
                                             <label>
-                                                <input type="checkbox" name={filter.name} value={option} /> {option}
+                                                <input 
+                                                    type="checkbox" 
+                                                    name={filter.name} 
+                                                    value={option}
+                                                    onChange={(e) => handleCheckboxChange(filter.name, option, e.target.checked)}
+                                                    checked={filtersSelection[filter.name]?.includes(option) || false}
+                                                /> {option}
                                             </label>
                                         </li>
                                     ))}
