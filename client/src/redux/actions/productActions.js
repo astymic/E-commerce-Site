@@ -1,6 +1,14 @@
-import { GET_PRODUCTS, GET_PRODUCT, PRODUCTS_ERROR, GET_TOP_SELLING_PRODUCTS, GET_NEW_ARRIVALS_PRODUCTS, GET_PROMOTIONAL_PRODUCTS, GET_CATEGORY_PRODUCTS } from '../types';
+import { 
+    GET_PRODUCTS, 
+    GET_PRODUCT, 
+    PRODUCTS_ERROR, 
+    GET_TOP_SELLING_PRODUCTS, 
+    GET_NEW_ARRIVALS_PRODUCTS, 
+    GET_PROMOTIONAL_PRODUCTS, 
+    GET_CATEGORY_PRODUCTS,
+    GET_FILTERED_CATEGORY_PRODUCTS,
+} from '../types';
 import axios from 'axios';
-import { stringify } from 'qs';
 
 // Get all products
 export const getProducts = () => async dispatch => {
@@ -92,15 +100,34 @@ export const getPromotionalProducts = () => async dispatch => {
 
 
 // Get category products
-export const getCategoryProducts = (categoryId, sortBy, filters) => async dispatch => {
+export const getCategoryProducts = (categoryId, sortBy) => async dispatch => {
     try {
-        const queryString = stringify({ sortBy, filters }, { arrayFormat: 'repeat' });
-        const res = await axios.get(`/api/categories/${categoryId}/products?${queryString}`);
+        const res = await axios.get(`/api/categories/${categoryId}/products?${sortBy || ''}`);
 
         dispatch({
             type: GET_CATEGORY_PRODUCTS,
             payload: res.data
         });
+    } catch (err) {
+        dispatch({
+            type: PRODUCTS_ERROR,
+            payload: err.response ? err.responce.data : { msg: 'Network Error' }
+        });
+    }
+};
+
+
+export const getFilteredCategoryProducts = (categoryId, filterValues) => async dispatch => {
+    try {
+        console.log('Dispatch getFilteredCategoryProducts action with filters:', filterValues);
+
+        // const res = await axios.get(`/api/categoriess/${categoryId}/products?filters=${JSON.stringify(filterValues)}`);
+
+        dispatch({
+            type: GET_FILTERED_CATEGORY_PRODUCTS,
+            payload: []
+        });
+
     } catch (err) {
         dispatch({
             type: PRODUCTS_ERROR,

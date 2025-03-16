@@ -8,16 +8,18 @@ import SortOptions from './components/SortOptions';
 
 function CategoryPage() {
     const [sortBy, setSortBy] = useState('');
-    const [filtersSelection, setFiltersSelection] = useState({});
+    const [filters, setFilters] = useState({});
     
 
     const handleSortChange = (sortValue) => {
         setSortBy(sortValue);
     };
 
-    const handleFilterChange = (filters) => {
-        console.log(filters);
-        setFiltersSelection(filters);
+    const handleFilterChange = (filterName, filerValue) => {
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [filterName]: filerValue
+        }));
     };
 
 
@@ -26,10 +28,10 @@ function CategoryPage() {
             <Breadcrumbs />
             <CategoryBanners />
             <div className='content-area'>
-                <FilterSidebar filters={filtersSelection} onFilterChange={handleFilterChange}/>
+                <FilterSidebar filters={filters} onFilterChange={handleFilterChange} />
                 <div className='product-listing-area'>
                     <SortOptions sortBy={sortBy} onSortChange={handleSortChange} />
-                    <ProductList sortBy={sortBy} filters={filtersSelection}/>
+                    <ProductList sortBy={sortBy} filters={filters} />
                 </div>
             </div>
         </div>
