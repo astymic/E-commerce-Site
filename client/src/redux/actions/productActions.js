@@ -119,13 +119,18 @@ export const getCategoryProducts = (categoryId, sortBy) => async dispatch => {
 
 export const getFilteredCategoryProducts = (categoryId, filterValues) => async dispatch => {
     try {
-        console.log('Dispatch getFilteredCategoryProducts action with filters:', filterValues);
-
-        // const res = await axios.get(`/api/categoriess/${categoryId}/products?filters=${JSON.stringify(filterValues)}`);
+        let queryParams = '';
+        for (const filterName in filterValues) {
+            if (filterValues[filterName] && filterValues[filterName].length > 0) {
+                queryParams += `&${filterName}=${filterValues[filterName].join(',')}`;
+            }
+        }
+        
+        const res = await axios.get(`/api/categories/${categoryId}/products?${queryParams}`);
 
         dispatch({
             type: GET_FILTERED_CATEGORY_PRODUCTS,
-            payload: []
+            payload: res.data
         });
 
     } catch (err) {
