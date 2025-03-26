@@ -1,4 +1,8 @@
-import { GET_CATEGORIES, GET_CATEGORY, CATEGORIES_ERROR } from '../types';
+import { 
+    GET_CATEGORIES, 
+    GET_CATEGORY, 
+    CATEGORIES_ERROR 
+} from '../types';
 
 const initialState = {
     categories: [],

@@ -121,8 +121,7 @@ exports.updateCategory = async (req, res) => {
 exports.getCategoryProducts = async (req, res) => {
     try {
         const categoryId = req.params.categoryId;
-        const sortBy = req.query.sortBy;
-        const filterParams = req.query;
+        const { sortBy, ...filterParams} = req.query;
 
         const category = await Category.findById(categoryId);
         if (!category) {
@@ -132,28 +131,58 @@ exports.getCategoryProducts = async (req, res) => {
 
         // --- Apply Sorting ---
         let sortOptions = {};
-        if (sortBy === 'price-low-to-high') {
-            sortOptions = { price: 1 };
-        } else if (sortBy === 'price-high-to-low') {
-            sortOptions = { price: -1 };
-        } else if (sortBy === 'newest') {
-            sortOptions = { createdAt: -1 };
-        }
+        if (sortBy === 'price-low-to-high') sortOptions = { price: 1 }; 
+        else if (sortBy === 'price-high-to-low') sortOptions = { price: -1 }; 
+        else if (sortBy === 'newest') sortOptions = { createdAt: -1 };
 
         let query = { category: categoryId };
+        let specFilters = [];
 
         for (const filterName in filterParams) {
-            if (filterName !== 'sortBy') {
-                const filterValues = filterParams[filterName].split(',');
+            const filterValueString = filterParams[filterName];
+            if (!filterValueString) continue;
 
-                const filterDefinition = category.filters.find(f => f.name === filterName);
-                if (filterDefinition && filterDefinition.type === 'checkbox') {
-                    query[`specifications.value`] = { $in: filterValues };
-                    query[`specifications.name`] = filterName;
+            if (filterName === 'Price Range-min' || filterName === 'Price Range-max' ) {
+                const priceQuery = query.price || {};
+                const priceVal = parseFloat(filterValueString);
+                if (!isNaN(priceVal)) {
+                    if (filterName.endsWith('-min')) priceQuery.$gte = priceVal;
+                    if (filterName.endsWith('-max')) priceQuery.$lte = priceVal;
+                    query.price = priceQuery;
+                }
+                continue;
+            }
+
+            const filterDefinition = category.filters.find(f => f.name === filterName);
+            if (filterDefinition) {
+                if (filterDefinition.type === 'checkbox') {
+                    const checkboxOption = filterValueString.split(',');
+                    if (checkboxOption.length > 0) {
+                    specFilters.push({
+                        specifications: { $elemMatch: { name: filterName, value: { $in: checkboxOption } } }
+                    });
+                  }
+                } else if (filterDefinition.type === 'radio') {
+                    specFilters.push({
+                        specifications: { $elemMatch: { name: filterName, value: filterValueString } }
+                    });
+                } else if (filterDefinition.type === 'range') {
+                    const [minVal, maxVal] = filterValueString.split(',').map(Number);
+                    const rangeQuery = {};
+                    if (!isNaN(minVal)) rangeQuery.$gte = minVal;
+                    if (!isNaN(maxVal)) rangeQuery.$lte = maxVal;
+                    if (Object.keys(rangeQuery).length > 0) {
+                        specFilters.push({
+                            specifications: { $elemMatch: { name: filterName, value: rangeQuery } }
+                        });
+                    }                        
                 }
             }
         }
 
+        if (specFilters.length > 0) {
+            query.$and = (query.$and || []).concat(specFilters);
+        }
 
         const products = await Product.find(query)
             .populate('category', 'name')

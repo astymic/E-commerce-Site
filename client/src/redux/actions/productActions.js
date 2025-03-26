@@ -117,16 +117,27 @@ export const getCategoryProducts = (categoryId, sortBy) => async dispatch => {
 };
 
 
-export const getFilteredCategoryProducts = (categoryId, filterValues) => async dispatch => {
+export const getFilteredCategoryProducts = (categoryId, filterValues, sortBy = '') => async dispatch => {
     try {
-        let queryParams = '';
+        let queryParams = new URLSearchParams();
+
         for (const filterName in filterValues) {
-            if (filterValues[filterName] && filterValues[filterName].length > 0) {
-                queryParams += `&${filterName}=${filterValues[filterName].join(',')}`;
+            const value = filterValues[filterName];
+            if (value && value.length > 0) {
+                if (Array.isArray(value)) {
+                    queryParams.append(filterName, value.join(','));
+                } else {
+                    queryParams.append(filterName, value);
+                }
             }
         }
         
-        const res = await axios.get(`/api/categories/${categoryId}/products?${queryParams}`);
+        if (sortBy) {
+            queryParams.append('sortBy', sortBy);
+        }
+
+        const queryString = queryParams.toString();
+        const res = await axios.get(`/api/categories/${categoryId}/products?${queryString}`);
 
         dispatch({
             type: GET_FILTERED_CATEGORY_PRODUCTS,

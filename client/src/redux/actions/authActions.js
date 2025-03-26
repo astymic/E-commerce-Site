@@ -5,7 +5,7 @@ import {
     LOGIN_FAIL,
     USER_LOADED,
     AUTH_ERROR,
-    LOGOUT
+    LOGOUT,
 } from '../types';
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken'; // Will create later
