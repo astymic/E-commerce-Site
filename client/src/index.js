@@ -8,6 +8,16 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 
 
+import * as cartActions from './redux/actions/cartActions'
+import * as productActions from './redux/actions/productActions'
+import * as authActions from './redux/actions/authActions'
+
+window.store = store;
+window.cartActions = cartActions;
+window.productActions = productActions;
+window.authActions = authActions;
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
