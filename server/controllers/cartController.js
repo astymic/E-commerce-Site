@@ -2,22 +2,22 @@ const Product = require('../models/Product');
 const User = require('../models/User');
 
 
+const populateCartItems = async (userId) => {
+    const user = await User.findById(userId).populate({
+        path: 'cart.product',
+        select: 'name price images'
+    });
+    return user ? user.cart : [];
+};
+
+
 // @route   GET api/cart
 // @desc    Get cart content for a user
 // @access  Private (User must be logged in)
 exports.getCart = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).populate('wishlist'); // Populate wishlist if needed
-        if (!user) {
-            return res.status(404).json({ msg: 'User not found' });
-        }
-
-        // For simplicity, we'll store cart items directly in user document
-        // In real project, need have 'Cart' collection
-        const cartItems = user.cart || [];
-
+        const cartItems = await populateCartItems(req.user.id);
         res.json(cartItems);
-    
     }   catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -47,21 +47,19 @@ exports.addItemToCart = async (req, res) => {
         }
         let cartItems = user.cart || [];
 
-        // Check if item already in cart
         const existingCartItemIndex = cartItems.findIndex(item => item.product.toString() === productId);
 
         if (existingCartItemIndex > -1) {
-            // Item exist, update quantity
             cartItems[existingCartItemIndex].quantity += quantity;
         } else {
-            // item doesn't exist, add new item
             cartItems.push({ product: productId, quantity });
         }
 
-        user.cart = cartItems;  // Update cart in user document
+        user.cart = cartItems;  
         await user.save();
 
-        res.json(cartItems);    // Return updated cart
+        const updatedPopulatedCart = await populateCartItems(req.user.id);
+        res.json(updatedPopulatedCart);    
     
     }   catch (err) {
         console.error(err.message);
@@ -98,8 +96,9 @@ exports.updateCartItemQuantity = async (req, res) => {
         user.cart = cartItems;
         await user.save();
 
-        res.json(cartItems); // Return updated cart
-    
+        const updatedPopulatedCart = await populateCartItems(req.user.id);
+        res.json(updatedPopulatedCart);    
+        
     }   catch (err) {
         console.error(err.message);
         res.status(500).json({ msg: 'Server Error' });
@@ -129,8 +128,9 @@ exports.removeItemFromCart = async (req, res) => {
         user.cart = updateCartItems;
         await user.save();
 
-        res.json(updateCartItems); // Return updated cart
-
+        const updatedPopulatedCart = await populateCartItems(req.user.id);
+        res.json(updatedPopulatedCart);    
+        
     }   catch (err) {
         console.error(err.message);
         res.status(500).json({ msg: 'Server Error' });
@@ -151,7 +151,7 @@ exports.clearCart = async (req, res) => {
         user.cart = []; // Clear the cart
         await user.save();
 
-        res.json({ msg: 'Cart cleared' });  // Confirmation message
+        res.json([]);  // Confirmation message
 
      }  catch (err) {
         console.error(err.message);

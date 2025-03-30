@@ -29,7 +29,7 @@ function App() {
     <Provider store={store}>
       <Router> 
         <div className="App">
-          {/* <Header /> */}
+          <Header />
           <Routes>
             <Route path="/" element={<HomePage />} /> 
             <Route path="/category/:categoryId" element={<CategoryPage />} /> 
