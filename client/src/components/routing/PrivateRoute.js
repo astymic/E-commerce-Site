@@ -14,7 +14,7 @@ const PrivateRoute = ({ auth: { isAuthenticated, loading } }) => {
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth // Map auth state from Redux
+    auth: state.auth
 });
 
 

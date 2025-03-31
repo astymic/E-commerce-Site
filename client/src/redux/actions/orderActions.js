@@ -1,0 +1,64 @@
+import {
+    PLACE_ORDER_SUCCESS,
+    PLACE_ORDER_FAIL,
+    ORDER_LOADING,
+    GET_ORDER_SUCCESS,
+    GET_ORDER_FAIL,
+    CLEAR_ORDER_STATE,
+    CLEAR_CART_SUCCESS
+} from '../types';
+import axios from 'axios';
+
+
+export const placeOrder = (formData) => async dispatch => {
+    dispatch({ type: ORDER_LOADING });
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+
+    const orderData = {
+        shippingDetails: {
+            firstName: formData.firstName,
+            lastName:  formData.lastName,
+            phone: formData.phone,
+            type: formData.deliveryType,
+            city: formData.deliveryCity,
+            location: formData.deliveryLocation,
+            // address: formData.deliveryAddress
+        },
+        paymentMethod: formData.paymentMethod,
+        doNotCall: formData.doNotCall,
+        deliveryToAnotherPerson: formData.deliveryToAnotherPerson,
+        recipientFirstName: formData.recipientFirstName,
+        recipientLastName: formData.recipientLastName,
+        notes: formData.notes
+    };
+
+
+    try {
+        const res = await axios.post('/api/orders', orderData, config);
+
+        dispatch({
+            type: PLACE_ORDER_SUCCESS,
+            payload: res.data
+        });
+
+        dispatch({ type: CLEAR_CART_SUCCESS });
+
+        // Add Navigation to order summary
+    } catch (err) {
+        dispatch({
+            type: PLACE_ORDER_FAIL,
+            payload: err.responce ? err.responce.data : { msg: 'Order placement failed' }
+        });
+    }
+};
+
+
+export const clearOrderState = () => dispatch => {
+    dispatch({ type: CLEAR_ORDER_STATE });
+};

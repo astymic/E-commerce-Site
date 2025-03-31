@@ -7,6 +7,9 @@ import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/AuthPage/LoginPage';
 import RegisterPage from './pages/AuthPage/RegisterPage';
 // import UserProfilePage from './pages/UserProfilePage';
+import CartPage from './pages/CartPage/CartPage';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+
 import Header from './components/layout/Header'
 
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -36,6 +39,9 @@ function App() {
             <Route path="/product/:productId" element={<ProductPage />} /> 
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            {/* <Route path="/checkout" element={<PrivateRoute><CheckoutPage /></PrivateRoute>} /> */}
+            <Route path="/checkout" element={<CheckoutPage />} />
             
             {/* <Route path="/profile" element={<PrivatRoute><UserProfilePage /></PrivatRoute>} /> */}
             {/* Another routes */}

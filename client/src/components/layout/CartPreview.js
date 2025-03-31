@@ -8,9 +8,6 @@ function CartPreview() {
     const cartState = useSelector(state => state.cart);
     const { items: cartItems, loading } = cartState;
 
-    console.log(cartItems);
-    console.log(cartItems.product + "product");
-
     // Fetch cart items when component mounts or wehn not laoding
     useEffect(() => {
         // dispatch(getCart());
@@ -57,8 +54,8 @@ function CartPreview() {
                                     <img src={item.product && item.product.images ? item.product.images[0] : '/placeholder.png'} alt={item.product ? item.product.name : 'Product'} />
                                 </div>
                                 <div className="item-details">
-                                    <span className="item-name">{item.product ? item.product.name : 'Product Name'}</span>
-                                    <span className="item-price">{item.product && item.product.price ? item.product.price.toFixed(2) : '0.00'}</span>
+                                    <span className="item-name">{item.product ? item.product.name : 'Product Name'} </span>
+                                    <span className="item-price">${item.product && item.product.price ? item.product.price.toFixed(2) : '0.00'}</span>
                                 </div>
                                 <div className="item-quantity">
                                     <button onClick={() => handleQuantityChange(item.product?._id, item.quantity - 1)}>-</button>

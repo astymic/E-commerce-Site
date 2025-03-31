@@ -13,9 +13,15 @@ exports.validateOrder = (req, res, next) => {
         paymentMethod: Joi.string().valid('cash_on_delivery', 'prepaid', 'installment').required().label('payment Method'),
         doNotCall: Joi.boolean().label('Do Not Call'),
         deliveryToAnotherPerson: Joi.boolean().label('Delivery to Another Person'),
-        recipientFirstName: Joi.string().min(2).max(50).when('deliveryToAnotherPerson', { is: true, then: Joi.required() }).label('Recipient First Name'),
-        recipientLastName: Joi.string().min(2).max(50).when('deliveryToAnotherPerson', { is: true, then: Joi.required() }).label('Recipient Last Name'),
-        notes: Joi.string().max(500).label('Order Notes'),
+        recipientFirstName: Joi.string().min(2).max(50)
+            .when('deliveryToAnotherPerson', { 
+                is: true, then: Joi.required(), 
+                otherwise: Joi.allow('').optional() }).label('Recipient First Name'),
+        recipientLastName: Joi.string().min(2).max(50)
+            .when('deliveryToAnotherPerson', { 
+                is: true, then: Joi.required(), 
+                otherwise: Joi.allow('').optional() }).label('Recipient Last Name'),
+        notes: Joi.string().max(500).allow('').label('Order Notes'),
     });
 
     const { error } = schema.validate(req.body);
