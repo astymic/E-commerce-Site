@@ -53,10 +53,29 @@ export const placeOrder = (formData) => async dispatch => {
     } catch (err) {
         dispatch({
             type: PLACE_ORDER_FAIL,
-            payload: err.responce ? err.responce.data : { msg: 'Order placement failed' }
+            payload: err.response ? err.response.data : { msg: 'Order placement failed' }
         });
     }
 };
+
+
+// Get Order Details by ID
+export const getOrderDetails = (orderId) => async dispatch => {
+    dispatch({ type: ORDER_LOADING });
+    try {
+        const res = await axios.get(`/api/orders/${orderId}`);
+        dispatch({
+            type: GET_ORDER_SUCCESS,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: GET_ORDER_FAIL,
+            payload: err.response ? err.response.data : { msg: 'Could not fetch order details' }
+        });
+    }
+};
+
 
 
 export const clearOrderState = () => dispatch => {

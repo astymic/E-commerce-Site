@@ -22,19 +22,27 @@ export default function(state = initialState, action) {
                 ...state,
                 loading: true
             };
-        case PLACE_ORDER_SUCCESS:
-            return {
-                ...state,
-                order: payload,
-                loading: false,
-                error: null
-            };
         case CLEAR_ORDER_STATE:
             return {
                 ...state,
                 order: null,
                 loading: false,
                 error: null
+            };
+        case PLACE_ORDER_SUCCESS:
+        case GET_ORDER_SUCCESS:
+            return {
+                ...state,
+                order: payload,
+                loading: false,
+                error: null
+            };
+        case GET_ORDER_FAIL:
+            return {
+                ...state,
+                order: null,
+                loading: false,
+                error: payload
             };
         default:
             return state;
