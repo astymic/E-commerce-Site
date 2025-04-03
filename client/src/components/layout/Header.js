@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import CartPreview from './CartPreview';
+
 
 function Header() {
     const [ isCartVisible, setIsCartVisible] = useState(false);
+    const { isAuthenticated, user } = useSelector(state => state.auth);
 
     const toggleCartPreview = () => {
         setIsCartVisible(!isCartVisible)
@@ -16,7 +19,15 @@ function Header() {
             </nav>
         <div className="header-actions">
             {/* Placeholder for User Account Icon */}
-            <button className="icon-button">User</button>
+            {/* <button className="icon-button">User</button> */}
+
+            { isAuthenticated && user ? (
+                <Link to="/profile" className="icon-button">
+                    {user.firstName}
+                </Link>
+            ) : (
+                <Link to="/login" className="icon-button">Login</Link>
+            )} 
 
             {/* Cart Icon and Preview */}
             <div className="cart-icon-container">

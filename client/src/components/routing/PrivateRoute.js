@@ -1,17 +1,16 @@
 import React from 'react';
-import { Route, Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const PrivateRoute = ({ auth: { isAuthenticated, loading } }) => {
-    // Determine if the user is authenticated and not loading
-    const authCheck = isAuthenticated && !loading;
+    const location = useLocation();
 
-    return authCheck ? (
-        <Outlet />
-    ) : (
-        <Navigate to="/login" />
-    );
-};
+    if (loading) {
+        return <div>Loading Authentication...</div>;
+    }
+
+    return isAuthenticated ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />;
+}
 
 const mapStateToProps = state => ({
     auth: state.auth

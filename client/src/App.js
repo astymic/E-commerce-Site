@@ -6,7 +6,7 @@ import CategoryPage from './pages/CategoryPage/CategoryPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 import LoginPage from './pages/AuthPage/LoginPage';
 import RegisterPage from './pages/AuthPage/RegisterPage';
-// import UserProfilePage from './pages/UserProfilePage';
+import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
 import CartPage from './pages/CartPage/CartPage';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import OrderSumamryPage from './pages/OrderSummaryPage/OrderSummaryPage';
@@ -41,13 +41,17 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/cart" element={<CartPage />} />
-            {/* <Route path="/checkout" element={<PrivateRoute><CheckoutPage /></PrivateRoute>} /> */}
-            {/* <Route path="/order-summary/:orderId" element={<PrivateRoute><OrderSumamryPage /></PrivateRoute>} /> */}
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/order-summary/:orderId" element={<OrderSumamryPage />} />
-            
-            {/* <Route path="/profile" element={<PrivatRoute><UserProfilePage /></PrivatRoute>} /> */}
-            {/* Another routes */}
+
+            {/* --- Private Routes --- */}
+            <Route element={<PrivateRoute />}>
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/order-summary/:orderId" element={<OrderSumamryPage />} />
+              <Route path="/profile" element={<UserProfilePage />} />
+            </Route>
+
+
+            {/* --- Add 404 page --- */}
+
           </Routes>
           {/* Footer will go here */}
         </div>

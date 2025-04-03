@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, Link } from 'react-router-dom';
+import { register } from '../../redux/actions/authActions';
 
 
 function RegisterPage() {
-    const [fromData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: ''
-    });
-    const [error, setError] = useState('');
+    const [fromData, setFormData] = useState({ firstName: '', lastName: '', email: '', password: '' });
+
+    const dispatch = useDispatch();
+    const { isAuthenticated, loading, error } = useSelector(state => state.auth);
 
     const { firstName, lastName, email, password } = fromData;
 
@@ -17,33 +16,17 @@ function RegisterPage() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        setError('');
-
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            };
-            const body = JSON.stringify({ firstName, lastName, email, password });
-            
-            const res = await axios.post('/api/users/register', body, config);
-            console.log('Registration Success:', res.data); // For now, just log success
-
-            // Handle successful registration
-            // Later implement Redux state and routing
-
-        } catch (err) {
-            console.error('Registration Error:', err.response ? err.response.data : err.message);
-            setError(err.response && err.response.data && err.response.data.msg ? err.response.data.msg : 'Registration failed');
-        }
+        dispatch(register({ firstName, lastName, email, password }));
     };
 
+    if (isAuthenticated) {
+        return <Navigate to="/" />;
+    }
 
     return (
         <div>
             <h1>Register</h1>
-            {error && <p style={{ color: 'red' }}>{error}</p>} 
+            {error && <p style={{ color: 'red' }}>{error.msg || 'Registration Failed'}</p>} 
             <form onSubmit={onSubmit}>
                 <div>
                     <label htmlFor='firstName'>First Name:</label>
@@ -61,8 +44,13 @@ function RegisterPage() {
                     <label htmlFor='password'>Password:</label>
                     <input type='password' id='password' name='password' value={password} onChange={onChange} required minLength="6"/>
                 </div>
-                <button type='submit'>Register</button>
+                <button type='submit' disabled={loading}>
+                    {loading ? 'Registering...' : 'Register'}
+                </button>
             </form>
+            <p>
+                Already have an account? <Link to="/login">Login here</Link>
+            </p>
         </div>
     );
 }

@@ -14,23 +14,23 @@ import { getCart } from './cartActions';
 
 // Load User
 export const loadUser = () => async dispatch => {
-    if (localStorage.token) {
-        setAuthToken(localStorage.token);
-    }
+    const token = localStorage.token;
 
-    try {
-        const res = await axios.get('/api/users/me');
-
-        dispatch({
-            type: USER_LOADED,
-            payload: res.data
-        });
-        dispatch(getCart());
-    } catch (err) {
-        dispatch({
-            type: AUTH_ERROR,
-            payload: err.response ? err.response.data : { msg: 'Authentication Error' }
-        });
+    if (token) {
+        setAuthToken(token);
+       
+        try {
+            const res = await axios.get('/api/users/me');
+            dispatch({ type: USER_LOADED, payload: res.data });
+            dispatch(getCart());
+        } catch (err) {
+            dispatch({
+                type: AUTH_ERROR,
+                payload: err.response ? err.response.data : { msg: 'Authentication Error' }
+            });
+        }
+    } else {
+        dispatch({ type: AUTH_ERROR, payload: { msg: 'No token found' } });
     }
 };
 
