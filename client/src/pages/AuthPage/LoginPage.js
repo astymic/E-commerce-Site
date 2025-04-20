@@ -26,6 +26,7 @@ function LoginPage() {
         return <Navigate tp={from} replace />;
     }
     
+    // Add redirect to previosl location after Login / Registration
 
     return (
         <div>

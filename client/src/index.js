@@ -7,7 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-// Remove Later
+
+// *--- Remove Later ---*
 import * as cartActions from './redux/actions/cartActions'
 import * as productActions from './redux/actions/productActions'
 import * as authActions from './redux/actions/authActions'
@@ -16,7 +17,7 @@ window.store = store;
 window.cartActions = cartActions;
 window.productActions = productActions;
 window.authActions = authActions;
-// Remove Later
+// *--- Remove Later ---*
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
