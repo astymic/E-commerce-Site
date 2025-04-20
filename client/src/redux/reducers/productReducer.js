@@ -35,6 +35,7 @@ export default function productReducer(state = initialState, action) {
                 ...state,
                 product: payload,
                 loading: false,
+                error: null
             };
         case GET_TOP_SELLING_PRODUCTS:
             return {
@@ -70,7 +71,8 @@ export default function productReducer(state = initialState, action) {
             return {
                 ...state,
                 error: payload,
-                loading: false
+                loading: false,
+                product: null
             };
         default:
             return state;
