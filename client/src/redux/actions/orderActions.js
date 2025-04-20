@@ -5,7 +5,9 @@ import {
     GET_ORDER_SUCCESS,
     GET_ORDER_FAIL,
     CLEAR_ORDER_STATE,
-    CLEAR_CART_SUCCESS
+    CLEAR_CART_SUCCESS,
+    GET_USER_ORDERS_SUCCESS,
+    GET_USER_ORDERS_FAIL,
 } from '../types';
 import axios from 'axios';
 
@@ -72,6 +74,24 @@ export const getOrderDetails = (orderId) => async dispatch => {
         dispatch({
             type: GET_ORDER_FAIL,
             payload: err.response ? err.response.data : { msg: 'Could not fetch order details' }
+        });
+    }
+};
+
+
+// Get User Orders
+export const getUserOrders = () => async dispatch => {
+    dispatch({ type: ORDER_LOADING });
+    try {
+        const res = await axios.get(`/api/users/orders`);
+        dispatch({
+            type: GET_USER_ORDERS_SUCCESS,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: GET_USER_ORDERS_FAIL,
+            payload: err.response ? err.response.data : { msg: 'Could not fetch user orders' }
         });
     }
 };

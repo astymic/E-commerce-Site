@@ -1,7 +1,9 @@
 const User = require('../models/User');
+const Order = require('../models/Order');
 const bcrypt = require('bcrypt');   // For password hashing
 const jwt = require('jsonwebtoken'); // For JWT generation
 const config = require('config');   // To get JWT secret from config
+const mongoose = require('mongoose');
 
 
 // @route   POST api/users/register
@@ -118,6 +120,153 @@ exports.getCurrentUser = async (req, res) => {
         const user = await User.findById(req.user.id).select('-password');
         res.json(user);
     }   catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+
+// @route   GET api/user/orders
+// @desc    Get orders for current user
+// @access  Private 
+exports.getUserOrders = async (req, res) => {
+    try {
+        const orders = await Order.find({ user: req.user.id })
+                                    .sort({ createdAt: -1 });
+        res.json(orders)
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+
+
+// @route   GET api/user/addresses
+// @desc    Get user's saved addresses
+// @access  Private 
+exports.getUserAddresses = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('savedAddresses');
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        res.json(user.savedAddresses || []);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+
+// @route   POST api/user/addresses
+// @desc    Add a new address 
+// @access  Private 
+exports.addUserAddress = async (req, res) => {
+    const { type, city, location } = req.body;
+    if (!type || !city || !location) {
+        return res.status(400).json({ msg: 'Address type, city, and location are required' });
+    }
+    if (!['store', 'post', 'address'].includes(type)) {
+        return res.status(400).json({ msg: 'Invalid address type' });
+    }
+
+    const newAddress = {
+        type,
+        city,
+        location,
+        isDefault: false
+    };
+
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        user.savedAddresses.push(newAddress);
+        await user.save();
+        res.json(user.savedAddresses);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+
+// @route   PUT api/user/addresses/:addressId
+// @desc    Update an address
+// @access  Private 
+exports.updateUserAddress = async (req, res) => {
+    const { addressId } = req.params;
+    const { isDefault } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(addressId)) {
+        return res.status(400).json({ msg: 'User not found' });
+    }
+
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        let addressFound = false;
+        user.savedAddresses.forEach(address => {
+            if (address._id.toString() === addressId) {
+                if (isDefault === true) {
+                    user.savedAddresses.forEach(otherAddr => {
+                        if (otherAddr._id.toString() !== addressId) {
+                            otherAddr.isDefault = false;
+                        }
+                    });
+                }
+                address.isDefault = isDefault !== undefined ? isDefault : address.isDefault;
+                addressFound = true;
+            } else if (isDefault === true) {
+                address.isDefault = false;
+            }
+        });
+
+        if (!addressFound) {
+            return res.status(404).json({ msg: 'Address not found' });
+        }
+
+        await user.save();
+        res.json(user.savedAddresses);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+
+// @route   DELETE api/user/addresses/:addressId
+// @desc    Update an address
+// @access  Private 
+exports.deleteUserAddress = async (req, res) => {
+    const { addressId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(addressId)) {
+        return res.status(400).json({ msg: 'Invalid Address ID format' });
+    }
+
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        const removeIndex = user.savedAddresses.findIndex(addr => addr._id.toString() === addressId);
+
+        if (removeIndex === -1) {
+            return res.status(404).json({ msg: 'Address not found' });
+        }
+
+        user.savedAddresses.splice(removeIndex, 1);
+        await user.save();
+        res.json(user.savedAddresses);
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }

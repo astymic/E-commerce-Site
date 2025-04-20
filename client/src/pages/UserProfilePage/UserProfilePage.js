@@ -37,8 +37,8 @@ function UserProfilePage() {
             </div>
 
             <div className="profile-actions">
-            {/* <Link to="/profile/orders" className="btn btn-secondary">Orders History</Link>
-            <Link to="/profile/address" className="btn btn-secondary">Address</Link>
+            <Link to="/profile/orders" className="btn btn-secondary">Orders History</Link>
+            {/* <Link to="/profile/address" className="btn btn-secondary">Address</Link>
             <Link to="/profile/wishlist" className="btn btn-secondary">Wishlist</Link> */}
             <button onClick={handleLogout} className="btn btn-danger">Logout</button>
             </div>

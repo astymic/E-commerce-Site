@@ -10,6 +10,7 @@ import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
 import CartPage from './pages/CartPage/CartPage';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import OrderSumamryPage from './pages/OrderSummaryPage/OrderSummaryPage';
+import OrderHistoryPage from './pages/UserProfilePage/OrderHistoryPage';
 
 import Header from './components/layout/Header'
 
@@ -47,6 +48,7 @@ function App() {
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/order-summary/:orderId" element={<OrderSumamryPage />} />
               <Route path="/profile" element={<UserProfilePage />} />
+              <Route path="/profile/orders" element={<OrderHistoryPage />} />
             </Route>
 
 

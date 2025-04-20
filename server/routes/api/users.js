@@ -22,4 +22,36 @@ router.post('/login', validateLogin, userController.loginUser);
 router.get('/me', auth, userController.getCurrentUser); // Use 'auth' middleware to protect this route
 
 
+// @route   GET api/user/orders
+// @desc    Get orders for current user
+// @access  Private 
+router.get('/orders', auth, userController.getUserOrders);
+
+
+
+// @route   GET api/user/addresses
+// @desc    Get user's saved addresses
+// @access  Private 
+router.get('/addresses', auth, userController.getUserAddresses);
+
+
+// @route   POST api/user/addresses
+// @desc    Add a new address 
+// @access  Private 
+router.post('/addresses', auth, userController.addUserAddress);
+
+
+// @route   PUT api/user/addresses/:addressId
+// @desc    Update an address
+// @access  Private 
+router.put('/addresses:/addressId', auth, userController.updateUserAddress);
+
+
+// @route   DELETE api/user/addresses/:addressId
+// @desc    Update an address
+// @access  Private 
+router.delete('/addresses:/addressId', auth, userController.deleteUserAddress);
+
+
+
 module.exports = router;
