@@ -123,12 +123,15 @@ export const getFilteredCategoryProducts = (categoryId, filterValues, sortBy = '
 
         for (const filterName in filterValues) {
             const value = filterValues[filterName];
-            if (value && value.length > 0) {
-                if (Array.isArray(value)) {
+
+            if (value === null | value === undefined || value === '') continue;
+
+            if (Array.isArray(value)) {
+                if (value.length > 0) {
                     queryParams.append(filterName, value.join(','));
-                } else {
-                    queryParams.append(filterName, value);
                 }
+            } else {
+                queryParams.append(filterName, value);
             }
         }
         

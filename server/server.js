@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const app = express();
 const port = process.env.PORT || 5000; // Default 5000
+// const port = 5000; // Default 5000
 const errorHandler = require('./middleware/error');
 
 

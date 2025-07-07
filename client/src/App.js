@@ -11,6 +11,7 @@ import CartPage from './pages/CartPage/CartPage';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import OrderSumamryPage from './pages/OrderSummaryPage/OrderSummaryPage';
 import OrderHistoryPage from './pages/UserProfilePage/OrderHistoryPage';
+import AddressManagementPage from './pages/UserProfilePage/AddressManagementPage';
 
 import Header from './components/layout/Header'
 
@@ -49,6 +50,7 @@ function App() {
               <Route path="/order-summary/:orderId" element={<OrderSumamryPage />} />
               <Route path="/profile" element={<UserProfilePage />} />
               <Route path="/profile/orders" element={<OrderHistoryPage />} />
+              <Route path="/profile/addresses" element={<AddressManagementPage />} />
             </Route>
 
 

@@ -145,7 +145,7 @@ exports.getUserOrders = async (req, res) => {
 // @route   GET api/user/addresses
 // @desc    Get user's saved addresses
 // @access  Private 
-exports.getUserAddresses = async (req, res) => {
+exports.getAddresses = async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('savedAddresses');
         if (!user) {
@@ -162,7 +162,7 @@ exports.getUserAddresses = async (req, res) => {
 // @route   POST api/user/addresses
 // @desc    Add a new address 
 // @access  Private 
-exports.addUserAddress = async (req, res) => {
+exports.addAddress = async (req, res) => {
     const { type, city, location } = req.body;
     if (!type || !city || !location) {
         return res.status(400).json({ msg: 'Address type, city, and location are required' });
@@ -197,7 +197,7 @@ exports.addUserAddress = async (req, res) => {
 // @route   PUT api/user/addresses/:addressId
 // @desc    Update an address
 // @access  Private 
-exports.updateUserAddress = async (req, res) => {
+exports.updateAddress = async (req, res) => {
     const { addressId } = req.params;
     const { isDefault } = req.body;
 
@@ -244,7 +244,7 @@ exports.updateUserAddress = async (req, res) => {
 // @route   DELETE api/user/addresses/:addressId
 // @desc    Update an address
 // @access  Private 
-exports.deleteUserAddress = async (req, res) => {
+exports.deleteAddress = async (req, res) => {
     const { addressId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(addressId)) {

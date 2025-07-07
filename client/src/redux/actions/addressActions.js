@@ -25,7 +25,7 @@ export const getAddresses = () => async dispatch => {
 }
 
 // Add Address
-export const addUserAddress = (addressData) => async dispatch => {
+export const addAddress = (addressData) => async dispatch => {
     dispatch({ type: ADDRESS_LOADING });
     const config = { headers: { 'Content-Type': 'application/json' } };
     try {

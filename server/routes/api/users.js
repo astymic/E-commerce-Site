@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('../../controllers/userController');
 const auth = require('../../middleware/auth');
 const { validateRegistration, validateLogin } = require('../../validation/userValidation');
+const { validateAddress } = require('../../validation/addressValidation');
 
 
 // @route   POST api/user/register
@@ -32,25 +33,25 @@ router.get('/orders', auth, userController.getUserOrders);
 // @route   GET api/user/addresses
 // @desc    Get user's saved addresses
 // @access  Private 
-router.get('/addresses', auth, userController.getUserAddresses);
+router.get('/addresses', auth, userController.getAddresses);
 
 
 // @route   POST api/user/addresses
 // @desc    Add a new address 
 // @access  Private 
-router.post('/addresses', auth, userController.addUserAddress);
+router.post('/addresses', auth, validateAddress, userController.addAddress);
 
 
 // @route   PUT api/user/addresses/:addressId
 // @desc    Update an address
 // @access  Private 
-router.put('/addresses:/addressId', auth, userController.updateUserAddress);
+router.put('/addresses/:addressId', auth, userController.updateAddress);
 
 
 // @route   DELETE api/user/addresses/:addressId
 // @desc    Update an address
 // @access  Private 
-router.delete('/addresses:/addressId', auth, userController.deleteUserAddress);
+router.delete('/addresses/:addressId', auth, userController.deleteAddress);
 
 
 
