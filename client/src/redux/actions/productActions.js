@@ -1,3 +1,4 @@
+// import Product from '../../../../server/models/Product';
 import { 
     GET_PRODUCTS, 
     GET_PRODUCT, 
@@ -7,6 +8,8 @@ import {
     GET_PROMOTIONAL_PRODUCTS, 
     GET_CATEGORY_PRODUCTS,
     GET_FILTERED_CATEGORY_PRODUCTS,
+    ADD_REVIEW_SUCCESS,
+    ADD_REVIEW_FAIL
 } from '../types';
 import axios from 'axios';
 
@@ -154,3 +157,32 @@ export const getFilteredCategoryProducts = (categoryId, filterValues, sortBy = '
         });
     }
 };
+
+
+export const addProductReview = (productId, reviewData) => async dispatch => {
+    try {
+        const config = { 
+            headers: {
+                 'Content-Type': 'application/json' 
+            } 
+        };
+
+        const res = await axios.post(`/api/products/${productId}/reviews`, reviewData, config);
+        
+        dispatch({
+            type: 'ADD_REVIEW_SUCCESS',
+            payload: { 
+                productId: productId, reviews: res.data }
+        });
+
+    } catch (err) {
+        dispatch({
+            type: ADD_REVIEW_FAIL,
+            payload: {
+                msg: err.response?.statusText || 'Server Error',
+                status: err.responce?.status || 500,
+                errors: err.responce?.data?.errors || [{ msg: err.responce?.data?.msg || 'Could not add review' }]
+            }
+        });
+    }
+}

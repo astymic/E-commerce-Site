@@ -1,5 +1,6 @@
 const Product = require('../models/Product'); 
 const Category = require('../models/Category');
+const User = require('../models/User');
 
 
 // @route   POST api/products
@@ -59,6 +60,65 @@ exports.createProduct = async (req, res) => {
         res.status(500).send('Server Error')
     }
 };
+
+
+// @route   POST api/products/:id/reviews
+// @desc    Add a product review
+// @access  Private
+exports.addProductReview = async (req, res) => {
+    try {
+        const { rating, comment } = req.body;
+        const productId = req.params.id;
+
+        // Validation
+        if (!rating || !comment) {
+            return res.status(400).json({ msg: 'Rating and comment are required' });
+        }
+        if (rating < 1 || rating > 5) {
+            return res.status(400).json({ msg: 'Rating must be between 1 and 5' });
+        }
+
+        const product = await Product.findById(productId)
+        if (!product) {
+            return res.status(400).json({ msg: 'Product not found' });
+        }
+
+        const user = await User.findById(req.user.id).select('firstName lastName');
+        if (!user) {
+            return res.status(400).json({ msg: 'User not found' });
+        }
+
+        // Check if user has already reviewed this product (protection against bots)
+        const alreadyReviewed = product.reviews.find(
+            review => review.userId.toString() === req.user.id.toString()
+        );
+
+        if (alreadyReviewed) {
+            return res.status(400).json({ msg: 'You have already reviewed this product' });
+        }
+
+        // Create new review object
+        const newReview = {
+            userId: req.user.id,
+            username: `${user.firstName} ${user.lastName}`,
+            rating: Number(rating),
+            comment: comment
+        };
+
+        product.reviews.unshift(newReview); // Add to the beginning
+
+        product.rating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+
+        await product.save();
+
+        res.status(201).json(product.reviews); // Return all reviews
+    
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');   
+    }
+};
+
 
 
 // @route   GET api/products

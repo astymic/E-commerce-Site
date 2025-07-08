@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../../controllers/productController');
+const auth = require('../../middleware/auth');
 const upload = require('../../middleware/upload');
 
 const { validateProduct } = require('../../validation/productValidation'); // Hide all lines with this check - if you want to make "solo" store (only official store products)
@@ -10,6 +11,12 @@ const { validateProduct } = require('../../validation/productValidation'); // Hi
 // @desc    Create a new product
 // @access  Public
 router.post('/', validateProduct, productController.createProduct);
+
+
+// @route   POST api/products/:id/reviews
+// @desc    Add a product review
+// @access  Private
+router.post('/:id/reviews', auth, productController.addProductReview);
 
 
 // @route   GET api/products
@@ -54,13 +61,13 @@ router.put('/:id', validateProduct, productController.updateProduct);
 router.delete('/:id', productController.deleteProduct);
 
 
-// --- Upload Product Image ---
 
 // @route   POST api/upload/product-image
 // @desc    Upload a product image
 // @access  Public
 // 'productImage' is field name for the file input in the fronted from
 router.post('/upload/product-image', upload.single('productImage'), productController.uploadImage);
+
 
 
 module.exports = router;

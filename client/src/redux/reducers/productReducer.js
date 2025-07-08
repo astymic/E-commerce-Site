@@ -17,8 +17,17 @@ const initialState = {
     promotionalProducts: [],
     categoryProducts: [],
     loading: true,
-    error: {}
+    error: null,
+    reviewError: null
 };
+
+// Helper function for calculate rating
+const calculateNewAverageRating = (reviews) => {
+    if (!reviews || reviews.length === 0) return 0;
+    const totalRating = reviews.reduce((acc, item) => item.rating + acc, 0);
+    return totalRating / reviews.length;
+}
+
 
 export default function productReducer(state = initialState, action) {
     const { type, payload } = action;
@@ -28,14 +37,15 @@ export default function productReducer(state = initialState, action) {
             return {
                 ...state,
                 products: payload,
-                loading: false
+                loading: false,
             };
         case GET_PRODUCT:
             return {
                 ...state,
                 product: payload,
                 loading: false,
-                error: null
+                error: null,
+                reviewError: null
             };
         case GET_TOP_SELLING_PRODUCTS:
             return {
@@ -66,6 +76,19 @@ export default function productReducer(state = initialState, action) {
                 ...state,
                 categoryProducts: payload,
                 loading: false
+            };
+        case 'ADD_REVIEW_SUCCESS':
+            return {
+                ...state,
+                product: state.product && state.product._id === payload.productId
+                    ? { ...state.product, reviews: payload.reviews, rating: calculateNewAverageRating(payload.reviews) }
+                    : state.product,
+                reviewError: null
+            };
+        case 'ADD_REVIEW_FAIL':
+            return {
+                ...state,
+                reviewError: payload                
             };
         case PRODUCTS_ERROR:
             return {
