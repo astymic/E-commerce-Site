@@ -92,7 +92,8 @@ export const removeItemFromCart = (productId) => async dispatch => {
 export const clearCart = () => async dispatch => {
     dispatch({ type: CART_LOADING });
     try {
-        const res = await axios.delete('/api/cart');
+        // const res = await axios.delete('/api/cart');
+        await axios.delete('/api/cart');
         dispatch({
             type: CLEAR_CART_SUCCESS,
             payload: []

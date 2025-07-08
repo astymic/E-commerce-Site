@@ -17,7 +17,7 @@ const initialState = {
     error: null
 };
 
-export default function(state = initialState, action) {
+export default function orderReducer(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
@@ -25,13 +25,6 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 loading: true
-            };
-        case CLEAR_ORDER_STATE:
-            return {
-                ...state,
-                order: null,
-                loading: false,
-                error: null
             };
         case PLACE_ORDER_SUCCESS:
             return {

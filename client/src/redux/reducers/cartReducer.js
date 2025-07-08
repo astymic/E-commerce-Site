@@ -19,7 +19,7 @@ const initialSate = {
     error: null
 };
 
-export default function(state = initialSate, action) {
+export default function cartReducer(state = initialSate, action) {
     const { type, payload } = action;
 
     switch (type) {

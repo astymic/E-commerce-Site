@@ -12,7 +12,7 @@ const initialState = {
     error: null
 };
 
-export default function(state = initialState, action) {
+export default function addressReducer(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
         case ADDRESS_LOADING: 
