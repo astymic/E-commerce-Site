@@ -6,7 +6,7 @@ exports.validateProduct = (req, res, next) => {
         description: Joi.string().required().min(10).label('Description'),
         shortDescription: Joi.string().max(255).label('Short Description'),
         price: Joi.number().min(0).label('Price'),
-        discountPrice: Joi.number().min(0).label('Descount Price'),
+        discountPrice: Joi.number().min(0).label('Discount Price'),
         category: Joi.string().hex().length(24).required().label('Category ID'),
         subcategory: Joi.string().hex().length(24).allow(null, '').label('Subcategory ID'),
         specifications: Joi.array().items(Joi.object({

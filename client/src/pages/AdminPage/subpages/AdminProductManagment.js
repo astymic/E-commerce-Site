@@ -22,7 +22,7 @@ function AdminProductManagment() {
         <div>
             <div className="admin-page-header">
                 <h2>Manage Products</h2>
-                {/* <Link to="/admin/products/new" className="btn btn-primary">Add New Product</Link> */}
+                <Link to="/admin/products/new" className="btn btn-primary">Add New Product</Link>
             </div>
             {error && <p style={{ color: 'red' }}>Error: {error.msg}</p>}
             <table className="admin-table">
@@ -44,7 +44,7 @@ function AdminProductManagment() {
                                 <td>{product.price?.toFixed(2)}</td>
                                 <td>{product.stock}</td>
                                 <td>
-                                    {/* <Link to={`/admin/products/edit/${product._id}`} className="btn btn-sm" >Edit</Link> */}
+                                    <Link to={`/admin/products/edit/${product._id}`} className="btn btn-sm" >Edit</Link>
                                     {/* <button className="btn btn-sm btn-danger">Delete</button> */}
                                 </td>
                             </tr>

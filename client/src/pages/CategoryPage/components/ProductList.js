@@ -10,7 +10,7 @@ function ProductList() {
             <h2>Product Listing</h2>
             {loading ? (
                 <p>Loading products...</p>
-            ) : error.msg ? (
+            ) : error && error?.msg ? (
                 <p style={{ color: 'red' }}>Error loading products: {error.msg}</p>
             ) : (
                 <ul className='product-grid'>
