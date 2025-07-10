@@ -91,12 +91,9 @@ function ProductForm() {
                     <label>Category</label>
                     <select name="category" value={formData.category} onChange={onChange} required>
                         <option value="">Select a Category</option>
-                        {/* {categories.map(cat => (
+                        {categories.map(cat => (
                             <option key={cat._id} value={cat._id}>{cat.name}</option>
-                        ))} */}
-                            <option key='cat._id' value='67ca2971afaa9b3a2d8b8458'>67ca2971afaa9b3a2d8b8458</option>
-
-
+                        ))}
                     </select>
                 </div>
                 {/* Price & Discount Price */}
