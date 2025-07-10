@@ -16,7 +16,7 @@ function TopSellingProducts() {
             <h2>Top Selling Products</h2>
             {loading ? (
                 <p>Loading top selling products...</p>
-            ) : error.msg ? (
+            ) : error && error.msg ? (
                 <p style={{ color: 'red' }}>Error loading products: {error.msg}</p>
             ) : (
                 <ul className='product-list'>

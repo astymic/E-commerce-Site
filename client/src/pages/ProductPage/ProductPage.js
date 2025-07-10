@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector }  from 'react-redux';
-import { getProduct } from '../../redux/actions/productActions';
+import { getProduct, getSimilarProducts } from '../../redux/actions/productActions';
 import { addItemToCart } from '../../redux/actions/cartActions';
 import ProductReviews from './components/ProductReviews';
+import ProductCard from '../../components/common/ProductCard';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
@@ -12,12 +13,13 @@ function ProductPage() {
     const { productId } = useParams();
     const dispatch = useDispatch();
     const productState = useSelector(state => state.product);
-    const { product, loading, error } = productState;
+    const { product, similarProducts, loading, error } = productState;
 
     const [activeTab, setActiveTab] = useState('descrtiption'); // 'description', 'specs' or 'reviews' 
 
     useEffect(() => {
         dispatch(getProduct(productId));
+        dispatch(getSimilarProducts(productId));
     }, [dispatch, productId]);
 
     const handleAddToCart = () => {
@@ -137,7 +139,15 @@ function ProductPage() {
             {/* Similar Products Section */}
             <section className="similar-products">
                 <h2>Similar Products</h2>
-                <p>Similar products section coming soon...</p>
+                <div className="product-grid">
+                    {similarProducts && similarProducts.length > 0 ? (
+                        similarProducts.map(p => (
+                            <ProductCard key={p._id} product={p} />
+                        ))
+                    ) : (
+                        <p>No similar products found.</p>
+                    )}
+                </div>
             </section>
         </div>
     );

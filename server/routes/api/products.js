@@ -49,6 +49,12 @@ router.get('/new-arrivals', productController.getNewArrivalsProducts);
 router.get('/:id', productController.getProductById);
 
 
+// @route   GET api/products/:id/similar
+// @desc    Get similar products
+// @access  Public
+router.get('/:id/similar', productController.getSimilarProducts);
+
+
 // @route   PUT api/products/:id
 // @desc    Update product
 // @access  Public

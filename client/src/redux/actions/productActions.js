@@ -8,8 +8,9 @@ import {
     GET_PROMOTIONAL_PRODUCTS, 
     GET_CATEGORY_PRODUCTS,
     GET_FILTERED_CATEGORY_PRODUCTS,
-    ADD_REVIEW_SUCCESS,
-    ADD_REVIEW_FAIL
+    ADD_REVIEW_FAIL,
+    GET_SIMILAR_PRODUCTS_SUCCESS,
+    GET_SIMILAR_PRODUCTS_FAIL
 } from '../types';
 import axios from 'axios';
 
@@ -120,6 +121,7 @@ export const getCategoryProducts = (categoryId, sortBy) => async dispatch => {
 };
 
 
+// Get filtered category products
 export const getFilteredCategoryProducts = (categoryId, filterValues, sortBy = '') => async dispatch => {
     try {
         let queryParams = new URLSearchParams();
@@ -153,12 +155,30 @@ export const getFilteredCategoryProducts = (categoryId, filterValues, sortBy = '
     } catch (err) {
         dispatch({
             type: PRODUCTS_ERROR,
-            payload: err.response ? err.responce.data : { msg: 'Network Error' }
+            payload: err.response ? err.response.data : { msg: 'Network Error' }
         });
     }
 };
 
 
+// Get similar products
+export const getSimilarProducts = (productId) => async dispatch => {
+    try {
+        const res = await axios.get(`/api/products/${productId}/similar`);
+        dispatch({
+            type: GET_SIMILAR_PRODUCTS_SUCCESS,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: GET_SIMILAR_PRODUCTS_FAIL,
+            payload: { msg: err.response?.statusText, status: err.response?.status }
+        });
+    }
+};
+
+
+// Add product review
 export const addProductReview = (productId, reviewData) => async dispatch => {
     try {
         const config = { 

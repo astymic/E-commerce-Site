@@ -16,7 +16,7 @@ function CategoryOverview() {
             <h2>Category Overview</h2>
             {loading ? (
                 <p>Loading categories...</p>
-            ) : error.msg ? (
+            ) : error && error.msg ? (
                 <p style={{ color: 'red' }}>Error loading categories: {error.msg}</p>
             ) : (
                 <ul className='category-list'>

@@ -7,6 +7,8 @@ import {
     GET_PROMOTIONAL_PRODUCTS, 
     GET_CATEGORY_PRODUCTS, 
     GET_FILTERED_CATEGORY_PRODUCTS,
+    GET_SIMILAR_PRODUCTS_SUCCESS,
+    GET_SIMILAR_PRODUCTS_FAIL
 } from '../types';
 
 const initialState = {
@@ -16,6 +18,7 @@ const initialState = {
     newArrivalsProducts: [],
     promotionalProducts: [],
     categoryProducts: [],
+    similarProducts: [],
     loading: true,
     error: null,
     reviewError: null
@@ -45,7 +48,8 @@ export default function productReducer(state = initialState, action) {
                 product: payload,
                 loading: false,
                 error: null,
-                reviewError: null
+                reviewError: null,
+                similarProducts: []
             };
         case GET_TOP_SELLING_PRODUCTS:
             return {
@@ -76,6 +80,16 @@ export default function productReducer(state = initialState, action) {
                 ...state,
                 categoryProducts: payload,
                 loading: false
+            };
+        case GET_SIMILAR_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                similarProducts: payload
+            };
+        case GET_SIMILAR_PRODUCTS_FAIL:
+            return {
+                ...state,
+                similarProducts: []
             };
         case 'ADD_REVIEW_SUCCESS':
             return {

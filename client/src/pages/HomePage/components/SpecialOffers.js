@@ -16,7 +16,7 @@ function SpecialOffers() {
             <h2>Special Offers & Discount</h2>
             {loading ? (
                 <p>Loading special offers...</p>
-            ) : error.msg ? (
+            ) : error && error.msg ? (
                 <p style={{ color: 'red' }}>Error loading special offers: {error.msg}</p>
             ) : (
                 <ul className='product-list'>

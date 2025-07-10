@@ -374,6 +374,34 @@ exports.getPromotionalProducts = async (req, res) => {
 };
 
 
+// @route   GET api/products/:id/similar
+// @desc    Get similar products
+// @access  Public
+exports.getSimilarProducts = async (req, res) => {
+    try {
+        const currentProduct = await Product.findById(req.params.id);
+
+        if (!currentProduct) {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
+
+        const similarProducts = await Product.find({
+            category: currentProduct.category,
+            _id: { $ne: currentProduct._id }
+        })
+        .limit(4);
+
+        res.json(similarProducts);
+    
+    } catch (err) {
+        console.error(err.message);
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
+        res.status(500).send('Server Error');
+    }
+};
+
 
 // --- Upload Product Image ---
 

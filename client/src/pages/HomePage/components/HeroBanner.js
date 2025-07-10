@@ -19,7 +19,7 @@ function HeroBanner() {
             <h2>Hero Banner Section</h2>
             {loading ? (
                 <p>Loading featured products...</p>
-            ) : error.msg ? (
+            ) : error && error.msg ? (
                 <p style={{ color: 'red' }}>Error loading featured products: {error.msg}</p>
             ) : (
                 <div className='banner-carousel'>

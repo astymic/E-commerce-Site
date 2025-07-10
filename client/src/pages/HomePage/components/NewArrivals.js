@@ -16,7 +16,7 @@ function NewArrivals() {
             <h2>New Arrivals</h2>
             {loading ? (
                 <p>Loading new arrivals...</p>
-            ) : error.msg ? (
+            ) : error && error.msg ? (
                 <p style={{ color: 'red' }}>Error loading new arrivals: {error.msg}</p>
             ) : (
                 <ul className='product-list'>
