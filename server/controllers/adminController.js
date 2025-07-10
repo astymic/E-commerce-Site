@@ -219,8 +219,8 @@ exports.adminGetProducts = async (req, res) => {
     try {
         const { page = 1, limit = 10, category, priceMin, priceMax, search } = req.query;
         
-        const pageNumber = parseInt(page);
-        const limitNumber = parseInt(limit);
+        let pageNumber = parseInt(page);
+        let limitNumber = parseInt(limit);
 
         if (isNaN(pageNumber) || pageNumber < 1) pageNumber = 1;
         if (isNaN(limitNumber) || limitNumber < 1 || limitNumber > 500) limitNumber = 20;

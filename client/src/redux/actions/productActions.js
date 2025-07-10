@@ -115,7 +115,7 @@ export const getCategoryProducts = (categoryId, sortBy) => async dispatch => {
     } catch (err) {
         dispatch({
             type: PRODUCTS_ERROR,
-            payload: err.response ? err.responce.data : { msg: 'Network Error' }
+            payload: err.response ? err.response.data : { msg: 'Network Error' }
         });
     }
 };
@@ -200,8 +200,8 @@ export const addProductReview = (productId, reviewData) => async dispatch => {
             type: ADD_REVIEW_FAIL,
             payload: {
                 msg: err.response?.statusText || 'Server Error',
-                status: err.responce?.status || 500,
-                errors: err.responce?.data?.errors || [{ msg: err.responce?.data?.msg || 'Could not add review' }]
+                status: err.response?.status || 500,
+                errors: err.response?.data?.errors || [{ msg: err.response?.data?.msg || 'Could not add review' }]
             }
         });
     }

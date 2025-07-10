@@ -19,7 +19,7 @@ export const getAddresses = () => async dispatch => {
     } catch (err) { 
         dispatch({ 
             type: GET_ADDRESSES_FAIL, 
-            payload: err.responce ? err.responce.data : { msg: 'Error fetching user address' } 
+            payload: err.response ? err.response.data : { msg: 'Error fetching user address' } 
         }); 
     }
 }
@@ -37,7 +37,7 @@ export const addAddress = (addressData) => async dispatch => {
     } catch (err) {
         dispatch({
             type: ADD_ADDRESS_FAIL,
-            payload: err.responce ? err.responce.data : { msg: 'Error adding address' }
+            payload: err.response ? err.response.data : { msg: 'Error adding address' }
         });
     }
 }
@@ -55,7 +55,7 @@ export const updateAddress = (addressId, updateData) => async dispatch => {
     } catch (err) {
         dispatch({
             type: UPDATE_ADDRESS_FAIL,
-            payload: err.responce ? err.responce.data : { msg: 'Error updating address' }
+            payload: err.response ? err.response.data : { msg: 'Error updating address' }
         });
     }
 }
@@ -72,7 +72,7 @@ export const deleteAddress = (addressId) => async dispatch => {
     } catch (err) {
         dispatch({
             type: DELETE_ADDRESS_FAIL,
-            payload: err.responce ? err.responce.data : { msg: 'Error delete address' }
+            payload: err.response ? err.response.data : { msg: 'Error delete address' }
         });
     }
 }

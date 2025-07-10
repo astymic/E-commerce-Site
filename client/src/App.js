@@ -17,6 +17,14 @@ import Header from './components/layout/Header'
 
 import PrivateRoute from './components/routing/PrivateRoute';
 
+import AdminPrivateRoute from './components/routing/AdminPrivateRoute';
+import AdminLayout from './pages/AdminPage/components/AdminLayout';
+import AdminDashboard from './pages/AdminPage/subpages/AdminDashboard';
+import AdminProductManagment from './pages/AdminPage/subpages/AdminProductManagment';
+import AdminCategoryManagment from './pages/AdminPage/subpages/AdminCategoryManagment';
+import AdminOrderManagment from './pages/AdminPage/subpages/AdminOrderManagment';
+import AdminUserManagment from './pages/AdminPage/subpages/AdminUserManagment';
+
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { loadUser } from './redux/actions/authActions';
@@ -53,6 +61,17 @@ function App() {
               <Route path="/profile/addresses" element={<AddressManagementPage />} />
             </Route>
 
+            {/* --- Admin Private Routes --- */}
+            <Route element={<AdminPrivateRoute />}>
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route path="dashboard" element={<AdminDashboard />} />
+                <Route path="products" element={<AdminProductManagment />} />
+                <Route path="categories" element={<AdminCategoryManagment />} />
+                <Route path="orders" element={<AdminOrderManagment />} />
+                <Route path="users" element={<AdminUserManagment />} />
+                <Route index element={<AdminDashboard />} />
+              </Route>
+            </Route>
 
             {/* --- Add 404 page --- */}
 
