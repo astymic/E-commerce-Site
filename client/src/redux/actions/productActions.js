@@ -10,7 +10,8 @@ import {
     GET_FILTERED_CATEGORY_PRODUCTS,
     ADD_REVIEW_FAIL,
     GET_SIMILAR_PRODUCTS_SUCCESS,
-    GET_SIMILAR_PRODUCTS_FAIL
+    GET_SIMILAR_PRODUCTS_FAIL,
+    CLEAR_PRODUCT_STATE
 } from '../types';
 import axios from 'axios';
 
@@ -205,4 +206,10 @@ export const addProductReview = (productId, reviewData) => async dispatch => {
             }
         });
     }
+}
+
+
+// Clear product state
+export const clearProductState = () => dispatch => {
+    dispatch({ type: CLEAR_PRODUCT_STATE })
 }

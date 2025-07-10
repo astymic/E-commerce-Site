@@ -8,7 +8,8 @@ import {
     GET_CATEGORY_PRODUCTS, 
     GET_FILTERED_CATEGORY_PRODUCTS,
     GET_SIMILAR_PRODUCTS_SUCCESS,
-    GET_SIMILAR_PRODUCTS_FAIL
+    GET_SIMILAR_PRODUCTS_FAIL,
+    CLEAR_PRODUCT_STATE
 } from '../types';
 
 const initialState = {
@@ -103,6 +104,13 @@ export default function productReducer(state = initialState, action) {
             return {
                 ...state,
                 reviewError: payload                
+            };
+        case 'CLEAR_PRODUCT_STATE':
+            return {
+                ...state,
+                product: null,
+                error: null,
+                reviewError: null
             };
         case PRODUCTS_ERROR:
             return {

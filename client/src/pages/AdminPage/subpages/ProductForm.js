@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, RouterProvider } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getProducts } from "../../../redux/actions/productActions"; // Temporary
+import { getProduct, clearProductState } from "../../../redux/actions/productActions";
 import { adminCreateProduct, adminUpdateProduct } from "../../../redux/actions/adminActions";
+import { getCategories } from "../../../redux/actions/categoryActions";
 
 function ProductForm() {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
+
+    const isEditing = !!id;
+
     
     const { product, loading, error } = useSelector(state => state.product);
     const { categories } = useSelector(state => state.category)
@@ -27,16 +31,21 @@ function ProductForm() {
         isTopSelling: false,
     });
 
-    const isEditing = !!id; // Flag to check if in edit mode
 
     useEffect(() => {
+        if (categories.length === 0) {
+            dispatch(getCategories());
+        }
+
         // If in edit mode, fetch product data
         if (isEditing) {
-            dispatch(getProducts(id));
+            dispatch(getProduct(id));
         }
-        // Fetch categories for the dropdown
-        // dispatch(getCategories()); // Might be populated
-    }, [dispatch, id, isEditing]);
+
+        return () => {
+            dispatch(clearProductState());
+        }
+    }, [dispatch, id, isEditing, categories.length]);
 
     // When data loaded (for editing), populate the form
     useEffect(() => {
@@ -50,11 +59,11 @@ function ProductForm() {
                 category: product.category?._id || '',
                 stock: product.stock || '',
                 isPromotion: product.isPromotion || false,
-                isNew: product.isNew || false,
+                isNew: product.isNew !== undefined ? product.isNew : false,
                 isTopSelling: product.isTopSelling || false,
             });
         }
-    }, [isEditing, product, id]);
+    }, [product]);
 
 
     const onChange = e => {
@@ -74,12 +83,14 @@ function ProductForm() {
         }
     };
 
-    if (loading && isEditing) return <p>Loading product data...</p>;
+    if (loading && isEditing) {
+        return <p>Loading product data...</p>;
+    }
 
     return (
         <div>
             <h2>{isEditing ? 'Edit Product' : 'Add New Product'}</h2>
-            {error && <p style={{color: 'red'}}>{error.msg}</p>}
+            {error && <p style={{ color: 'red' }}>{error.msg || 'An error occurred'}</p>}
             <form onSubmit={onSubmit}>
                 {/* Name */}
                 <div>
@@ -99,11 +110,11 @@ function ProductForm() {
                 {/* Price & Discount Price */}
                 <div>
                     <label>Price</label>
-                    <input type="number" name="price" value={formData.price} onChange={onChange} required/>
+                    <input type="number" name="price" value={formData.price} onChange={onChange} required step="0.01"/>
                 </div>
                 <div>
                     <label>Discount Price (Optional)</label>
-                    <input type="number" name="discountPrice" value={formData.discountPrice} onChange={onChange} />
+                    <input type="number" name="discountPrice" value={formData.discountPrice} onChange={onChange} step="0.01"/>
                 </div>
                 {/* Stock */}
                 <div>
@@ -113,12 +124,12 @@ function ProductForm() {
                 {/* Short Description */}
                 <div>
                     <label>Short Description</label>
-                    <input name="shortDescription" value={formData.shortDescription} onChange={onChange} required/>
+                    <textarea name="shortDescription" value={formData.shortDescription} onChange={onChange} required/>
                 </div>
                 {/* Full Description */}
                 <div>
                     <label>Full Description</label>
-                    <input name="description" value={formData.description} onChange={onChange} required />
+                    <textarea name="description" value={formData.description} onChange={onChange} required />
                 </div>
                 {/* Checkboxes */}
                 <div>
