@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const config = require('config');
 const Schema = mongoose.Schema;
 
 
@@ -16,6 +17,18 @@ const categorySchema = new Schema({
     }],
     createdAt: { type: Date, default: Date.now },
     updateAt: { type: Date, default: Date.now }
+}, {
+    toJSON: {
+        transform: function(doc, ret) {
+            if (ret.image && !ret.image.startsWith('http')) {
+                ret.image = `${config.get('BASE_URL')}/${ret.iamge}`;
+            }
+            if (ret.bannerImage && !ret.bannerImage.startsWith('http')) {
+                ret.bannerImage = `${config.get('BASE_URL')}/${ret.bannerImage}`;
+            }
+            return ret;
+        }
+    }
 });
 
 

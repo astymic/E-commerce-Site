@@ -3,20 +3,20 @@ import { useParams, useNavigate, RouterProvider } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getProduct, clearProductState } from "../../../redux/actions/productActions";
-import { adminCreateProduct, adminUpdateProduct } from "../../../redux/actions/adminActions";
+import { adminCreateProduct, adminUpdateProduct, adminUploadImage } from "../../../redux/actions/adminActions";
 import { getCategories } from "../../../redux/actions/categoryActions";
+
+import resolveImageUrl from "../../../utils/resolveImageUrl";
+
 
 function ProductForm() {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
-
-    const isEditing = !!id;
-
-    
     const { product, loading, error } = useSelector(state => state.product);
     const { categories } = useSelector(state => state.category)
+    const { imagePath, imageLoading } = useSelector(state => state.admin);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -30,6 +30,11 @@ function ProductForm() {
         isNew: true,
         isTopSelling: false,
     });
+
+    const [images, setImages] = useState([]);
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const isEditing = !!id;
 
 
     useEffect(() => {
@@ -47,6 +52,7 @@ function ProductForm() {
         }
     }, [dispatch, id, isEditing, categories.length]);
 
+
     // When data loaded (for editing), populate the form
     useEffect(() => {
         if (isEditing && product && product._id === id) {
@@ -62,9 +68,34 @@ function ProductForm() {
                 isNew: product.isNew !== undefined ? product.isNew : false,
                 isTopSelling: product.isTopSelling || false,
             });
+            setImages(product.images || []);
         }
-    }, [product]);
+    }, [product, isEditing, id]);
+    // }, [product]);
 
+    useEffect(() => {
+        if (imagePath) {
+            setImages(prevImages => [...prevImages, imagePath]);
+        }
+    }, [imagePath]);
+
+
+    const onFileChange = e => {
+        setSelectedFile(e.target.files[0]);
+    };
+
+    const onImageUpload = () => {
+        if (selectedFile) {
+            const uploadData = new FormData();
+            uploadData.append('productImage', selectedFile);
+            dispatch(adminUploadImage(uploadData));
+            setSelectedFile(null);
+        }
+    };
+
+    const removeImage = (imgPath) => {
+        setImages(images.filter(img => img !== imgPath));
+    };
 
     const onChange = e => {
         const { name, value, type, checked } = e.target;
@@ -76,10 +107,15 @@ function ProductForm() {
 
     const onSubmit = e => {
         e.preventDefault();
+        const finalProductData = {
+            ...formData,
+            images: images
+        };
+
         if (isEditing) {
-            dispatch(adminUpdateProduct(id, formData, navigate));
+            dispatch(adminUpdateProduct(id, finalProductData, navigate));
         } else {
-            dispatch(adminCreateProduct(formData, navigate));
+            dispatch(adminCreateProduct(finalProductData, navigate));
         }
     };
 
@@ -141,7 +177,23 @@ function ProductForm() {
                 <div>
                     <label><input type="checkbox" name="isPromotion" value={formData.isPromotion} onChange={onChange} />Is on Promotion?</label>
                 </div>
-
+                <div className="form-section">
+                    <h3>Product Images</h3>
+                    <div className="image-preview-container">
+                        {images.map((img, index) => (
+                            <div key={index} className="image-preview">
+                                <img src={resolveImageUrl(img)} alt={`Product Preview ${index + 1}`} />
+                                <button type="button" onClick={() => removeImage(img)} className="btn-remove-img">×</button>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="image-upload-form">
+                        <input type="file" onChange={onFileChange} />
+                        <button type="button" onClick={onImageUpload} disabled={!selectedFile || imageLoading}>
+                            {imageLoading ? 'Uploading..' : 'Upload Image'}
+                        </button>
+                    </div>
+                </div>
                 {/* Implement function to Add Images later */}
 
                 <button type="submit" className="btn btn-success" disabled={loading}>

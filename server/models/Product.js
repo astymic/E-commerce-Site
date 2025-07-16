@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const config = require('config');
 const Schema = mongoose.Schema;
 
 
@@ -31,6 +32,20 @@ const productSchema = new Schema({
 
     // --- Graphic card ---
     // memorySize: String
+}, {
+    toJSON: {
+        transform: function(doc, ret) {
+            if (ret.images && Array.isArray(ret.images)) {
+                ret.images = ret.images.map(imagePath => {
+                    if (imagePath && !imagePath.startsWith('http')) {
+                        return `${config.get('BASE_URL')}/${imagePath}`;
+                    }
+                    return imagePath;
+                });
+            }
+            return ret;
+        }
+    }
 });
 
 

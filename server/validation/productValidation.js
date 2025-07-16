@@ -6,14 +6,14 @@ exports.validateProduct = (req, res, next) => {
         description: Joi.string().required().min(10).label('Description'),
         shortDescription: Joi.string().max(255).label('Short Description'),
         price: Joi.number().min(0).label('Price'),
-        discountPrice: Joi.number().min(0).label('Discount Price'),
+        discountPrice: Joi.number().min(0).allow(null, '').optional().label('Discount Price'),
         category: Joi.string().hex().length(24).required().label('Category ID'),
         subcategory: Joi.string().hex().length(24).allow(null, '').label('Subcategory ID'),
         specifications: Joi.array().items(Joi.object({
             name: Joi.string().required().label('Specification Name'),
             value: Joi.string().required().label('Specification Value')
         })).label('Specifications'),
-        images: Joi.array().items(Joi.string().uri()).label('Images URLs'),
+        images: Joi.array().items(Joi.string()).label('Images'),
         stock: Joi.number().integer().min(0).label('Stock'),
         isPromotion: Joi.boolean().label('Is Promotion'),
         isNew: Joi.boolean().label('Is New'),

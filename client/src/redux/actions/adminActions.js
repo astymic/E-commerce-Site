@@ -1,7 +1,10 @@
 import axios from "axios";
 import { 
     GET_PRODUCTS, 
-    PRODUCTS_ERROR
+    PRODUCTS_ERROR,
+    IMAGE_UPLOAD_REQUEST,
+    IMAGE_UPLOAD_SUCCESS,
+    IMAGE_UPLOAD_FAIL
 } from "../types";
 
 // Get admin products
@@ -52,4 +55,26 @@ export const adminUpdateProduct = (productId, productData, navigate) => async di
             payload: { msg: err.response?.data?.msg || 'Failed to update product', status: err.response?.status }
         });
     }
-}
+};
+
+
+// Upload a product image
+export const adminUploadImage = (fileData) => async dispatch => {
+    dispatch({ type: IMAGE_UPLOAD_REQUEST });
+    try {
+        const config = {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        };
+        const res = await axios.post('/api/admin/upload/product-image', fileData, config);
+        dispatch({
+            type: IMAGE_UPLOAD_SUCCESS,
+            payload: res.data.filePath
+        });
+
+    } catch (err) {
+        dispatch({
+            type: IMAGE_UPLOAD_FAIL,
+            payload: { msg: err.response?.data?.msg || 'Image upload failed', status: err.response?.status }
+        });
+    }
+};

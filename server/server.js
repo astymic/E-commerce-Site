@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const connectDB = require('./config/db');
 const app = express();
 const port = process.env.PORT || 5000; // Default 5000
@@ -12,6 +13,10 @@ connectDB();
 
 // Init Middleware - bodyparser 
 app.use(express.json({ extended: false }));
+
+
+// Static Routes
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 // Define Routes 
