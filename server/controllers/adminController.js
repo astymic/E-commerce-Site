@@ -95,13 +95,19 @@ exports.adminUpdateCategory = async (req, res) => {
     const categoryFields = {};
     categoryFields.name = name;
     categoryFields.slug = slug;
-    categoryFields.description = description;
-    if (parentCategory) categoryFields.parent = parentCategory;
+    if (description !== undefined) categoryFields.description = description;
+
+    if (parentCategory !== undefined) categoryFields.parent = parentCategory === '' ? null : parentCategory;
 
     let category = await Category.findById(req.params.id);
 
     if (!category) return res.status(404).json({ msg: 'Category not found' });
 
+    if (parentCategory && parentCategory.toString() === category._id.toString()) {
+        return res.status(400).json({ msg: 'A category connot be its own parent.' });
+    }
+
+    
     category = await Category.findByIdAndUpdate(
         req.params.id,
         { $set: categoryFields },

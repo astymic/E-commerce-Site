@@ -26,6 +26,7 @@ import AdminOrderManagment from './pages/AdminPage/subpages/AdminOrderManagment'
 import AdminUserManagment from './pages/AdminPage/subpages/AdminUserManagment';
 
 import ProductForm from './pages/AdminPage/subpages/ProductForm';
+import CategoryForm from './pages/AdminPage/subpages/CategoryForm';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -67,10 +68,15 @@ function App() {
             <Route element={<AdminPrivateRoute />}>
               <Route path="/admin" element={<AdminLayout />}>
                 <Route path="dashboard" element={<AdminDashboard />} />
+                
                 <Route path="products" element={<AdminProductManagment />} />
                 <Route path="products/new" element={<ProductForm />} />
                 <Route path="products/edit/:id" element={<ProductForm />} />
+                
                 <Route path="categories" element={<AdminCategoryManagment />} />
+                <Route path="categories/new" element={<CategoryForm />} />
+                <Route path="categories/edit/:id" element={<CategoryForm />} />
+
                 <Route path="orders" element={<AdminOrderManagment />} />
                 <Route path="users" element={<AdminUserManagment />} />
                 <Route index element={<AdminDashboard />} />

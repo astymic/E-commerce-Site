@@ -2,6 +2,7 @@ import {
     GET_CATEGORIES, 
     GET_CATEGORY, 
     CATEGORIES_ERROR, 
+    CLEAR_CATEGORY_STATE
 } from "../types";
 import axios from 'axios';
 
@@ -37,4 +38,9 @@ export const getCategory = (id) => async dispatch => {
             payload: err.response ? err.response.data : {  msg: 'Network Error' }
         });
     }
+};
+
+// Clear single category state
+export const clearCategoryState = () => dispatch => {
+    dispatch({ type: CLEAR_CATEGORY_STATE });
 };

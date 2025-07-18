@@ -4,8 +4,15 @@ import {
     PRODUCTS_ERROR,
     IMAGE_UPLOAD_REQUEST,
     IMAGE_UPLOAD_SUCCESS,
-    IMAGE_UPLOAD_FAIL
+    IMAGE_UPLOAD_FAIL,
+    GET_CATEGORIES,
+    CATEGORIES_ERROR,
+    CREATE_CATEGORY_SUCCESS,
+    UPDATE_CATEGORY_SUCCESS,
+    DELETE_CATEGORY_SUCCESS,
+    DELETE_CATEGORY_FAIL
 } from "../types";
+
 
 // Get admin products
 export const getAdminProducts = () => async dispatch => {
@@ -78,3 +85,84 @@ export const adminUploadImage = (fileData) => async dispatch => {
         });
     }
 };
+
+
+// Get All Categories for Admin Panel
+export const getAdminCategories = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/admin/categories');
+        dispatch({
+            type: GET_CATEGORIES,
+            payload: res.data
+        });
+    
+    } catch (err) {
+        dispatch({
+            type: CATEGORIES_ERROR,
+            payload: { msg: err.response?.statusText, status: err.response?.status }
+        });
+    }
+};
+
+
+// Create a new category
+export const adminCreateCategory = (categoryData, navigate) => async dispatch => {
+    try {
+        const config = { headers: { 'Content-Type': 'application/json' } };
+        const res = await axios.post('/api/admin/categories', categoryData, config);
+
+        navigate('/admin/categories');
+
+        dispatch({
+            type: CREATE_CATEGORY_SUCCESS,
+            payload: res.data
+        });
+    
+    } catch (err) {
+        dispatch({
+            type: CATEGORIES_ERROR,
+            payload: { msg: err.response?.data?.msg || 'Failed to create category', status: err.response?.status }
+        });
+    }
+};
+
+
+// Upadate an existing category
+export const adminUpdateCategory = (categoryId, categoryData, navigate) => async dispatch => {
+    try {
+        const config = { headers: { 'Content-Type': 'application/json' } };
+        const res = await axios.put(`/api/admin/categories/${categoryId}`, categoryData, config);
+
+        navigate('/admin/categories');
+
+        dispatch({
+            type: UPDATE_CATEGORY_SUCCESS,
+            payload: res.data
+        });
+
+    } catch (err) {
+        dispatch({
+            type: CATEGORIES_ERROR,
+            payload: { msg: err.response?.data?.msg || 'Failed to update category', status: err.response?.status }
+        });
+    }
+};
+
+
+// Delete a category
+export const adminDeleteCategory = (categoryId) => async dispatch => {
+    try {
+        await axios.delete(`/api/admin/categories/${categoryId}`);
+
+        dispatch({
+            type: DELETE_CATEGORY_SUCCESS,
+            payload: categoryId
+        });
+    
+    } catch (err) {
+        dispatch({
+            type: CATEGORIES_ERROR,
+            payload: { msg: err.response?.data?.msg || 'Failed to delete category', status: err.response?.status }
+        });
+    }
+}
