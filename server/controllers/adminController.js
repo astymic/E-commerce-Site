@@ -482,10 +482,14 @@ exports.adminUpdateOrderStatus = async (req, res) => {
         } 
 
         order.status = status;
-        order = await order.save(); // Save the updated order
+        await order.save(); // Save the updated order
 
-        res.json(order); // Return the updated order
-    }   catch (err) {
+        const updatePopulatedOrder = await Order.findById(orderId)
+            .populate('user', 'firstName lastName email');
+
+        res.json(updatePopulatedOrder); // Return the fully populated updated order
+    
+    } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Order not found' });

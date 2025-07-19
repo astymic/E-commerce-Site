@@ -7,10 +7,15 @@ import {
     IMAGE_UPLOAD_FAIL,
     GET_CATEGORIES,
     CATEGORIES_ERROR,
+    GET_ALL_ORDERS_SUCCESS,
+    UPDATE_ORDER_STATUS_SUCCESS,
+    ORDER_LOADING,
     CREATE_CATEGORY_SUCCESS,
     UPDATE_CATEGORY_SUCCESS,
     DELETE_CATEGORY_SUCCESS,
-    DELETE_CATEGORY_FAIL
+    DELETE_CATEGORY_FAIL,
+    GET_ALL_ORDERS_FAIL,
+    UPDATE_ORDER_STATUS_FAIL
 } from "../types";
 
 
@@ -161,8 +166,46 @@ export const adminDeleteCategory = (categoryId) => async dispatch => {
     
     } catch (err) {
         dispatch({
-            type: CATEGORIES_ERROR,
+            type: DELETE_CATEGORY_FAIL,
             payload: { msg: err.response?.data?.msg || 'Failed to delete category', status: err.response?.status }
+        });
+    }
+};
+
+
+// Get All Orders for Admin Panel
+export const getAdminOrders = () => async dispatch => {
+    dispatch({ type: ORDER_LOADING });
+    try {
+        const res = await axios.get(`/api/admin/orders`);
+        dispatch({
+            type: GET_ALL_ORDERS_SUCCESS,
+            payload: res.data
+        });
+    
+    } catch (err) {
+        dispatch({
+            type: GET_ALL_ORDERS_FAIL,
+            payload: { msg: err.response?.data?.msg || 'Failed to get all orders', status: err.response?.status }
+        });
+    }
+};
+
+
+// Update Order Status
+export const adminUpdateOrderStatus = (orderId, status) => async dispatch => {
+    try {
+        const config = { headers: { 'Content-Type': 'application/json' } };
+        const res = await axios.put(`/api/admin/orders/${orderId}/status`, { status }, config );
+        dispatch({
+            type: UPDATE_ORDER_STATUS_SUCCESS,
+            payload: res.data
+        });
+    
+    } catch (err) {
+        dispatch({
+            type: UPDATE_ORDER_STATUS_FAIL,
+            payload: { msg: err.response?.data?.msg || 'Failed to update order status', status: err.response?.status }
         });
     }
 }

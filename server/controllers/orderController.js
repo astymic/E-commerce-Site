@@ -121,8 +121,13 @@ exports.getOrderById = async (req, res) => {
             return res.status(404).json({ msg: 'Order not found' });
         }
 
+        const requestingUser = await User.findById(req.user.id);
+        if (!requestingUser) {
+          return res.status(404).json({msg: 'Requesting user not found' });
+        }
+
         // Check if the order belongs to the logged-in user
-        if (order.user.id.toString() !== req.user.id) {
+        if (order.user.id.toString() !== req.user.id && requestingUser.role !== 'admin') {
             return res.status(401).json({ msg: 'Not authorized to view this order' }); // 401 Unauthorized
         }
 
