@@ -15,7 +15,12 @@ import {
     DELETE_CATEGORY_SUCCESS,
     DELETE_CATEGORY_FAIL,
     GET_ALL_ORDERS_FAIL,
-    UPDATE_ORDER_STATUS_FAIL
+    UPDATE_ORDER_STATUS_FAIL,
+    GET_ALL_USERS_SUCCESS,
+    GET_ALL_USERS_FAIL,
+    UPDATE_USER_ROLE_SUCCESS,
+    UPDATE_USER_ROLE_FAIL,
+    ADMIN_USERS_LOADING,
 } from "../types";
 
 
@@ -208,4 +213,42 @@ export const adminUpdateOrderStatus = (orderId, status) => async dispatch => {
             payload: { msg: err.response?.data?.msg || 'Failed to update order status', status: err.response?.status }
         });
     }
-}
+};
+
+
+// Get All Users for Admin Panel
+export const getAdminUsers = () => async dispatch => {
+    dispatch({ type: ADMIN_USERS_LOADING });
+    try {
+        const res = await axios.get('/api/admin/users');
+        dispatch({
+            type: GET_ALL_USERS_SUCCESS,
+            payload: res.data
+        });
+
+    } catch (err) {
+        dispatch({
+            type: GET_ALL_USERS_FAIL,
+            payload: { msg: err.response?.data?.msg || 'Failed to load users', status: err.response?.status }
+        });
+    }
+};
+
+
+// Update User Role
+export const adminUpdateUserRole = (userId, role) => async dispatch => {
+    try {
+        const config = { headers: { 'Content-Type': 'application/json' } };
+        await axios.put(`/api/admin/users/${userId}/role`, { role }, config);
+        dispatch({
+            type: UPDATE_USER_ROLE_SUCCESS,
+            payload: { userId, role }
+        });
+    
+    } catch (err) {
+        dispatch({
+            type: UPDATE_USER_ROLE_FAIL,
+            payload: { msg: err.response?.data?.msg || 'Failed to update user role', status: err.response?.status }
+        });
+    }
+};
