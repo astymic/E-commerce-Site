@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../redux/actions/categoryActions';
+import CategoryCard from '../../../components/common/CategoryCard';
 
 function CategoryOverview() {
     const dispatch = useDispatch();
@@ -12,21 +13,18 @@ function CategoryOverview() {
     }, [dispatch]);
 
     return (
-        <section className="category-overview">
+        <section className="category-overview container">
             <h2>Category Overview</h2>
             {loading ? (
                 <p>Loading categories...</p>
             ) : error && error.msg ? (
                 <p style={{ color: 'red' }}>Error loading categories: {error.msg}</p>
             ) : (
-                <ul className='category-list'>
+                <div className='product-grid'>
                     {categories.map(category => (
-                        <li key={category._id} className='category-item'>
-                            <h3>{category.name}</h3>
-                            <p>{category.description}</p>
-                        </li>
+                        <CategoryCard key={category._id} category={category} />
                     ))}
-                </ul>
+                </div>
             )}
         </section>
     );

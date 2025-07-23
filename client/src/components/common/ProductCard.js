@@ -17,13 +17,14 @@ function ProductCard({ product }) {
                     <h4 className="product-card-title">{product.name}</h4>
                     <p className="product-card-price">
                         {product.discountPrice ? (
-                            <span><del>${product.price.toFixed(2)}</del><strong>${product.discountPrice.toFixed(2)}</strong></span>
+                            <span><del>${product.price.toFixed(2)}</del> <strong>${product.discountPrice.toFixed(2)}</strong></span>
                         ) : (
                             <span>${product.price.toFixed(2)}</span>
                         )}
                     </p>
                 </div>
             </Link>
+            {/* Add "Add to Cart" button later */}
         </div>
     );
 }

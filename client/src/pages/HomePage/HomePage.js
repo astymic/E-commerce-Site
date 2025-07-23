@@ -4,7 +4,7 @@ import TopSellingProducts from './components/TopSellingProducts';
 import SpecialOffers from './components/SpecialOffers';
 import NewArrivals from './components/NewArrivals';
 import CategoryOverview from './components/CategoryOverview';
-
+import './HomePage.css';
 
 function HomePage() {
     return (

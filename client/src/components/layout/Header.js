@@ -2,42 +2,37 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import CartPreview from './CartPreview';
-
+import './Header.css';
 
 function Header() {
     const [ isCartVisible, setIsCartVisible] = useState(false);
     const { isAuthenticated, user } = useSelector(state => state.auth);
+    const { items: cartItems } = useSelector(state => state.cart);
 
-    const toggleCartPreview = () => {
-        setIsCartVisible(!isCartVisible)
-    };
+    const toggleCartPreview = () => setIsCartVisible(!isCartVisible);
 
     return (
         <header className="main-header">
-            <nav>
-                <Link to="/">Home</Link>
-            </nav>
-        <div className="header-actions">
-            {/* Placeholder for User Account Icon */}
-            {/* <button className="icon-button">User</button> */}
+            <div className="header-container container">
+                <nav>
+                    <Link to="/">HOME ICON</Link> {/* Replace with icon later */}
+                    {/* Add Category dropdown later */}
+                </nav>
+                <div className="header-actions">
+                    {isAuthenticated && user ? (
+                        <Link to="/profile">Welcome, {user.firstName}</Link>
+                    ) : (
+                        <Link to="/login">Login</Link>
+                    )} 
 
-            { isAuthenticated && user ? (
-                <Link to="/profile" className="icon-button">
-                    {user.firstName}
-                </Link>
-            ) : (
-                <Link to="/login" className="icon-button">Login</Link>
-            )} 
-
-            {/* Cart Icon and Preview */}
-            <div className="cart-icon-container">
-                <button className="icon-button" onClick={toggleCartPreview}>
-                    Cart {/* Replace with Cart icon later */}
-                    {/* Optionaly display item count badge here */}
-                </button>
-                {isCartVisible && <CartPreview />}
+                    <div className="cart-icon-container">
+                        <button className="icon-button" onClick={toggleCartPreview}>
+                            CART ICON ({cartItems.length}) {/* Replace with Cart icon later */}
+                        </button>
+                        {isCartVisible && <CartPreview />}
+                    </div>
+                </div>
             </div>
-        </div>
         </header>
     );
 }

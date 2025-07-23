@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPromotionalProducts } from '../../../redux/actions/productActions';
+import ProductCard from '../../../components/common/ProductCard';
 
 function SpecialOffers() {
     const dispatch = useDispatch();
@@ -12,21 +13,18 @@ function SpecialOffers() {
     }, [dispatch]);
 
     return (
-        <section className="special-offers">
+        <section className="special-offers container">
             <h2>Special Offers & Discount</h2>
             {loading ? (
                 <p>Loading special offers...</p>
             ) : error && error.msg ? (
                 <p style={{ color: 'red' }}>Error loading special offers: {error.msg}</p>
             ) : (
-                <ul className='product-list'>
+                <div className='product-grid'>
                     {promotionalProducts.map(product => (
-                        <li key={product._id} className='product-item'>
-                            <h3>{product.name}</h3>
-                            <p>Price: <del>${product.price}</del> <strong>${product.discountPrice}</strong></p>
-                        </li>
+                        <ProductCard key={product._id} product={product} />
                     ))}
-                </ul>
+                </div>
             )}
         </section>
     );

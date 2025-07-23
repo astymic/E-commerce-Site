@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNewArrivalsProducts } from '../../../redux/actions/productActions';
+import ProductCard from '../../../components/common/ProductCard';
 
 function NewArrivals() {
     const dispatch = useDispatch();
@@ -12,21 +13,18 @@ function NewArrivals() {
     }, [dispatch]);
 
     return (
-        <section className="new-arrivals">
+        <section className="new-arrivals container">
             <h2>New Arrivals</h2>
             {loading ? (
                 <p>Loading new arrivals...</p>
             ) : error && error.msg ? (
                 <p style={{ color: 'red' }}>Error loading new arrivals: {error.msg}</p>
             ) : (
-                <ul className='product-list'>
+                <div className='product-grid'>
                     {newArrivalsProducts.map(product => (
-                        <li key={product._id} className='product-item'>
-                            <h3>{product.name}</h3>
-                            <p>Price: ${product.price}</p>
-                        </li>
+                        <ProductCard key={product._id} product={product} />
                     ))}
-                </ul>
+                </div>
             )}
         </section>
     );

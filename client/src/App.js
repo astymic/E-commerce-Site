@@ -14,6 +14,7 @@ import OrderHistoryPage from './pages/UserProfilePage/OrderHistoryPage';
 import AddressManagementPage from './pages/UserProfilePage/AddressManagementPage';
 
 import Header from './components/layout/Header'
+import Footer from './components/layout/Footer';
 
 import PrivateRoute from './components/routing/PrivateRoute';
 
@@ -32,6 +33,8 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { loadUser } from './redux/actions/authActions';
 import setAuthToken from './utils/setAuthToken';
+
+import './styles/GlobalStyles.css';
 
 
 if (localStorage.token) { setAuthToken(localStorage.token); }
@@ -86,7 +89,7 @@ function App() {
             {/* --- Add 404 page --- */}
 
           </Routes>
-          {/* Footer will go here */}
+          <Footer />
         </div>
       </Router>
     </Provider>
