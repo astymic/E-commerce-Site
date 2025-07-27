@@ -1,0 +1,97 @@
+/* Main Layout */
+.category-page {
+    padding-top: 2rem;
+}
+
+.content-area {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.filter-sidebar {
+    flex: 0 0 250px;
+}
+
+.product-listing-area {
+    flex: 1;
+}
+
+/* Breadcrumbs Styling */
+.breadcrumbs {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.breadcrumbs a {
+    color: var(--primary-color);
+    margin: 0 0.25rem;
+}
+.breadcrumbs a:first-child {
+    margin-left: 0;
+}
+
+/* Filter Sidebar Styling */
+.filter-sidebar h2 {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.filter-group {
+    margin-bottom: 1.5rem;
+}
+
+.filter-group h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.filter-group ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.filter-group li {
+    margin-bottom: 0.5rem;
+}
+
+.filter-group label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.range-filter input[type="number"] {
+    width: 80px;
+    padding: 5px;
+    margin: 0 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+/* Sort Options Styling */
+.sort-options {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    background-color: var(--light-color);
+    border-radius: 5px;
+}
+
+.sort-options select {
+    padding: 5px;
+    margin-left: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+/* Product List Styling */
+.product-list-section h2 {
+    display: none;
+}

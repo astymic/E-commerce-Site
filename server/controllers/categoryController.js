@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Category = require('../models/Category');
 const Product = require('../models/Product');
 
@@ -58,14 +59,25 @@ exports.getCategories = async (req, res) => {
 // @access  Public
 exports.getCategoryById = async (req, res) => {
     try {
-        const category = await Category.findById(req.params.id).populate('parent', 'name'); // Populate parent category name
+        const identfier = req.params.id;
+        let query;
+
+        if (mongoose.Types.ObjectId.isValid(identfier)) {
+            query = { _id: identfier };
+        } else {
+            query = { slug: identfier };
+        }
+
+        const category = await Category.findOne(query).populate('parent', 'name slug');
+
         if (!category) {
             return res.status(404).json({ msg: 'Category not found' });
         }
         res.json(category);
-    }   catch (err) {
+
+    } catch (err) {
         console.error(err.message);
-        if (err.kind === 'ObjectId') {  // Handle invalid ObjcetId format 
+        if (err.kind === 'ObjectId') {  
             return res.status(404).json({ msg: 'Category not found' });
         }
         res.status(500).send('Server Error');
@@ -120,10 +132,17 @@ exports.updateCategory = async (req, res) => {
 // @access  Public
 exports.getCategoryProducts = async (req, res) => {
     try {
-        const categoryId = req.params.categoryId;
+        const identifier = req.params.categoryId;
         const { sortBy, ...filterParams} = req.query;
 
-        const category = await Category.findById(categoryId);
+        let categoryQuery;
+        if (mongoose.Types.ObjectId.isValid(identifier)) {
+            categoryQuery = { _id: identifier };
+        } else {
+            categoryQuery = { slug: identifier };
+        }
+
+        const category = await Category.findOne(categoryQuery);
         if (!category) {
             return res.status(404).json({ msg: 'Category not found' });
         }
@@ -135,7 +154,8 @@ exports.getCategoryProducts = async (req, res) => {
         else if (sortBy === 'price-high-to-low') sortOptions = { price: -1 }; 
         else if (sortBy === 'newest') sortOptions = { createdAt: -1 };
 
-        let query = { category: categoryId };
+        let productQuery = { category: category._id };
+        // let query = { category: categoryId };
         let specFilters = [];
 
         for (const filterName in filterParams) {
@@ -143,12 +163,12 @@ exports.getCategoryProducts = async (req, res) => {
             if (!filterValueString) continue;
 
             if (filterName === 'Price Range-min' || filterName === 'Price Range-max' ) {
-                const priceQuery = query.price || {};
+                const priceQuery = productQuery.price || {};
                 const priceVal = parseFloat(filterValueString);
                 if (!isNaN(priceVal)) {
                     if (filterName.endsWith('-min')) priceQuery.$gte = priceVal;
                     if (filterName.endsWith('-max')) priceQuery.$lte = priceVal;
-                    query.price = priceQuery;
+                    productQuery.price = priceQuery;
                 }
                 continue;
             }
@@ -181,10 +201,10 @@ exports.getCategoryProducts = async (req, res) => {
         }
 
         if (specFilters.length > 0) {
-            query.$and = (query.$and || []).concat(specFilters);
+            productQuery.$and = (productQuery.$and || []).concat(specFilters);
         }
 
-        const products = await Product.find(query)
+        const products = await Product.find(productQuery)
             .populate('category', 'name')
             .populate('subcategory', 'name')
             .sort(sortOptions);

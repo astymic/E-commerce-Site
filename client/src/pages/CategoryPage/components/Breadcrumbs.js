@@ -19,7 +19,7 @@ function FilterSidebar() {
 
         const updatedPath = [{
             name: currentCategory.name,
-            link: `/category/${currentCategory.slug || currentCategory._id}`
+            link: `/category/${currentCategory.slug}`
         }, ...path];
 
         if (currentCategory.parent) {
@@ -37,7 +37,7 @@ function FilterSidebar() {
             <span><Link to="/catalog">Catalog</Link></span> &gt;
             {loading || !breadcrumbPath ? (
                 <span>Loading breadcrumbs...</span>
-            ) : error.msg ? (
+            ) : error && error.msg ? (
                 <span style={{ color: 'red' }}>Error loading breadcrumbs</span>
             ) : (
                 breadcrumbPath.map((crumb, index) => (

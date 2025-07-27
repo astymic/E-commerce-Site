@@ -19,7 +19,7 @@ function CategoryBanners() {
             <h2>Category Banners</h2>
             {loading || !category ? (
                 <p>Loading banner...</p>
-            ) : error.msg ? (
+            ) : error && error.msg ? (
                 <p style={{ color: 'red' }}>Error loading banner: {error.msg}</p>
             ) : (
                 category.bannerImage ? (

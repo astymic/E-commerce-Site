@@ -6,7 +6,7 @@ function CategoryCard({ category }) {
 
     return (
         <div className="product-card category-card">
-            <Link to={`/category/${category.slug || category._id}`}>
+            <Link to={`/category/${category.slug}`}>
                 <img
                     src={category.image || '/placeholder.png'}
                     alt={category.name}

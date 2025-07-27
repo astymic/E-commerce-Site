@@ -27,7 +27,7 @@ function FilterSidebar({ filterValues = {}, onFilterChange }) {
             <h2>Filter products</h2>
             {loading || !category ? (
                 <p>Loading filters...</p>
-            ) : error.msg ? (
+            ) : error && error.msg ? (
                 <p style={{ color: 'red' }}>Error loading filters: {error.msg}</p>
             ) : (
                 <div className="filters-container">

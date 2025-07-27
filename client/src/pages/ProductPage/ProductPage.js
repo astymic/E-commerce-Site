@@ -7,6 +7,7 @@ import ProductReviews from './components/ProductReviews';
 import ProductCard from '../../components/common/ProductCard';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import './ProductPage.css';
 
 
 function ProductPage() {

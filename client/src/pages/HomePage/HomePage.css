@@ -9,8 +9,13 @@
 
 .hero-banner {
     text-align: center;
-    background-color: var(--light-color);
-    padding: 4rem 1rem;
+    padding: 6rem 1rem;
+    color: white;
+}
+
+.hero-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .product-grid {

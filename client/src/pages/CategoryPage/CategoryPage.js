@@ -8,6 +8,7 @@ import ProductList from './components/ProductList';
 import FilterSidebar from './components/FilterSidebar';
 import Breadcrumbs from './components/Breadcrumbs';
 import SortOptions from './components/SortOptions';
+import './CategoryPage.css';
 
 function CategoryPage() {
     const { categoryId } = useParams();
@@ -34,7 +35,7 @@ function CategoryPage() {
 
 
     return (
-        <div className="category-page">
+        <div className="category-page container">
             <Breadcrumbs /> 
             <CategoryBanners /> 
             <div className="content-area">
