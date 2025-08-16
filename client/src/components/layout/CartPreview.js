@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { updateCartItemQuantity, removeItemFromCart } from '../../redux/actions/cartActions';
 
+
 function CartPreview() {
     const dispatch = useDispatch();
     const cartState = useSelector(state => state.cart);

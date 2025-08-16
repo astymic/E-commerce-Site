@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCart, updateCartItemQuantity, removeItemFromCart } from '../../redux/actions/cartActions';
+import './CartPage.css';
 
 
 function CartPage() {
@@ -78,7 +79,7 @@ function CartPage() {
                                         </td>
                                         <td>${item.product?.price?.toFixed(2) || '0.00'}</td>
                                         <td>
-                                            <div className="quantity-control">
+                                            <div className="quantity-controls">
                                                 <span>{item.quantity} </span>
                                                 <button onClick={() => handleQuantityChange(item.product?._id, item.quantity - 1)}>-</button>
                                                 <span></span>

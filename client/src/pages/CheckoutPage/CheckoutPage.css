@@ -1,0 +1,61 @@
+.checkout-page h1 {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.checkout-section {
+    background-color: var(--light-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.checkout-section.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.checkout-section h2 {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.checkout-section div {
+    margin-bottom: 1rem;
+}
+
+.checkout-section label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.checkout-section input[type="text"],
+.checkout-section input[type="tel"],
+.checkout-section input[type="email"],
+.checkout-section textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.checkout-section input[type="radio"],
+.checkout-section input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.checkout-section label input {
+    vertical-align: middle;
+}
+
+
+.checkout-section div > label:has(input[type="radio"]),
+.checkout-section div > label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+}

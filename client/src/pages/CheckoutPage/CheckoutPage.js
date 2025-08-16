@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { placeOrder, clearOrderState } from '../../redux/actions/orderActions';
+import './CheckoutPage.css';
 
 
 function CheckoutPage() {
@@ -174,7 +175,7 @@ function CheckoutPage() {
             {formError && <p style={{ color: 'red' }}>Error: {formError}</p>}
             <form onSubmit={onSubmit}>
                 {/* Personal Details */}
-                <section>
+                <section className="checkout-section">
                     <h2>1. Your Details</h2>
                     <div>
                         <label htmlFor="firstName">First Name:</label>
