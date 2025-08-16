@@ -6,12 +6,9 @@ import CategoryPage from './pages/CategoryPage/CategoryPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 import LoginPage from './pages/AuthPage/LoginPage';
 import RegisterPage from './pages/AuthPage/RegisterPage';
-import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
 import CartPage from './pages/CartPage/CartPage';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import OrderSumamryPage from './pages/OrderSummaryPage/OrderSummaryPage';
-import OrderHistoryPage from './pages/UserProfilePage/OrderHistoryPage';
-import AddressManagementPage from './pages/UserProfilePage/AddressManagementPage';
 
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer';
@@ -25,6 +22,11 @@ import AdminProductManagment from './pages/AdminPage/subpages/AdminProductManagm
 import AdminCategoryManagment from './pages/AdminPage/subpages/AdminCategoryManagment';
 import AdminOrderManagment from './pages/AdminPage/subpages/AdminOrderManagment';
 import AdminUserManagment from './pages/AdminPage/subpages/AdminUserManagment';
+
+import UserProfileLayout from './pages/UserProfilePage/UserProfileLayout';
+import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
+import OrderHistoryPage from './pages/UserProfilePage/OrderHistoryPage';
+import AddressManagementPage from './pages/UserProfilePage/AddressManagementPage';
 
 import ProductForm from './pages/AdminPage/subpages/ProductForm';
 import CategoryForm from './pages/AdminPage/subpages/CategoryForm';
@@ -62,9 +64,11 @@ function App() {
             <Route element={<PrivateRoute />}>
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/order-summary/:orderId" element={<OrderSumamryPage />} />
-              <Route path="/profile" element={<UserProfilePage />} />
-              <Route path="/profile/orders" element={<OrderHistoryPage />} />
-              <Route path="/profile/addresses" element={<AddressManagementPage />} />
+              <Route path="/profile" element={<UserProfileLayout />}>
+                <Route index element={<UserProfilePage />} />
+                <Route path="orders" element={<OrderHistoryPage />} />
+                <Route path="addresses" element={<AddressManagementPage />} />
+              </Route> 
             </Route>
 
             {/* --- Admin Private Routes --- */}

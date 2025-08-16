@@ -1,0 +1,71 @@
+.admin-panel {
+    padding-top: 2rem;
+}
+
+.admin-content-area {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+}
+
+
+.admin-sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-sidebar nav a {
+    display: block;
+    padding: 1rem;
+    border-radius: 5px;
+    color: var(--text-color);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.admin-sidebar nav a:hover {
+    background-color: var(--light-color);
+}
+
+.admin-sidebar nav a.active {
+    background-color: var(--dark-color);
+    color: #fff;
+}
+
+
+.admin-main-content h2 {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.admin-page-header h2 {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+
+.admin-form div {
+    margin-bottom: 1rem;
+}
+
+.admin-form label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.admin-form input, .admin-form textarea, .admin-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
