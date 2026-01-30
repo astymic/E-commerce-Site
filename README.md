@@ -4,7 +4,7 @@ A full-stack e-commerce application built from scratch using the MERN stack (Mon
 
 ## 🛠 Tech Stack
 
-*   **Frontend:** React.js, Redux (Redux Toolkit), React Router, Axios, p5.js (for animations), CSS3.
+*   **Frontend:** React.js, Redux (Redux Toolkit), React Router, Axios, p5.js, CSS3.
 *   **Backend:** Node.js, Express.js.
 *   **Database:** MongoDB (using Mongoose).
 *   **Authentication:** JWT (JSON Web Tokens).
@@ -134,4 +134,3 @@ To access the Admin Panel (`/admin`), you need a user with the role of `admin`.
 *   **User:** Browse categories, filter/search products, add to cart, checkout (mock payment), manage profile/addresses, view order history.
 *   **Admin:** Dashboard overview, add/edit/delete products and categories, manage orders (status updates), manage users (role assignment).
 *   **General:** Responsive design, animated backgrounds (p5.js), JWT Authentication.
-```
