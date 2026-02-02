@@ -36,8 +36,6 @@ import store from './redux/store';
 import { loadUser } from './redux/actions/authActions';
 import setAuthToken from './utils/setAuthToken';
 
-import './styles/GlobalStyles.css';
-
 
 if (localStorage.token) { setAuthToken(localStorage.token); }
 

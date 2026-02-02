@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCart, updateCartItemQuantity, removeItemFromCart } from '../../redux/actions/cartActions';
-import './CartPage.css';
 
 
 function CartPage() {

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import CartPreview from './CartPreview';
-import './Header.css';
 
 function Header() {
     const [ isCartVisible, setIsCartVisible] = useState(false);

@@ -8,7 +8,6 @@ import ProductList from './components/ProductList';
 import FilterSidebar from './components/FilterSidebar';
 import Breadcrumbs from './components/Breadcrumbs';
 import SortOptions from './components/SortOptions';
-import './CategoryPage.css';
 
 function CategoryPage() {
     const { categoryId } = useParams();

@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import '../AdminPanel.css';
 
 function AdminLayout() {
     return (

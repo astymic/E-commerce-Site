@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { placeOrder, clearOrderState } from '../../redux/actions/orderActions';
-import './CheckoutPage.css';
 
 
 function CheckoutPage() {

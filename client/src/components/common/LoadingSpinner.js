@@ -1,7 +1,6 @@
 import React from "react";
 import { ReactP5Wrapper } from 'react-p5-wrapper';
 import loadingAnimationSketch from '../../p5-sketches/LoadingAnimation';
-import './LoadingSpinner.css';
 
 function LoadingSpinner({ message }) {
     return (
