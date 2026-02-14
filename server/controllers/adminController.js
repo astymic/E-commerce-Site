@@ -12,7 +12,7 @@ const User = require('../models/User');
 exports.adminCreateCategory = async (req, res) => {
     try {
         const { name, description, parentCategory } = req.body;
-        
+
         // Simple validation (add more robust validation later)
         if (!name) {
             return res.status(400).json({ msg: 'Name is required' });
@@ -36,7 +36,7 @@ exports.adminCreateCategory = async (req, res) => {
 
         const category = await newCategory.save();
         res.json(category); // Send back the created category
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
@@ -50,7 +50,7 @@ exports.adminGetCategories = async (req, res) => {
     try {
         const categories = await Category.find().populate('parent', 'name'); // Populate parent category name
         res.json(categories);
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
@@ -67,7 +67,7 @@ exports.adminGetCategoryById = async (req, res) => {
             return res.status(404).json({ msg: 'Category not found' });
         }
         res.json(category);
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {  // Handle invalid ObjcetId format 
             return res.status(404).json({ msg: 'Category not found' });
@@ -83,39 +83,39 @@ exports.adminGetCategoryById = async (req, res) => {
 exports.adminUpdateCategory = async (req, res) => {
     try {
         const { name, description, parentCategory } = req.body;
-    
-    // Simple validation (add more robus validation later)
-    if (!name) {
-        return res.status(400).json({ msg: 'Name is required' });
-    }
 
-    // Create slug from name
-    const slug = name.toLowerCase().replace(/\s+/g, '-');
+        // Simple validation (add more robus validation later)
+        if (!name) {
+            return res.status(400).json({ msg: 'Name is required' });
+        }
 
-    const categoryFields = {};
-    categoryFields.name = name;
-    categoryFields.slug = slug;
-    if (description !== undefined) categoryFields.description = description;
+        // Create slug from name
+        const slug = name.toLowerCase().replace(/\s+/g, '-');
 
-    if (parentCategory !== undefined) categoryFields.parent = parentCategory === '' ? null : parentCategory;
+        const categoryFields = {};
+        categoryFields.name = name;
+        categoryFields.slug = slug;
+        if (description !== undefined) categoryFields.description = description;
 
-    let category = await Category.findById(req.params.id);
+        if (parentCategory !== undefined) categoryFields.parent = parentCategory === '' ? null : parentCategory;
 
-    if (!category) return res.status(404).json({ msg: 'Category not found' });
+        let category = await Category.findById(req.params.id);
 
-    if (parentCategory && parentCategory.toString() === category._id.toString()) {
-        return res.status(400).json({ msg: 'A category connot be its own parent.' });
-    }
+        if (!category) return res.status(404).json({ msg: 'Category not found' });
 
-    
-    category = await Category.findByIdAndUpdate(
-        req.params.id,
-        { $set: categoryFields },
-        { new: true } // Return the modified document
-    );
+        if (parentCategory && parentCategory.toString() === category._id.toString()) {
+            return res.status(400).json({ msg: 'A category connot be its own parent.' });
+        }
 
-    res.json(category); // Send bakc the update category
-    }   catch (err) {
+
+        category = await Category.findByIdAndUpdate(
+            req.params.id,
+            { $set: categoryFields },
+            { new: true } // Return the modified document
+        );
+
+        res.json(category); // Send bakc the update category
+    } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Category not found' });
@@ -147,7 +147,7 @@ exports.adminDeleteCategory = async (req, res) => {
         await Category.findByIdAndDelete(req.params.id);
 
         res.json({ msg: 'Category deleted' });
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Category not found' });
@@ -203,7 +203,7 @@ exports.adminCreateProduct = async (req, res) => {
             specifications: specifications || [], // Optional
             images: images || [], // Optional
             stock: stock || 0, // Default 0 if not provided
-            isPromotion: isPromotion || false, 
+            isPromotion: isPromotion || false,
             isNew: isNew !== undefined ? isNew : true, // Default isNew to true if not provided
             isTopSelling: isTopSelling || false,
         });
@@ -211,7 +211,7 @@ exports.adminCreateProduct = async (req, res) => {
         const product = await newProduct.save();
         res.json(product);
 
-    }   catch (err) {
+    } catch (err) {
         console.error(err.nessage);
         res.status(500).send('Server Error')
     }
@@ -224,7 +224,7 @@ exports.adminCreateProduct = async (req, res) => {
 exports.adminGetProducts = async (req, res) => {
     try {
         const { page = 1, limit = 10, category, priceMin, priceMax, search } = req.query;
-        
+
         let pageNumber = parseInt(page);
         let limitNumber = parseInt(limit);
 
@@ -254,7 +254,7 @@ exports.adminGetProducts = async (req, res) => {
             const minPrice = parseFloat(priceMin);
             if (!isNaN(minPrice)) {
                 query.price = { $gte: minPrice };
-            } 
+            }
         } else if (priceMax !== undefined) { // Only maxPrice provided
             const maxPrice = parseFloat(priceMax);
             if (!isNaN(maxPrice)) {
@@ -268,9 +268,9 @@ exports.adminGetProducts = async (req, res) => {
         if (search) {
             query.$text = { $search: search };
             productQuery = Product.find(query, { score: { $meta: "textScore" } })
-                                    .sort({ score: { $meta: "textScore" } });
+                .sort({ score: { $meta: "textScore" } });
         } else {
-            productQuery = Product.find(query); 
+            productQuery = Product.find(query);
         }
 
 
@@ -291,7 +291,7 @@ exports.adminGetProducts = async (req, res) => {
             totalPages,
             totalProducts,
         });
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
@@ -311,7 +311,7 @@ exports.adminGetProductById = async (req, res) => {
             return res.status(404).json({ msg: 'Product not found' });
         }
         res.json(product);
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         if (err.kind === 'Objectid') {
             return res.status(404).json({ msg: 'Product not found' });
@@ -356,7 +356,7 @@ exports.adminUpdateProduct = async (req, res) => {
                 return res.status(400).json({ msg: 'Subcategory not found' });
             }
         }
-        
+
 
         const productFileds = {};
         if (name) productFileds.name = name;
@@ -374,7 +374,7 @@ exports.adminUpdateProduct = async (req, res) => {
 
 
         let product = await Product.findById(req.params.id);
-        
+
         if (!product) return res.status(400).json({ msg: 'Product not found' });
 
         product = await Product.findByIdAndUpdate(
@@ -385,7 +385,7 @@ exports.adminUpdateProduct = async (req, res) => {
 
         res.json(product);
 
-    }   catch (err) {
+    } catch (err) {
         console.error(err.messgae);
         if (err === 'ObjectId') {
             return res.status(404).json({ msg: 'Product not found' });
@@ -403,13 +403,13 @@ exports.adminDeleteProduct = async (req, res) => {
         const product = await Product.findById(req.params.id);
 
         if (!product) {
-            return res.status(404).json({ msg:'Product not found' });
+            return res.status(404).json({ msg: 'Product not found' });
         }
 
         await Product.findByIdAndDelete(req.params.id);
 
         res.json({ msg: 'Product deleted' });
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Product not found' });
@@ -430,7 +430,7 @@ exports.adminGetOrders = async (req, res) => {
             .populate('user', 'firstName lastName email') // Populate user info
             .populate('products.product', 'name images price'); // Populate product details
         res.json(order);
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
@@ -451,7 +451,7 @@ exports.adminGetOrderById = async (req, res) => {
             return res.status(404).json({ msg: 'Order not found' });
         }
         res.json(order);
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Order not found' });
@@ -479,7 +479,7 @@ exports.adminUpdateOrderStatus = async (req, res) => {
         let order = await Order.findById(orderId);
         if (!order) {
             return res.status(404).json({ msg: 'Order not found' });
-        } 
+        }
 
         order.status = status;
         await order.save(); // Save the updated order
@@ -488,7 +488,7 @@ exports.adminUpdateOrderStatus = async (req, res) => {
             .populate('user', 'firstName lastName email');
 
         res.json(updatePopulatedOrder); // Return the fully populated updated order
-    
+
     } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
@@ -508,7 +508,7 @@ exports.adminGetUsers = async (req, res) => {
     try {
         const users = await User.find().select('-password');
         res.json(users);
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
@@ -525,7 +525,7 @@ exports.adminGetUserById = async (req, res) => {
             return res.status(404).json({ msg: 'User not found' });
         }
         res.json(user);
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'User not found' });
@@ -563,8 +563,8 @@ exports.adminUpdateUserRole = async (req, res) => {
         await user.save();
 
         res.json({ msg: `User role updated to '${role}'` });
-    
-    }   catch (err) {
+
+    } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'User not found' });
@@ -587,9 +587,65 @@ exports.getAdminDashboard = async (req, res) => {
             message: '\\Admin Dashboard//',
         };
         res.json(dashboardData);
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
 };
 
+// @route   POST api/admin/import-data
+// @desc    Bulk import products/categories (Admin)
+// @access  Private - Admin only
+exports.adminImportData = async (req, res) => {
+    try {
+        const { type, data } = req.body;
+
+        if (!type || !data || !Array.isArray(data)) {
+            return res.status(400).json({ msg: 'Type (products/categories) and valid data array are required' });
+        }
+
+        let results = { success: 0, failed: 0, errors: [] };
+
+        if (type === 'categories') {
+            for (const item of data) {
+                try {
+                    const slug = item.name.toLowerCase().replace(/\s+/g, '-');
+                    const newCategory = new Category({
+                        ...item,
+                        slug
+                    });
+                    await newCategory.save();
+                    results.success++;
+                } catch (err) {
+                    results.failed++;
+                    results.errors.push({ name: item.name, error: err.message });
+                }
+            }
+        } else if (type === 'products') {
+            for (const item of data) {
+                try {
+                    // Basic validation for categories if provided as name
+                    if (item.category && typeof item.category === 'string') {
+                        const cat = await Category.findOne({ name: item.category });
+                        if (cat) item.category = cat._id;
+                    }
+
+                    const newProduct = new Product(item);
+                    await newProduct.save();
+                    results.success++;
+                } catch (err) {
+                    results.failed++;
+                    results.errors.push({ name: item.name, error: err.message });
+                }
+            }
+        } else {
+            return res.status(400).json({ msg: 'Invalid import type' });
+        }
+
+        res.json({ msg: 'Import completed', results });
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};

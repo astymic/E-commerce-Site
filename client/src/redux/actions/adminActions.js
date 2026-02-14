@@ -1,6 +1,6 @@
 import axios from "axios";
-import { 
-    GET_PRODUCTS, 
+import {
+    GET_PRODUCTS,
     PRODUCTS_ERROR,
     IMAGE_UPLOAD_REQUEST,
     IMAGE_UPLOAD_SUCCESS,
@@ -21,6 +21,9 @@ import {
     UPDATE_USER_ROLE_SUCCESS,
     UPDATE_USER_ROLE_FAIL,
     ADMIN_USERS_LOADING,
+    ADMIN_IMPORT_DATA_REQUEST,
+    ADMIN_IMPORT_DATA_SUCCESS,
+    ADMIN_IMPORT_DATA_FAIL
 } from "../types";
 
 
@@ -65,7 +68,7 @@ export const adminUpdateProduct = (productId, productData, navigate) => async di
         await axios.put(`/api/admin/products/${productId}`, productData, config);
 
         navigate('/admin/products');
-    
+
     } catch (err) {
         dispatch({
             type: PRODUCTS_ERROR,
@@ -75,17 +78,17 @@ export const adminUpdateProduct = (productId, productData, navigate) => async di
 };
 
 
-// Upload a product image
-export const adminUploadImage = (fileData) => async dispatch => {
+// Upload Multiple Product Images
+export const adminUploadImages = (fileData) => async dispatch => {
     dispatch({ type: IMAGE_UPLOAD_REQUEST });
     try {
         const config = {
             headers: { 'Content-Type': 'multipart/form-data' }
         };
-        const res = await axios.post('/api/admin/upload/product-image', fileData, config);
+        const res = await axios.post('/api/admin/upload/product-images', fileData, config);
         dispatch({
             type: IMAGE_UPLOAD_SUCCESS,
-            payload: res.data.filePath
+            payload: res.data.filePaths
         });
 
     } catch (err) {
@@ -93,6 +96,26 @@ export const adminUploadImage = (fileData) => async dispatch => {
             type: IMAGE_UPLOAD_FAIL,
             payload: { msg: err.response?.data?.msg || 'Image upload failed', status: err.response?.status }
         });
+    }
+};
+
+// Bulk Import Data
+export const adminImportData = (type, data) => async dispatch => {
+    dispatch({ type: ADMIN_IMPORT_DATA_REQUEST });
+    try {
+        const config = { headers: { 'Content-Type': 'application/json' } };
+        const res = await axios.post('/api/admin/import-data', { type, data }, config);
+        dispatch({
+            type: ADMIN_IMPORT_DATA_SUCCESS,
+            payload: res.data
+        });
+        return res.data;
+    } catch (err) {
+        dispatch({
+            type: ADMIN_IMPORT_DATA_FAIL,
+            payload: { msg: err.response?.data?.msg || 'Import failed', status: err.response?.status }
+        });
+        throw err;
     }
 };
 
@@ -105,7 +128,7 @@ export const getAdminCategories = () => async dispatch => {
             type: GET_CATEGORIES,
             payload: res.data
         });
-    
+
     } catch (err) {
         dispatch({
             type: CATEGORIES_ERROR,
@@ -127,7 +150,7 @@ export const adminCreateCategory = (categoryData, navigate) => async dispatch =>
             type: CREATE_CATEGORY_SUCCESS,
             payload: res.data
         });
-    
+
     } catch (err) {
         dispatch({
             type: CATEGORIES_ERROR,
@@ -168,7 +191,7 @@ export const adminDeleteCategory = (categoryId) => async dispatch => {
             type: DELETE_CATEGORY_SUCCESS,
             payload: categoryId
         });
-    
+
     } catch (err) {
         dispatch({
             type: DELETE_CATEGORY_FAIL,
@@ -187,7 +210,7 @@ export const getAdminOrders = () => async dispatch => {
             type: GET_ALL_ORDERS_SUCCESS,
             payload: res.data
         });
-    
+
     } catch (err) {
         dispatch({
             type: GET_ALL_ORDERS_FAIL,
@@ -201,12 +224,12 @@ export const getAdminOrders = () => async dispatch => {
 export const adminUpdateOrderStatus = (orderId, status) => async dispatch => {
     try {
         const config = { headers: { 'Content-Type': 'application/json' } };
-        const res = await axios.put(`/api/admin/orders/${orderId}/status`, { status }, config );
+        const res = await axios.put(`/api/admin/orders/${orderId}/status`, { status }, config);
         dispatch({
             type: UPDATE_ORDER_STATUS_SUCCESS,
             payload: res.data
         });
-    
+
     } catch (err) {
         dispatch({
             type: UPDATE_ORDER_STATUS_FAIL,
@@ -244,7 +267,7 @@ export const adminUpdateUserRole = (userId, role) => async dispatch => {
             type: UPDATE_USER_ROLE_SUCCESS,
             payload: { userId, role }
         });
-    
+
     } catch (err) {
         dispatch({
             type: UPDATE_USER_ROLE_FAIL,

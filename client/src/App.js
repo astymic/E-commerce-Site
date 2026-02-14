@@ -22,6 +22,7 @@ import AdminProductManagment from './pages/AdminPage/subpages/AdminProductManagm
 import AdminCategoryManagment from './pages/AdminPage/subpages/AdminCategoryManagment';
 import AdminOrderManagment from './pages/AdminPage/subpages/AdminOrderManagment';
 import AdminUserManagment from './pages/AdminPage/subpages/AdminUserManagment';
+import AdminDataImport from './pages/AdminPage/subpages/AdminDataImport';
 
 import UserProfileLayout from './pages/UserProfilePage/UserProfileLayout';
 import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
@@ -30,6 +31,9 @@ import AddressManagementPage from './pages/UserProfilePage/AddressManagementPage
 
 import ProductForm from './pages/AdminPage/subpages/ProductForm';
 import CategoryForm from './pages/AdminPage/subpages/CategoryForm';
+
+import ShopPage from './pages/ShopPage/ShopPage';
+import CategoriesPage from './pages/CategoriesPage/CategoriesPage';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -47,50 +51,55 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Router> 
-        <div className="App">
+      <Router>
+        <div className="App min-h-screen flex flex-col">
           <Header />
-          <Routes>
-            <Route path="/" element={<HomePage />} /> 
-            <Route path="/category/:categoryId" element={<CategoryPage />} /> 
-            <Route path="/product/:productId" element={<ProductPage />} /> 
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/cart" element={<CartPage />} />
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/category/:categoryId" element={<CategoryPage />} />
+              <Route path="/product/:productId" element={<ProductPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/shop" element={<ShopPage />} />
+              <Route path="/categories" element={<CategoriesPage />} />
 
-            {/* --- Private Routes --- */}
-            <Route element={<PrivateRoute />}>
-              <Route path="/checkout" element={<CheckoutPage />} />
-              <Route path="/order-summary/:orderId" element={<OrderSumamryPage />} />
-              <Route path="/profile" element={<UserProfileLayout />}>
-                <Route index element={<UserProfilePage />} />
-                <Route path="orders" element={<OrderHistoryPage />} />
-                <Route path="addresses" element={<AddressManagementPage />} />
-              </Route> 
-            </Route>
-
-            {/* --- Admin Private Routes --- */}
-            <Route element={<AdminPrivateRoute />}>
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route path="dashboard" element={<AdminDashboard />} />
-                
-                <Route path="products" element={<AdminProductManagment />} />
-                <Route path="products/new" element={<ProductForm />} />
-                <Route path="products/edit/:id" element={<ProductForm />} />
-                
-                <Route path="categories" element={<AdminCategoryManagment />} />
-                <Route path="categories/new" element={<CategoryForm />} />
-                <Route path="categories/edit/:id" element={<CategoryForm />} />
-
-                <Route path="orders" element={<AdminOrderManagment />} />
-                <Route path="users" element={<AdminUserManagment />} />
-                <Route index element={<AdminDashboard />} />
+              {/* --- Private Routes --- */}
+              <Route element={<PrivateRoute />}>
+                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/order-summary/:orderId" element={<OrderSumamryPage />} />
+                <Route path="/profile" element={<UserProfileLayout />}>
+                  <Route index element={<UserProfilePage />} />
+                  <Route path="orders" element={<OrderHistoryPage />} />
+                  <Route path="addresses" element={<AddressManagementPage />} />
+                </Route>
               </Route>
-            </Route>
 
-            {/* --- Add 404 page --- */}
+              {/* --- Admin Private Routes --- */}
+              <Route element={<AdminPrivateRoute />}>
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route path="dashboard" element={<AdminDashboard />} />
 
-          </Routes>
+                  <Route path="products" element={<AdminProductManagment />} />
+                  <Route path="products/new" element={<ProductForm />} />
+                  <Route path="products/edit/:id" element={<ProductForm />} />
+
+                  <Route path="categories" element={<AdminCategoryManagment />} />
+                  <Route path="categories/new" element={<CategoryForm />} />
+                  <Route path="categories/edit/:id" element={<CategoryForm />} />
+
+                  <Route path="orders" element={<AdminOrderManagment />} />
+                  <Route path="users" element={<AdminUserManagment />} />
+                  <Route path="import" element={<AdminDataImport />} />
+                  <Route index element={<AdminDashboard />} />
+                </Route>
+              </Route>
+
+              {/* --- Add 404 page --- */}
+
+            </Routes>
+          </main>
           <Footer />
         </div>
       </Router>

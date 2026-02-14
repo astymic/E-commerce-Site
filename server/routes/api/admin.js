@@ -7,7 +7,7 @@ const productController = require('../../controllers/productController');
 const adminAuth = require('../../middleware/adminAuth');
 const upload = require('../../middleware/upload');
 
-const { validateCategory } = require('../../validation/categoryValidation'); 
+const { validateCategory } = require('../../validation/categoryValidation');
 const { validateProduct } = require('../../validation/productValidation');
 
 
@@ -80,11 +80,10 @@ router.delete('/products/:id', adminAuth, adminController.adminDeleteProduct);
 
 // --- Admin Image Upload Routes ---
 
-// @route   POST api/admin/upload/product-image
-// @desc    Upload a product image (Admin)
+// @route   POST api/admin/upload/product-images
+// @desc    Upload multiple product images (Admin)
 // @access  Privat - Admin only
-// 'productImage' is field name for the file input in the fronted from
-router.post('/upload/product-image', adminAuth, upload.single('productImage'), productController.uploadImage);
+router.post('/upload/product-images', adminAuth, upload.array('productImages', 10), productController.uploadImages);
 
 
 // @route   POST api/admin/upload/category-image
@@ -143,6 +142,12 @@ router.put('/users/:id/role', adminAuth, adminController.adminUpdateUserRole);
 // @desc    Get admin dashboard data 
 // @access  Private - Admin only
 router.get('/dashboard', adminAuth, adminController.getAdminDashboard);
+
+
+// @route   POST api/admin/import-data
+// @desc    Bulk import products/categories (Admin)
+// @access  Private - Admin only
+router.post('/import-data', adminAuth, adminController.adminImportData);
 
 
 

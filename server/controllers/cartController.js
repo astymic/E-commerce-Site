@@ -5,7 +5,7 @@ const User = require('../models/User');
 const populateCartItems = async (userId) => {
     const user = await User.findById(userId).populate({
         path: 'cart.product',
-        select: 'name price images'
+        select: 'name price discountPrice images'
     });
     return user ? user.cart : [];
 };
@@ -18,7 +18,7 @@ exports.getCart = async (req, res) => {
     try {
         const cartItems = await populateCartItems(req.user.id);
         res.json(cartItems);
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
@@ -55,13 +55,13 @@ exports.addItemToCart = async (req, res) => {
             cartItems.push({ product: productId, quantity });
         }
 
-        user.cart = cartItems;  
+        user.cart = cartItems;
         await user.save();
 
         const updatedPopulatedCart = await populateCartItems(req.user.id);
-        res.json(updatedPopulatedCart);    
-    
-    }   catch (err) {
+        res.json(updatedPopulatedCart);
+
+    } catch (err) {
         console.error(err.message);
         res.status(500).json({ msg: 'Server Error' });
     }
@@ -87,7 +87,7 @@ exports.updateCartItemQuantity = async (req, res) => {
 
         let cartItems = user.cart || [];
         const cartItemindex = cartItems.findIndex(item => item.product.toString() === productId);
-        
+
         if (cartItemindex === -1) {
             return res.status(404).json({ msg: 'Item not found in cart' });
         }
@@ -97,9 +97,9 @@ exports.updateCartItemQuantity = async (req, res) => {
         await user.save();
 
         const updatedPopulatedCart = await populateCartItems(req.user.id);
-        res.json(updatedPopulatedCart);    
-        
-    }   catch (err) {
+        res.json(updatedPopulatedCart);
+
+    } catch (err) {
         console.error(err.message);
         res.status(500).json({ msg: 'Server Error' });
     }
@@ -129,9 +129,9 @@ exports.removeItemFromCart = async (req, res) => {
         await user.save();
 
         const updatedPopulatedCart = await populateCartItems(req.user.id);
-        res.json(updatedPopulatedCart);    
-        
-    }   catch (err) {
+        res.json(updatedPopulatedCart);
+
+    } catch (err) {
         console.error(err.message);
         res.status(500).json({ msg: 'Server Error' });
     }
@@ -142,7 +142,7 @@ exports.removeItemFromCart = async (req, res) => {
 // @desc    Clear the entire cart
 // @access  Private (User must be logged in)
 exports.clearCart = async (req, res) => {
-     try {
+    try {
         const user = await User.findById(req.user.id);
         if (!user) {
             return res.status(404).json({ msg: 'User not found' });
@@ -153,8 +153,8 @@ exports.clearCart = async (req, res) => {
 
         res.json([]);  // Confirmation message
 
-     }  catch (err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).json({ msg: 'Server Error' });
-     }
+    }
 };

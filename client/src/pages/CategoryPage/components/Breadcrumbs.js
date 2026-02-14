@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { getCategory } from '../../../redux/actions/categoryActions';
+import { ChevronRight, Home } from 'lucide-react';
 
-
-function FilterSidebar() {
+function Breadcrumbs() {
     const { categoryId } = useParams();
     const dispatch = useDispatch();
-    const categoryState = useSelector(state => state.category);
-    const { category, loading, error } = categoryState;
+    const { category, loading } = useSelector(state => state.category);
 
     useEffect(() => {
-        dispatch(getCategory(categoryId));
+        if (categoryId) {
+            dispatch(getCategory(categoryId));
+        }
     }, [dispatch, categoryId]);
 
     const generateBreadcrumbs = (currentCategory, path = []) => {
@@ -19,7 +20,7 @@ function FilterSidebar() {
 
         const updatedPath = [{
             name: currentCategory.name,
-            link: `/category/${currentCategory.slug}`
+            link: `/category/${currentCategory._id}`
         }, ...path];
 
         if (currentCategory.parent) {
@@ -32,24 +33,34 @@ function FilterSidebar() {
     const breadcrumbPath = category ? generateBreadcrumbs(category) : [];
 
     return (
-        <nav className='breadcrumbs'>
-            <span><Link to="/">Home</Link></span> &gt;
-            <span><Link to="/catalog">Catalog</Link></span> &gt;
-            {loading || !breadcrumbPath ? (
-                <span>Loading breadcrumbs...</span>
-            ) : error && error.msg ? (
-                <span style={{ color: 'red' }}>Error loading breadcrumbs</span>
-            ) : (
-                breadcrumbPath.map((crumb, index) => (
-                    <span key={index}>
-                        <Link to={crumb.link}>{crumb.name}</Link>
-                        {index < breadcrumbPath.length - 1 && ' > '}
-                    </span>
-                ))
-            )}
+        <nav className="flex items-center space-x-2 text-xs font-bold uppercase tracking-widest text-neutral-400 mb-8 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide">
+            <Link to="/" className="flex items-center gap-1.5 hover:text-primary-600 transition-colors">
+                <Home size={14} />
+                <span>Home</span>
+            </Link>
+
+            <ChevronRight size={14} className="text-neutral-300 shrink-0" />
+
+            <Link to="/categories" className="hover:text-primary-600 transition-colors">
+                Categories
+            </Link>
+
+            {!loading && breadcrumbPath.map((crumb, index) => (
+                <React.Fragment key={index}>
+                    <ChevronRight size={14} className="text-neutral-300 shrink-0" />
+                    <Link
+                        to={crumb.link}
+                        className={`transition-colors ${index === breadcrumbPath.length - 1
+                            ? 'text-neutral-900 cursor-default pointer-events-none'
+                            : 'hover:text-primary-600'
+                            }`}
+                    >
+                        {crumb.name}
+                    </Link>
+                </React.Fragment>
+            ))}
         </nav>
     );
 }
 
-
-export default FilterSidebar;
+export default Breadcrumbs;

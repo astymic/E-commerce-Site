@@ -11,15 +11,15 @@ const orderSchema = new Schema({
     }],
     totalAmount: { type: Number, required: true, min: 0 },
     shippingDetails: {
-        firstName: { type: String, reqired: true },
-        lastName: { type: String, reqired: true },
+        firstName: { type: String, required: true },
+        lastName: { type: String, required: true },
         phone: { type: String, required: true },
         type: { type: String, enum: ['store', 'post', 'address'], required: true },
         city: { type: String, required: true },
         location: { type: String },                                                             // Store/post office location or street address
-        recipientFirstName: String,                                                             // Optional, if different from buyer
-        recipientLastName: String,                                                              // Optional
-        notes: String                                                                           // Customer notes
+        recipientFirstName: { type: String },                                                   // Optional, if different from buyer
+        recipientLastName: { type: String },                                                    // Optional
+        notes: { type: String }                                                                 // Customer notes
     },
     paymentMethod: {
         type: String,

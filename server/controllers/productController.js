@@ -1,4 +1,4 @@
-const Product = require('../models/Product'); 
+const Product = require('../models/Product');
 const Category = require('../models/Category');
 const User = require('../models/User');
 
@@ -47,7 +47,7 @@ exports.createProduct = async (req, res) => {
             specifications: specifications || [], // Optional
             images: images || [], // Optional
             stock: stock || 0, // Default 0 if not provided
-            isPromotion: isPromotion || false, 
+            isPromotion: isPromotion || false,
             isNew: isNew !== undefined ? isNew : true, // Default isNew to true if not provided
             isTopSelling: isTopSelling || false,
         });
@@ -55,7 +55,7 @@ exports.createProduct = async (req, res) => {
         const product = await newProduct.save();
         res.json(product);
 
-    }   catch (err) {
+    } catch (err) {
         console.error(err.nessage);
         res.status(500).send('Server Error')
     }
@@ -112,10 +112,10 @@ exports.addProductReview = async (req, res) => {
         await product.save();
 
         res.status(201).json(product.reviews); // Return all reviews
-    
+
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Error');   
+        res.status(500).send('Server Error');
     }
 };
 
@@ -157,7 +157,7 @@ exports.getProducts = async (req, res) => {
             const minPrice = parseFloat(priceMin);
             if (!isNaN(minPrice)) {
                 query.price = { $gte: minPrice };
-            } 
+            }
         } else if (priceMax !== undefined) { // Only maxPrice provided
             const maxPrice = parseFloat(priceMax);
             if (!isNaN(maxPrice)) {
@@ -171,9 +171,9 @@ exports.getProducts = async (req, res) => {
         if (search) {
             query.$text = { $search: search };
             productQuery = Product.find(query, { score: { $meta: "textScore" } })
-                                    .sort({ score: { $meta: "textScore" } });
+                .sort({ score: { $meta: "textScore" } });
         } else {
-            productQuery = Product.find(query); 
+            productQuery = Product.find(query);
         }
 
 
@@ -193,7 +193,7 @@ exports.getProducts = async (req, res) => {
             totalPages,
             totalProducts,
         });
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
@@ -206,14 +206,14 @@ exports.getProducts = async (req, res) => {
 exports.getProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
-                                        .populate('category', 'name')
-                                        .populate('subcategory', 'name');
+            .populate('category', 'name')
+            .populate('subcategory', 'name');
 
         if (!product) {
             return res.status(404).json({ msg: 'Product not found' });
         }
         res.json(product);
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         if (err.kind === 'Objectid') {
             return res.status(404).json({ msg: 'Product not found' });
@@ -257,7 +257,7 @@ exports.updateProduct = async (req, res) => {
                 return res.status(400).json({ msg: 'Subcategory not found' });
             }
         }
-        
+
 
         const productFileds = {};
         if (name) productFileds.name = name;
@@ -267,7 +267,7 @@ exports.updateProduct = async (req, res) => {
         if (discountPrice) productFileds.discountPrice = discountPrice;
         if (category) productFileds.category = category;
         if (subcategory) productFileds.subcategory = subcategory;
-        if (specifications) productFileds.specifications =  specifications;
+        if (specifications) productFileds.specifications = specifications;
         if (images) productFileds.images = images;
         if (stock) productFileds.stock = stock;
         if (isPromotion) productFileds.isPromotion = isPromotion;
@@ -276,7 +276,7 @@ exports.updateProduct = async (req, res) => {
 
 
         let product = await Product.findById(req.params.id);
-        
+
         if (!product) return res.status(400).json({ msg: 'Product not found' });
 
         product = await Product.findByIdAndUpdate(
@@ -287,7 +287,7 @@ exports.updateProduct = async (req, res) => {
 
         res.json(product);
 
-    }   catch (err) {
+    } catch (err) {
         console.error(err.messgae);
         if (err === 'ObjectId') {
             return res.status(404).json({ msg: 'Product not found' });
@@ -305,13 +305,13 @@ exports.deleteProduct = async (req, res) => {
         const product = await Product.findById(req.params.id);
 
         if (!product) {
-            return res.status(404).json({ msg:'Product not found' });
+            return res.status(404).json({ msg: 'Product not found' });
         }
 
         await Product.findByIdAndDelete(req.params.id);
 
         res.json({ msg: 'Product deleted' });
-    }   catch (err) {
+    } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Product not found' });
@@ -389,10 +389,10 @@ exports.getSimilarProducts = async (req, res) => {
             category: currentProduct.category,
             _id: { $ne: currentProduct._id }
         })
-        .limit(4);
+            .limit(4);
 
         res.json(similarProducts);
-    
+
     } catch (err) {
         console.error(err.message);
         if (err.kind === 'ObjectId') {
@@ -403,23 +403,35 @@ exports.getSimilarProducts = async (req, res) => {
 };
 
 
-// --- Upload Product Image ---
-
-// @route   POST api/upload/product-image   \   POST api/admin/upload/category-image
-// @desc    Upload a product image          \   Upload a category image (Admin)
-// @access  Public
+// --- Upload Single Product Image (Fallback/Category) ---
 exports.uploadImage = async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ msg: 'No file uploaded' });
         }
+        const filePath = req.file.path.replace(/\\/g, '/');
+        res.json({ filePath: filePath });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
 
-        // File path wil be available in req.file.path (e.g., 'uploads/productImage-timestamp-random.jpg')
-        const filePath = req.file.path;
+// --- Upload Multiple Product Images ---
 
-        res.json({ filePath: filePath.replace(/\\/g,'/') }); // Respond with the file path
+// @route   POST api/admin/upload/product-images
+// @desc    Upload multiple product images (Admin)
+// @access  Private
+exports.uploadImages = async (req, res) => {
+    try {
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ msg: 'No files uploaded' });
+        }
 
-    }   catch (err) {
+        const filePaths = req.files.map(file => file.path.replace(/\\/g, '/'));
+        res.json({ filePaths: filePaths });
+
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }

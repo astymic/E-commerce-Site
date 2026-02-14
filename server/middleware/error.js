@@ -1,10 +1,23 @@
+const fs = require('fs');
+const path = require('path');
+
 function errorHandler(err, req, res, next) {
+    const errorLog = `
+[${new Date().toISOString()}] ERROR:
+Message: ${err.message || 'No message'}
+Stack: ${err.stack || 'No stack'}
+Error Object: ${JSON.stringify(err, null, 2)}
+-----------------------------------------------
+`;
+    fs.appendFileSync(path.join(__dirname, '../server_crash.log'), errorLog);
+
     console.error('ERROR HANDLER CALLED:', err)
 
     // Check if it's a Joi validation error
     if (err.error && err.error.isJoi) {
         return res.status(400).json({ msg: err.error.details[0].message });
     }
+    // ... rest of the file ...
 
     // Handle Mongoose validation errors (e.g., required fields, unique constraints)
     if (err.name === 'ValidationError') {

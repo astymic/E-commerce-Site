@@ -5,7 +5,7 @@ const auth = require('../../middleware/auth');
 const upload = require('../../middleware/upload');
 
 const { validateProduct } = require('../../validation/productValidation'); // Hide all lines with this check - if you want to make "solo" store (only official store products)
-                                                                           // and 
+// and 
 
 // @route   POST api/products
 // @desc    Create a new product
@@ -68,11 +68,11 @@ router.delete('/:id', productController.deleteProduct);
 
 
 
-// @route   POST api/upload/product-image
-// @desc    Upload a product image
-// @access  Public
-// 'productImage' is field name for the file input in the fronted from
-router.post('/upload/product-image', upload.single('productImage'), productController.uploadImage);
+// @route   POST api/products/upload/product-images
+// @desc    Upload multiple product images
+// @access  Public (should be Admin protected)
+// 'productImages' is field name for the file input array
+router.post('/upload/product-images', upload.array('productImages', 10), productController.uploadImages);
 
 
 

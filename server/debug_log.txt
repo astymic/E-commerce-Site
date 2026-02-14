@@ -1,0 +1,1461 @@
+[2026-02-14T11:08:04.878Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:08:50.422Z] POST /api/users/login
+Body: {
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+[2026-02-14T11:08:50.437Z] POST /api/users/register
+Body: {
+  "firstName": "Test",
+  "lastName": "User",
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+[2026-02-14T11:08:50.511Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:08:50.530Z] POST /api/cart
+Body: {
+  "productId": "69903cc3e603112ef8384529",
+  "quantity": 1
+}
+
+[2026-02-14T11:08:50.544Z] POST /api/orders
+Body: {
+  "shippingDetails": {
+    "firstName": "Test",
+    "lastName": "User",
+    "phone": "1234567890",
+    "type": "address",
+    "city": "Test City",
+    "location": "123 Test Street"
+  },
+  "paymentMethod": "cash_on_delivery",
+  "doNotCall": false,
+  "deliveryToAnotherPerson": false
+}
+
+[2026-02-14T11:10:16.980Z] POST /api/users/login
+Body: {
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+[2026-02-14T11:10:17.053Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:10:17.069Z] POST /api/cart
+Body: {
+  "productId": "69903cc3e603112ef8384529",
+  "quantity": 1
+}
+
+[2026-02-14T11:10:17.086Z] POST /api/orders
+Body: {
+  "shippingDetails": {
+    "firstName": "Test",
+    "lastName": "User",
+    "phone": "1234567890",
+    "type": "address",
+    "city": "Test City",
+    "location": "123 Test Street"
+  },
+  "paymentMethod": "cash_on_delivery",
+  "doNotCall": false,
+  "deliveryToAnotherPerson": false
+}
+
+[2026-02-14T11:10:28.546Z] POST /api/users/login
+Body: {
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+[2026-02-14T11:10:28.609Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:10:28.616Z] POST /api/cart
+Body: {
+  "productId": "69903cc3e603112ef8384529",
+  "quantity": 1
+}
+
+[2026-02-14T11:10:28.625Z] POST /api/orders
+Body: {
+  "shippingDetails": {
+    "firstName": "Test",
+    "lastName": "User",
+    "phone": "1234567890",
+    "type": "address",
+    "city": "Test City",
+    "location": "123 Test Street"
+  },
+  "paymentMethod": "cash_on_delivery",
+  "doNotCall": false,
+  "deliveryToAnotherPerson": false
+}
+
+[2026-02-14T11:11:41.264Z] POST /api/orders
+Body: {
+  "shippingDetails": {
+    "firstName": "Admin",
+    "lastName": "User",
+    "phone": "asdsad",
+    "type": "store",
+    "city": "asd",
+    "location": "main-square"
+  },
+  "paymentMethod": "cash_on_delivery",
+  "doNotCall": false,
+  "deliveryToAnotherPerson": false,
+  "recipientFirstName": "",
+  "recipientLastName": "",
+  "notes": ""
+}
+
+[2026-02-14T11:11:41.528Z] GET /api/orders/6990586d933122da3a2f36ed
+Body: {}
+
+[2026-02-14T11:11:41.621Z] GET /api/orders/6990586d933122da3a2f36ed
+Body: {}
+
+[2026-02-14T11:11:51.668Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:11:51.978Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:11:51.980Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:11:51.981Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:11:51.983Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:11:52.306Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:11:52.306Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:11:52.307Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:11:52.308Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:11:59.484Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:11:59.489Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:11:59.848Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:12:00.098Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:12:00.866Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:12:01.184Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:12:02.499Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:12:02.503Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:12:02.656Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:12:02.828Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:12:02.859Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:12:02.967Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:12:03.642Z] GET /api/admin/users
+Body: {}
+
+[2026-02-14T11:12:03.647Z] GET /api/admin/users
+Body: {}
+
+[2026-02-14T11:12:04.465Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:12:04.714Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:23:53.687Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:23:53.693Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:23:53.745Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:23:54.047Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:23:54.055Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:23:54.066Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:23:55.591Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:23:55.604Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:23:55.930Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:23:56.553Z] GET /api/products/69903cc3e603112ef838452a
+Body: {}
+
+[2026-02-14T11:23:56.876Z] GET /api/products/69903cc3e603112ef838452a/similar
+Body: {}
+
+[2026-02-14T11:23:56.877Z] GET /api/products/69903cc3e603112ef838452a
+Body: {}
+
+[2026-02-14T11:23:57.191Z] GET /api/products/69903cc3e603112ef838452a/similar
+Body: {}
+
+[2026-02-14T11:23:57.211Z] POST /api/cart
+Body: {
+  "productId": "69903cc3e603112ef838452a",
+  "quantity": 1
+}
+
+[2026-02-14T11:23:57.441Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:24:09.482Z] POST /api/orders
+Body: {
+  "shippingDetails": {
+    "firstName": "Admin",
+    "lastName": "User",
+    "phone": "в",
+    "type": "post",
+    "city": "вв",
+    "location": "вв"
+  },
+  "paymentMethod": "cash_on_delivery",
+  "doNotCall": false,
+  "deliveryToAnotherPerson": false,
+  "recipientFirstName": "",
+  "recipientLastName": "",
+  "notes": ""
+}
+
+[2026-02-14T11:24:09.748Z] GET /api/orders/69905b59933122da3a2f37a1
+Body: {}
+
+[2026-02-14T11:24:09.819Z] GET /api/orders/69905b59933122da3a2f37a1
+Body: {}
+
+[2026-02-14T11:24:12.732Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:24:13.048Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:24:13.049Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:24:13.051Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:24:13.053Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:24:13.065Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:24:13.382Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:24:13.387Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:24:13.389Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:24:13.397Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:24:18.704Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:24:18.709Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:24:19.044Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:24:19.295Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:24:21.359Z] GET /api/admin/categories
+Body: {}
+
+[2026-02-14T11:24:21.682Z] GET /api/admin/categories
+Body: {}
+
+[2026-02-14T11:24:22.558Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:24:22.884Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:24:46.210Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:24:46.212Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:24:46.217Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:24:46.522Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:24:46.586Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:24:46.587Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:24:46.899Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:24:47.761Z] GET /api/products/69903cc3e603112ef838452c
+Body: {}
+
+[2026-02-14T11:24:48.066Z] GET /api/products/69903cc3e603112ef838452c/similar
+Body: {}
+
+[2026-02-14T11:24:48.077Z] GET /api/products/69903cc3e603112ef838452c
+Body: {}
+
+[2026-02-14T11:24:48.393Z] GET /api/products/69903cc3e603112ef838452c/similar
+Body: {}
+
+[2026-02-14T11:24:48.403Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:24:49.787Z] POST /api/cart
+Body: {
+  "productId": "69903cc3e603112ef838452c",
+  "quantity": 1
+}
+
+[2026-02-14T11:25:09.427Z] POST /api/orders
+Body: {
+  "shippingDetails": {
+    "firstName": "Admin",
+    "lastName": "User",
+    "phone": "+sadasda",
+    "type": "store",
+    "city": "asdasdas",
+    "location": "tech-hub"
+  },
+  "paymentMethod": "prepaid",
+  "doNotCall": false,
+  "deliveryToAnotherPerson": false,
+  "recipientFirstName": "",
+  "recipientLastName": "",
+  "notes": ""
+}
+
+[2026-02-14T11:25:09.768Z] GET /api/orders/69905b95933122da3a2f37fc
+Body: {}
+
+[2026-02-14T11:25:10.043Z] GET /api/orders/69905b95933122da3a2f37fc
+Body: {}
+
+[2026-02-14T11:25:27.303Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:25:27.307Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:25:27.400Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:25:27.640Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:25:27.670Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:25:27.673Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:25:38.654Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:25:38.894Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:25:38.996Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:25:39.001Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:25:39.014Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:25:39.334Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:26:47.057Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:26:47.061Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:26:47.064Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:26:47.067Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:26:47.325Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:26:47.392Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:26:47.396Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:26:47.398Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:26:47.405Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:31:11.839Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:31:11.842Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:31:11.852Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:31:11.853Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:31:11.854Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:31:11.894Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:31:12.395Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:31:12.398Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:31:12.400Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:31:12.401Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:31:12.402Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:31:12.409Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:31:12.723Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:31:12.728Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:31:12.738Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:31:12.757Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:31:13.329Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:31:13.330Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:31:13.637Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:31:13.638Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:31:13.639Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:31:13.647Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:31:13.648Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:31:13.728Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:31:13.958Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:31:13.959Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:31:13.960Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:31:13.965Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:31:13.967Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:31:14.281Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:31:14.282Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:31:14.285Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:31:14.294Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:31:14.301Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:31:14.303Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:32:48.688Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:32:48.689Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:32:48.690Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:32:48.994Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:32:48.995Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:32:49.012Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:32:49.013Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:32:49.016Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:32:49.328Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:32:49.329Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:32:49.331Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:32:49.340Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:32:49.673Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:33:00.647Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:33:00.953Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:33:00.968Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:33:01.226Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:33:02.579Z] GET /api/admin/products?limit=500
+Body: {}
+
+[2026-02-14T11:33:02.901Z] GET /api/admin/products?limit=500
+Body: {}
+
+[2026-02-14T11:33:02.941Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:33:03.255Z] GET /api/admin/categories
+Body: {}
+
+[2026-02-14T11:33:03.514Z] GET /api/admin/categories
+Body: {}
+
+[2026-02-14T11:33:03.899Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:33:04.222Z] GET /api/admin/products?limit=500
+Body: {}
+
+[2026-02-14T11:33:04.231Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:33:04.664Z] GET /api/admin/products?limit=500
+Body: {}
+
+[2026-02-14T11:33:04.891Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:33:05.210Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:33:08.500Z] GET /api/admin/users
+Body: {}
+
+[2026-02-14T11:33:08.824Z] GET /api/admin/users
+Body: {}
+
+[2026-02-14T11:33:10.742Z] GET /api/admin/users
+Body: {}
+
+[2026-02-14T11:33:11.010Z] GET /api/admin/users
+Body: {}
+
+[2026-02-14T11:33:12.292Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:33:12.616Z] GET /api/admin/orders
+Body: {}
+
+[2026-02-14T11:33:15.672Z] PUT /api/admin/orders/69905819933122da3a2f36c8/status
+Body: {
+  "status": "confirmed"
+}
+
+[2026-02-14T11:33:17.242Z] PUT /api/admin/orders/69905819933122da3a2f36c8/status
+Body: {
+  "status": "delivered"
+}
+
+[2026-02-14T11:33:18.032Z] PUT /api/admin/orders/69905819933122da3a2f36c8/status
+Body: {
+  "status": "canceled"
+}
+
+[2026-02-14T11:33:19.269Z] PUT /api/admin/orders/69905819933122da3a2f36c8/status
+Body: {
+  "status": "shipped"
+}
+
+[2026-02-14T11:33:19.823Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:33:30.713Z] PUT /api/admin/orders/69905819933122da3a2f36c8/status
+Body: {
+  "status": "shipped"
+}
+
+[2026-02-14T11:33:34.061Z] PUT /api/admin/orders/69905824933122da3a2f36db/status
+Body: {
+  "status": "delivered"
+}
+
+[2026-02-14T11:33:38.082Z] PUT /api/admin/orders/6990586d933122da3a2f36ed/status
+Body: {
+  "status": "canceled"
+}
+
+[2026-02-14T11:33:41.573Z] PUT /api/admin/orders/69905b59933122da3a2f37a1/status
+Body: {
+  "status": "confirmed"
+}
+
+[2026-02-14T11:47:16.681Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:47:16.800Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:47:16.801Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:47:16.802Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:47:16.942Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:47:17.006Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:47:17.116Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:47:17.117Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:47:17.119Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:50:48.307Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:50:48.629Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:50:48.630Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:50:48.631Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:50:48.631Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:50:48.633Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:50:48.952Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:50:48.953Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:50:48.955Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:50:48.958Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:50:48.961Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:54:58.136Z] POST /api/users/login
+Body: {
+  "email": "admin@gmail.com",
+  "password": "admin1234"
+}
+
+[2026-02-14T11:54:58.491Z] POST /api/users/login
+Body: {
+  "email": "admin@gmail.com",
+  "password": "admin1234"
+}
+
+[2026-02-14T11:55:02.391Z] POST /api/users/login
+Body: {
+  "email": "admin@gmail.com",
+  "password": "admin123"
+}
+
+[2026-02-14T11:55:02.639Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:55:02.765Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:55:02.780Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:55:02.797Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:55:02.798Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:55:02.799Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:55:02.953Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:55:03.077Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:55:03.094Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:55:03.110Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:55:03.112Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:55:12.121Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:55:12.122Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:55:12.123Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:55:12.437Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:55:12.438Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:55:12.439Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:55:12.440Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:55:12.442Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:55:12.768Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:55:12.769Z] GET /api/users/me
+Body: {}
+
+[2026-02-14T11:55:12.771Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:55:12.772Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:55:13.107Z] GET /api/cart
+Body: {}
+
+[2026-02-14T11:56:00.453Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:56:00.765Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:56:00.774Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:56:02.071Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:56:02.327Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:56:04.160Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:56:04.468Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:56:04.790Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:56:07.295Z] GET /api/products/69903cc3e603112ef838452a
+Body: {}
+
+[2026-02-14T11:56:07.600Z] GET /api/products/69903cc3e603112ef838452a/similar
+Body: {}
+
+[2026-02-14T11:56:07.608Z] GET /api/products/69903cc3e603112ef838452a
+Body: {}
+
+[2026-02-14T11:56:07.923Z] GET /api/products/69903cc3e603112ef838452a/similar
+Body: {}
+
+[2026-02-14T11:56:07.928Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:56:09.407Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:56:09.409Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:56:09.660Z] GET /api/products
+Body: {}
+
+[2026-02-14T11:56:13.295Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:56:13.604Z] GET /api/products/69903cc3e603112ef8384529/similar
+Body: {}
+
+[2026-02-14T11:56:13.605Z] GET /api/products/69903cc3e603112ef8384529
+Body: {}
+
+[2026-02-14T11:56:13.869Z] GET /api/products/69903cc3e603112ef8384529
+Body: {}
+
+[2026-02-14T11:56:13.914Z] GET /api/products/69903cc3e603112ef8384529/similar
+Body: {}
+
+[2026-02-14T11:56:13.916Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:56:13.932Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:56:49.192Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:56:49.226Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:56:49.227Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:56:49.228Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:56:49.229Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T11:56:49.459Z] GET /api/categories
+Body: {}
+
+[2026-02-14T11:56:49.504Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T11:56:49.554Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T11:56:49.555Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:56:51.995Z] GET /api/products/69903cc3e603112ef8384529
+Body: {}
+
+[2026-02-14T11:56:52.305Z] GET /api/products/69903cc3e603112ef8384529/similar
+Body: {}
+
+[2026-02-14T11:56:52.306Z] GET /api/products/69903cc3e603112ef8384529
+Body: {}
+
+[2026-02-14T11:56:52.310Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T11:56:52.618Z] GET /api/products/69903cc3e603112ef8384529/similar
+Body: {}
+
+[2026-02-14T11:56:52.625Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:05:54.409Z] GET /api/products
+Body: {}
+
+[2026-02-14T12:05:54.670Z] GET /api/products
+Body: {}
+
+[2026-02-14T12:05:54.741Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:05:58.458Z] GET /api/categories
+Body: {}
+
+[2026-02-14T12:05:58.770Z] GET /api/categories
+Body: {}
+
+[2026-02-14T12:05:59.044Z] GET /api/categories/69903cc3e603112ef838451c
+Body: {}
+
+[2026-02-14T12:05:59.349Z] GET /api/categories/69903cc3e603112ef838451c/products?
+Body: {}
+
+[2026-02-14T12:05:59.357Z] GET /api/categories/69903cc3e603112ef838451c
+Body: {}
+
+[2026-02-14T12:05:59.674Z] GET /api/categories/69903cc3e603112ef838451c/products?
+Body: {}
+
+[2026-02-14T12:05:59.676Z] GET /api/categories/69903cc3e603112ef838451c
+Body: {}
+
+[2026-02-14T12:05:59.677Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:05:59.988Z] GET /api/categories/69903cc3e603112ef838451c
+Body: {}
+
+[2026-02-14T12:06:01.803Z] GET /api/products/69903cc3e603112ef838453c
+Body: {}
+
+[2026-02-14T12:06:01.804Z] GET /api/products/69903cc3e603112ef838453c/similar
+Body: {}
+
+[2026-02-14T12:06:01.808Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:06:02.054Z] GET /api/products/69903cc3e603112ef838453c
+Body: {}
+
+[2026-02-14T12:06:02.119Z] GET /api/products/69903cc3e603112ef838453c/similar
+Body: {}
+
+[2026-02-14T12:06:02.120Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:06:02.134Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:06:05.370Z] POST /api/cart
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 1
+}
+
+[2026-02-14T12:06:13.293Z] GET /api/categories
+Body: {}
+
+[2026-02-14T12:06:13.601Z] GET /api/categories
+Body: {}
+
+[2026-02-14T12:06:14.846Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:06:14.846Z] GET /api/categories/69903cc3e603112ef838451c
+Body: {}
+
+[2026-02-14T12:06:14.848Z] GET /api/categories/69903cc3e603112ef838451c/products?
+Body: {}
+
+[2026-02-14T12:06:15.161Z] GET /api/categories/69903cc3e603112ef838451c
+Body: {}
+
+[2026-02-14T12:06:15.165Z] GET /api/categories/69903cc3e603112ef838451c/products?
+Body: {}
+
+[2026-02-14T12:06:15.479Z] GET /api/categories/69903cc3e603112ef838451c
+Body: {}
+
+[2026-02-14T12:06:15.791Z] GET /api/categories/69903cc3e603112ef838451c
+Body: {}
+
+[2026-02-14T12:06:15.884Z] GET /api/products/69903cc3e603112ef8384532
+Body: {}
+
+[2026-02-14T12:06:15.885Z] GET /api/products/69903cc3e603112ef8384532/similar
+Body: {}
+
+[2026-02-14T12:06:15.891Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:06:16.057Z] GET /api/products/69903cc3e603112ef8384532
+Body: {}
+
+[2026-02-14T12:06:16.198Z] GET /api/products/69903cc3e603112ef8384532/similar
+Body: {}
+
+[2026-02-14T12:06:16.199Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:06:16.215Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:06:17.150Z] POST /api/cart
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 1
+}
+
+[2026-02-14T12:06:18.883Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:06:19.189Z] GET /api/products
+Body: {}
+
+[2026-02-14T12:06:19.501Z] GET /api/products
+Body: {}
+
+[2026-02-14T12:06:21.849Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:06:22.164Z] GET /api/products/69903cc3e603112ef8384530
+Body: {}
+
+[2026-02-14T12:06:22.165Z] GET /api/products/69903cc3e603112ef8384530/similar
+Body: {}
+
+[2026-02-14T12:06:22.429Z] GET /api/products/69903cc3e603112ef8384530
+Body: {}
+
+[2026-02-14T12:06:22.477Z] GET /api/products/69903cc3e603112ef8384530/similar
+Body: {}
+
+[2026-02-14T12:06:22.478Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:06:22.491Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:06:22.959Z] POST /api/cart
+Body: {
+  "productId": "69903cc3e603112ef8384530",
+  "quantity": 1
+}
+
+[2026-02-14T12:06:33.414Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 2
+}
+
+[2026-02-14T12:06:40.178Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 1
+}
+
+[2026-02-14T12:06:44.173Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 2
+}
+
+[2026-02-14T12:06:46.262Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 2
+}
+
+[2026-02-14T12:06:47.533Z] PUT /api/cart/69903cc3e603112ef8384530
+Body: {
+  "productId": "69903cc3e603112ef8384530",
+  "quantity": 2
+}
+
+[2026-02-14T12:08:33.325Z] GET /checkout
+Body: {}
+
+[2026-02-14T12:08:58.024Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 1
+}
+
+[2026-02-14T12:08:59.468Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 1
+}
+
+[2026-02-14T12:09:00.683Z] PUT /api/cart/69903cc3e603112ef8384530
+Body: {
+  "productId": "69903cc3e603112ef8384530",
+  "quantity": 1
+}
+
+[2026-02-14T12:09:01.989Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 2
+}
+
+[2026-02-14T12:09:02.924Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 2
+}
+
+[2026-02-14T12:09:04.407Z] PUT /api/cart/69903cc3e603112ef8384530
+Body: {
+  "productId": "69903cc3e603112ef8384530",
+  "quantity": 2
+}
+
+[2026-02-14T12:12:52.223Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 1
+}
+
+[2026-02-14T12:12:53.979Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 2
+}
+
+[2026-02-14T12:12:54.748Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 3
+}
+
+[2026-02-14T12:12:55.442Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 4
+}
+
+[2026-02-14T12:12:56.520Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 5
+}
+
+[2026-02-14T12:12:57.540Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 6
+}
+
+[2026-02-14T12:12:58.835Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 7
+}
+
+[2026-02-14T12:12:59.487Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 3
+}
+
+[2026-02-14T12:13:01.697Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 4
+}
+
+[2026-02-14T12:13:03.340Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 5
+}
+
+[2026-02-14T12:13:06.125Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 6
+}
+
+[2026-02-14T12:13:14.226Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 8
+}
+
+[2026-02-14T12:13:15.201Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 9
+}
+
+[2026-02-14T12:13:16.350Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 7
+}
+
+[2026-02-14T12:13:17.488Z] PUT /api/cart/69903cc3e603112ef8384530
+Body: {
+  "productId": "69903cc3e603112ef8384530",
+  "quantity": 3
+}
+
+[2026-02-14T12:13:19.265Z] PUT /api/cart/69903cc3e603112ef8384530
+Body: {
+  "productId": "69903cc3e603112ef8384530",
+  "quantity": 4
+}
+
+[2026-02-14T12:28:08.231Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 8
+}
+
+[2026-02-14T12:28:09.095Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 7
+}
+
+[2026-02-14T12:28:10.518Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 6
+}
+
+[2026-02-14T12:28:11.061Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 7
+}
+
+[2026-02-14T12:28:12.099Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 8
+}
+
+[2026-02-14T12:28:12.573Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 9
+}
+
+[2026-02-14T12:28:15.651Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 8
+}
+
+[2026-02-14T12:28:17.569Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 6
+}
+
+[2026-02-14T12:28:18.959Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 7
+}
+
+[2026-02-14T12:28:19.956Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 6
+}
+
+[2026-02-14T12:28:21.005Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 5
+}
+
+[2026-02-14T12:28:21.551Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 4
+}
+
+[2026-02-14T12:28:22.654Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 5
+}
+
+[2026-02-14T12:28:23.128Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 6
+}
+
+[2026-02-14T12:28:24.269Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 7
+}
+
+[2026-02-14T12:28:24.738Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 8
+}
+
+[2026-02-14T12:28:26.078Z] PUT /api/cart/69903cc3e603112ef8384530
+Body: {
+  "productId": "69903cc3e603112ef8384530",
+  "quantity": 5
+}
+
+[2026-02-14T12:28:27.010Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 7
+}
+
+[2026-02-14T12:28:27.962Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 8
+}
+
+[2026-02-14T12:28:29.749Z] PUT /api/cart/69903cc3e603112ef8384530
+Body: {
+  "productId": "69903cc3e603112ef8384530",
+  "quantity": 4
+}
+
+[2026-02-14T12:28:30.613Z] PUT /api/cart/69903cc3e603112ef8384530
+Body: {
+  "productId": "69903cc3e603112ef8384530",
+  "quantity": 3
+}
+
+[2026-02-14T12:28:31.673Z] PUT /api/cart/69903cc3e603112ef8384532
+Body: {
+  "productId": "69903cc3e603112ef8384532",
+  "quantity": 7
+}
+
+[2026-02-14T12:28:32.552Z] PUT /api/cart/69903cc3e603112ef838453c
+Body: {
+  "productId": "69903cc3e603112ef838453c",
+  "quantity": 7
+}
+
+[2026-02-14T12:28:35.793Z] DELETE /api/cart/69903cc3e603112ef8384532
+Body: {}
+
+[2026-02-14T12:28:40.401Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T12:28:40.403Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T12:28:40.407Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T12:28:40.412Z] GET /api/categories
+Body: {}
+
+[2026-02-14T12:28:40.642Z] GET /api/products/top-selling
+Body: {}
+
+[2026-02-14T12:28:40.738Z] GET /api/products/promotions
+Body: {}
+
+[2026-02-14T12:28:40.739Z] GET /api/products/new-arrivals
+Body: {}
+
+[2026-02-14T12:28:40.740Z] GET /api/categories
+Body: {}
+
+[2026-02-14T12:28:40.742Z] GET /placeholder.png
+Body: {}
+
+[2026-02-14T12:28:45.717Z] DELETE /api/cart/69903cc3e603112ef838453c
+Body: {}
+
+[2026-02-14T12:28:46.555Z] DELETE /api/cart/69903cc3e603112ef8384530
+Body: {}
+
