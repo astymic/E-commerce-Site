@@ -1,136 +1,112 @@
-# Modern E-Commerce Marketplace
+# 💎 LuxeStore: High-End E-Commerce Platform
 
-A full-stack e-commerce application built from scratch using the MERN stack (MongoDB, Express, React, Node.js). This platform includes product management, categorization, user accounts, shopping cart functionality, a full checkout process, and an interactive Admin Panel.
+Welcome to **LuxeStore**, a state-of-the-art, full-stack e-commerce marketplace designed with 💎 **Premium UI aesthetics**, ⚡ **Instant-feel performance**, and 🛠️ **Powerful management tools**. 
 
-## 🛠 Tech Stack
-
-*   **Frontend:** React.js, Redux (Redux Toolkit), React Router, Axios, p5.js, CSS3.
-*   **Backend:** Node.js, Express.js.
-*   **Database:** MongoDB (using Mongoose).
-*   **Authentication:** JWT (JSON Web Tokens).
-*   **File Storage:** Local server storage (Multer).
+Built with the **MERN** stack, LuxeStore provides a seamless journey from browsing exclusive assets to a polished checkout experience, all wrapped in a modern, glassmorphic design.
 
 ---
 
-## 📋 Prerequisites
+## ✨ Premium Features
 
-Before launching the project, ensure you have the following installed on your machine:
+### 🛍️ Shopping Experience
+- **Fluid Navigation**: Subtle sticky header with "backlight" effects and glassmorphism.
+- **Smart Shopping Bag**: Instant-preview dropdown with "Ghost Refresh" quantity updates and click-outside closure.
+- **Discount Intelligent Logic**: Automatic price adjustments and transparent discount visibility across the bag and checkout.
+- **Modern Product Viewing**: 16:9 high-fidelity image galleries with smooth entrance animations.
+- **Wishlist & Sorting**: Curated filtering and a layered heart-animation wishlist system.
 
-1.  **Node.js & npm:** (LTS version recommended). [Download Here](https://nodejs.org/)
-2.  **Git:** [Download Here](https://git-scm.com/)
-3.  **MongoDB:** The database required to run the application.
+### 🛠️ Admin Control Center
+- **Dynamic Dashboard**: Interactive data tables for managing products, categories, and users.
+- **Advanced Order Management**: Real-time status tracking and detailed logistics overview.
+- **Bulk Data Import**: Intelligent JSON-based utility for mass product and category migration.
+- **Multi-Image Uploads**: Streamlined product creation with support for multiple high-resolution assets.
+
+### ⚡ Performance & Polish
+- **Ghost Refresh Pattern**: Non-blocking background updates for quantities and totals—no more disruptive spinners.
+- **Glassmorphic UI**: A consistent, state-of-the-art design system using modern CSS and Framer Motion.
+- **Animated Atmosphere**: Interactive p5.js backgrounds providing a unique, alive feel.
+
+---
+
+## � Tech Stack
+
+- **Frontend**: React 18, Redux (Toolkit), Framer Motion, Lucide React, Axios, p5.js.
+- **Backend**: Node.js, Express.js.
+- **Database**: MongoDB (Mongoose).
+- **Security**: JWT Authentication & Joi Validation.
+
+---
+
+## � Installation & Setup
+
+### 📋 Prerequisites
+1.  **Node.js & npm**: [Download Here](https://nodejs.org/)
+2.  **Git**: [Download Here](https://git-scm.com/)
+3.  **MongoDB**: The database engine (see details below).
 
 ### 💾 Database Setup (MongoDB)
 
-This project uses **MongoDB** as its database. You have two options for setting this up, but for local development, **MongoDB Community Server** is recommended.
+LuxeStore requires **MongoDB**. For local development, we recommend **MongoDB Community Server**.
 
 #### Option 1: Local Installation (Recommended)
-1.  **Download:** Go to the [MongoDB Community Server Download page](https://www.mongodb.com/try/download/community).
-2.  **Install:** Run the installer.
-    *   *Windows users:* Keep "Install MongoD as a Service" checked. This ensures the database runs automatically in the background.
-    *   *Mac users:* You can use Homebrew: `brew tap mongodb/brew` then `brew install mongodb-community`.
-3.  **Verify:** Open your terminal and type `mongod --version`.
-4.  **GUI Tool:** It is highly recommended to install **MongoDB Compass** (often comes with the installer). This allows you to visually view your database, create collections, and edit data (useful for manually setting user roles).
+1.  **Download**: [MongoDB Community Server Download](https://www.mongodb.com/try/download/community).
+2.  **Install**: Follow the installer prompts. 
+    - *Windows:* Ensure "Install MongoD as a Service" is checked.
+    - *Mac:* Install via Homebrew: `brew tap mongodb/brew` && `brew install mongodb-community`.
+3.  **Verify**: Run `mongod --version` in your terminal.
+4.  **GUI Tool**: It is highly recommended to use **MongoDB Compass** for visual data management and role assignment.
 
-**Default Connection String:** `mongodb://localhost:27017/e_commerce_db`
+**Default Connection String**: `mongodb://localhost:27017/e_commerce_db`
 
 ---
 
-## 🚀 Launch Cycle (Installation & Setup)
+## �️ Getting Started
 
-Follow these steps to get the project running locally from scratch.
-
-### 1. Clone the Repository
-Open your terminal/command prompt and navigate to your desired folder.
+### 1. Clone & Dependencies
 ```bash
 git clone https://github.com/astymic/E-commerce-Site.git
 cd E-commerce-Site
 ```
 
-### 2. Backend Setup
-1.  Navigate to the server directory:
-    ```bash
-    cd server
-    ```
-2.  Install backend dependencies:
-    ```bash
-    npm install
-    ```
-3.  **Configuration:**
-    Open the file `server/config/default.json`. Ensure the configuration matches your local setup:
-    ```json
-    {
-      "mongoURI": "mongodb://localhost:27017/e_commerce_db",
-      "jwtSecret": "CHANGE_THIS_TO_A_LONG_RANDOM_STRING",
-      "BASE_URL": "http://localhost:5000"
-    }
-    ```
-    *   *Note:* If you installed MongoDB with default settings, the `mongoURI` above is correct.
+### 2. Backend Configuration
+1.  `cd server`
+2.  `npm install`
+3.  Update `server/config/default.json` with your `mongoURI` and a secure `jwtSecret`.
+4.  `npm start` (Runs on port 5000).
 
-4.  Start the Backend Server:
-    ```bash
-    npm start
-    ```
-    *   *Expected Output:* `Server is running on port 5000` followed by `MongoDB Connected...`.
-    *   **Keep this terminal window open.**
-
-### 3. Frontend Setup
-1.  Open a **NEW** terminal window (do not close the backend).
-2.  Navigate to the client directory:
-    ```bash
-    cd client
-    ```
-3.  Install frontend dependencies:
-    ```bash
-    npm install
-    ```
-    *   *Note:* Ensure your `client/package.json` contains the line `"proxy": "http://localhost:5000"`.
-
-4.  Start the Frontend Client:
-    ```bash
-    npm start
-    ```
-    *   This will launch the application in your default browser at `http://localhost:3000`.
+### 3. Frontend Launch
+1.  (In a new terminal) `cd client`
+2.  `npm install`
+3.  `npm start` (Runs on port 3000).
 
 ---
 
-## 👥 Setting up an Admin User
+## 👥 Setting up the Admin Role
 
-To access the Admin Panel (`/admin`), you need a user with the role of `admin`.
-
-1.  Register a new user via the website's registration page (`http://localhost:3000/register`).
-2.  Open **MongoDB Compass**.
-3.  Connect to `mongodb://localhost:27017`.
-4.  Navigate to `e_commerce_db` -> `users` collection.
-5.  Find the user you just created.
-6.  Edit the document: Change the field `role` from `"user"` to `"admin"`.
-7.  Click "Update".
-8.  Log out and log back in on the website. You can now access the Admin Dashboard.
+1.  Register a new account at `/register`.
+2.  Open **MongoDB Compass** and connect to your local DB.
+3.  In the `users` collection, find your account and change the `role` field from `"user"` to `"admin"`.
+4.  Log out and log back in to access the **Control Center**.
 
 ---
 
-## 📂 Project Structure
+## 📂 Project Architecture
 
 ```
-├── client/                 # React Frontend
-│   ├── public/             # Static files
-│   └── src/
-│       ├── components/     # Reusable components
-│       ├── pages/          # Application pages (Home, Product, Cart, Admin)
-│       ├── p5-sketches/    # p5.js animations
-│       ├── redux/          # State management (Actions, Reducers)
-│       └── ...
-└── server/                 # Node/Express Backend
-    ├── config/             # DB Connection & keys
-    ├── controllers/        # Route logic
-    ├── middleware/         # Auth & upload middleware
-    ├── models/             # Mongoose DB Schemas
-    ├── routes/             # API Endpoints
-    └── uploads/            # Product image storage
+├── client/                 # React State & UI
+│   ├── src/
+│   │   ├── components/     # Reusable Atomic Elements
+│   │   ├── pages/          # Layouts (Home, Shop, Admin)
+│   │   ├── redux/          # Global Context & Actions
+│   │   └── animations/     # p5.js & Motion Sketches
+└── server/                 # Logic & Data
+    ├── controllers/        # Business Logic
+    ├── models/             # Data Blueprints
+    └── routes/             # API Gateway
 ```
 
-## ✨ Features
+---
 
-*   **User:** Browse categories, filter/search products, add to cart, checkout (mock payment), manage profile/addresses, view order history.
-*   **Admin:** Dashboard overview, add/edit/delete products and categories, manage orders (status updates), manage users (role assignment).
-*   **General:** Responsive design, animated backgrounds (p5.js), JWT Authentication.
+<p align="center">
+  <b>Built with Passion for Digital Excellence.</b>
+</p>
